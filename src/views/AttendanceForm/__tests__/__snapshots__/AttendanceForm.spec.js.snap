@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AttendanceForm /> Must render component correctly 1`] = `
+<form novalidate="novalidate" class="v-form">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="text-h4 grey--text text--darken-3 font-weight-regular">Atendimento</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="text-h6 grey--text text--darken-3 font-weight-regular">Dados do Cliente</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="v-input theme--light v-text-field">
+          <div class="v-input__control">
+            <div class="v-input__slot">
+              <div class="v-text-field__slot"><label for="name" class="v-label theme--light" style="left: 0px; position: absolute;">Nome</label><input id="name" type="text"></div>
+            </div>
+            <div class="v-text-field__details">
+              <div class="v-messages theme--light">
+                <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="v-input theme--light v-text-field">
+          <div class="v-input__control">
+            <div class="v-input__slot">
+              <div class="v-text-field__slot"><label for="cpf" class="v-label theme--light" style="left: 0px; position: absolute;">CPF</label><input id="cpf" type="text"></div>
+            </div>
+            <div class="v-text-field__details">
+              <div class="v-messages theme--light">
+                <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="text-h6 grey--text text--darken-3 font-weight-regular">Documentos do Cliente</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="v-input theme--light v-text-field v-file-input">
+            <div class="v-input__prepend-outer">
+              <div class="v-input__icon v-input__icon--prepend"><button type="button" aria-label="prepend icon" class="v-icon notranslate v-icon--link mdi mdi-paperclip theme--light"></button></div>
+            </div>
+            <div class="v-input__control">
+              <div class="v-input__slot">
+                <div class="v-text-field__slot"><label for="input-12" class="v-label theme--light" style="left: 0px; position: absolute;">Anexo</label>
+                  <div class="v-file-input__text v-file-input__text--chips"></div><input multiple="multiple" id="input-12" type="file">
+                </div>
+                <div class="v-input__append-inner">
+                  <div class="v-input__icon v-input__icon--clear"><button disabled="disabled" type="button" aria-label="clear icon" class="v-icon notranslate v-icon--disabled v-icon--link mdi mdi-close theme--light"></button></div>
+                </div>
+              </div>
+              <div class="v-text-field__details">
+                <div class="v-messages theme--light">
+                  <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+                </div>
+              </div>
+            </div>
+          </div> <button type="button" class="mx-2 v-btn v-btn--is-elevated v-btn--fab v-btn--has-bg v-btn--round theme--light v-size--small error" id="remove-document"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-minus theme--light" style="font-size: 16px;"></i></span></button>
+        </div>
+        <div class="row">
+          <div class="col"><button type="button" class="mx-2 v-btn v-btn--is-elevated v-btn--fab v-btn--has-bg v-btn--round theme--light v-size--small success" id="add-document"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-plus theme--light" style="font-size: 16px;"></i></span></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
