@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
 import AttendanceForm from '@/views/AttendanceForm'
 import { mount } from '@vue/test-utils'
 import faker from 'faker'
@@ -10,6 +11,7 @@ axios.post = jest.fn()
 
 describe('<AttendanceForm />', () => {
   Vue.use(Vuetify)
+  Vue.use(Vuelidate)
   let wrapper
   let vuetify
 
@@ -39,6 +41,19 @@ describe('<AttendanceForm />', () => {
     await wrapper.find('#remove-document').trigger('click')
     const fileInput = '.v-file-input__text'
     expect(wrapper.findAll(fileInput)).toHaveLength(0)
+  })
+
+  test.each([['name', null], ['document-id', null]])('%s field must be valid', async(field, msg) => {
+    expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
+      msg
+    )
+  })
+
+  test.each([['name', 'Campo obrigatório'], ['document-id', 'Campo obrigatório']])('%s field must be invalid', async(field, msg) => {
+    await wrapper.find('#submit').trigger('click')
+    expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
+      msg
+    )
   })
 
   test('Must send form data', async() => {

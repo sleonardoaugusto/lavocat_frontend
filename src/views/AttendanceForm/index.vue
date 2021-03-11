@@ -7,15 +7,19 @@
         <v-col>
           <v-text-field
             id="name"
+            ref="name"
             label="Nome"
-            v-model="form.name"
+            v-model="$v.form.name.$model"
+            :error-messages="errorMessage('name')"
           />
         </v-col>
         <v-col>
           <v-text-field
             id="document-id"
+            ref="document-id"
             label="CPF"
-            v-model.number="form.document_id"
+            v-model.number="$v.form.document_id.$model"
+            :error-messages="errorMessage('document_id')"
           />
         </v-col>
       </v-row>
@@ -77,9 +81,12 @@
 <script>
 import BaseHeading from '@/components/base/BaseHeading'
 import services from '@/services/.'
+import { required } from 'vuelidate/lib/validators'
+import validations from '@/mixins/validations'
 
 export default {
   name: 'AttendanceForm',
+  mixins: [validations],
   components: { BaseHeading },
   data: () => ({
     form: {
@@ -88,6 +95,12 @@ export default {
       attachments: [{ doc: null, key: Math.random() }]
     }
   }),
+  validations: {
+    form: {
+      name: { required },
+      document_id: { required }
+    }
+  },
   methods: {
     addField() {
       this.form.attachments.push({ doc: null, key: Math.random() })
@@ -100,9 +113,12 @@ export default {
         return attachments.map(att => att.doc)
       }
 
-      const attachments = parseAttachments(this.form.attachments)
-      const data = { ...this.form, attachments }
-      await services.auth.create(data)
+      this.touch()
+      if (this.formIsReady) {
+        const attachments = parseAttachments(this.form.attachments)
+        const data = { ...this.form, attachments }
+        await services.auth.create(data)
+      }
     }
   }
 }
