@@ -11,26 +11,26 @@ export default {
       this.$v.$touch()
     },
     errorMessage(field) {
-      this.validate()
+      this.$_validate()
       const validationParams = Object.keys(this.$v.form[field].$params)
-      return this.getErrorMessage(field, validationParams)
+      return this.$_getErrorMessage(field, validationParams)
     },
-    validate() {
+    $_validate() {
       if (!this.$v.form) {
         throw new Error('You must declare fields inside "form" attribute.')
       }
     },
-    getErrorMessage(field, validationParams) {
+    $_getErrorMessage(field, validationParams) {
       const errors = []
       validationParams.forEach(param => {
         if (!this.$v.form[field].$dirty) return
-        const message = this.getMessage(field, param)
+        const message = this.$_getMessage(field, param)
         !this.$v.form[field][param] && errors.push(message)
       })
       return errors[0] || null
     },
-    getMessage(field, validationParam) {
-      const messageParam = this.getMessageParam(field, validationParam)
+    $_getMessage(field, validationParam) {
+      const messageParam = this.$_getMessageParam(field, validationParam)
       const Messages = {
         [`${Params.REQUIRED}`]: 'Campo obrigatório',
         [`${Params.MIN_LENGTH}`]: `Campo deve conter no mínimo ${messageParam} caracteres`,
@@ -39,7 +39,7 @@ export default {
       }
       return Messages?.[validationParam] ?? 'Campo inválido'
     },
-    getMessageParam(field, validationParam) {
+    $_getMessageParam(field, validationParam) {
       let messageParam
       const prefix = this.$v.form[field].$params[validationParam]
       if (
