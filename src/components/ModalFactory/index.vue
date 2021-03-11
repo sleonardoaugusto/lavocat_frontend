@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <component :is="component" v-bind="componentProps"/>
-  </div>
+  <component :is="component" v-bind="componentProps"/>
 </template>
 
 <script>
@@ -24,7 +22,7 @@ export default {
   },
   methods: {
     modalToggle(payload) {
-      const { props, component } = payload.props
+      const { props, component } = payload
       if (props.show) {
         this.component = component
       }
