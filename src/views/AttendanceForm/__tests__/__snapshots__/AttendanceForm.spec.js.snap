@@ -73,12 +73,12 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
           </div> <button type="button" class="mx-2 v-btn v-btn--is-elevated v-btn--fab v-btn--has-bg v-btn--round theme--light v-size--small error" id="remove-document"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-minus theme--light" style="font-size: 16px;"></i></span></button>
         </div>
         <div class="row">
-          <div class="col"><button type="button" class="mx-2 v-btn v-btn--is-elevated v-btn--fab v-btn--has-bg v-btn--round theme--light v-size--small success" id="add-document"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-plus theme--light" style="font-size: 16px;"></i></span></button></div>
+          <div class="col"><button type="button" class="mx-2 v-btn v-btn--is-elevated v-btn--fab v-btn--has-bg v-btn--round theme--light v-size--small primary" id="add-document"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-plus theme--light" style="font-size: 16px;"></i></span></button></div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default success" id="submit"><span class="v-btn__content">
+      <div class="col-md-2 offset-10 text-right col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--right theme--light v-size--default success" id="submit"><span class="v-btn__content">
           Cadastrar
         </span></button></div>
     </div>
