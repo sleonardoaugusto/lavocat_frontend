@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import BaseHeading from '@/components/BaseHeading'
+import BaseHeading from '@/components/base/BaseHeading'
 
 export default {
   name: 'index',
