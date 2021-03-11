@@ -24,11 +24,11 @@ export default {
   },
   methods: {
     modalToggle(payload) {
-      const { show } = payload.props
-      if (show) {
-        this.component = payload.component
+      const { props, component } = payload.props
+      if (props.show) {
+        this.component = component
       }
-      this.componentProps = payload.props
+      this.componentProps = props
     }
   }
 }
