@@ -11,7 +11,7 @@ import useModal from '@/hooks/useModal'
 const modal = useModal()
 
 export default {
-  name: 'index.vue',
+  name: 'ModalFactory',
   components: {
     SnackBar
   },

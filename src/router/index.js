@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const AttendanceForm = import('@/views/AttendanceForm/index')
+const AttendanceForm = import('@/views/AttendanceForm')
 
 Vue.use(VueRouter)
 

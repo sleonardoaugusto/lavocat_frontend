@@ -32,7 +32,7 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
         <div class="v-input theme--light v-text-field">
           <div class="v-input__control">
             <div class="v-input__slot">
-              <div class="v-text-field__slot"><label for="cpf" class="v-label theme--light" style="left: 0px; position: absolute;">CPF</label><input id="cpf" type="text"></div>
+              <div class="v-text-field__slot"><label for="document-id" class="v-label theme--light" style="left: 0px; position: absolute;">CPF</label><input id="document-id" type="text"></div>
             </div>
             <div class="v-text-field__details">
               <div class="v-messages theme--light">
@@ -57,8 +57,8 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
             </div>
             <div class="v-input__control">
               <div class="v-input__slot">
-                <div class="v-text-field__slot"><label for="input-12" class="v-label theme--light" style="left: 0px; position: absolute;">Anexo</label>
-                  <div class="v-file-input__text v-file-input__text--chips"></div><input multiple="multiple" id="input-12" type="file">
+                <div class="v-text-field__slot"><label for="attachment-0" class="v-label theme--light" style="left: 0px; position: absolute;">Anexo</label>
+                  <div class="v-file-input__text"></div><input id="attachment-0" type="file">
                 </div>
                 <div class="v-input__append-inner">
                   <div class="v-input__icon v-input__icon--clear"><button disabled="disabled" type="button" aria-label="clear icon" class="v-icon notranslate v-icon--disabled v-icon--link mdi mdi-close theme--light"></button></div>
@@ -76,6 +76,11 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
           <div class="col"><button type="button" class="mx-2 v-btn v-btn--is-elevated v-btn--fab v-btn--has-bg v-btn--round theme--light v-size--small success" id="add-document"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-plus theme--light" style="font-size: 16px;"></i></span></button></div>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default success" id="submit"><span class="v-btn__content">
+          Cadastrar
+        </span></button></div>
     </div>
   </div>
 </form>

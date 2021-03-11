@@ -8,24 +8,27 @@
           <v-text-field
             id="name"
             label="Nome"
+            v-model="form.name"
           />
         </v-col>
         <v-col>
           <v-text-field
-            id="cpf"
+            id="document-id"
             label="CPF"
+            v-model.number="form.document_id"
           />
         </v-col>
       </v-row>
       <BaseHeading text="Documentos do Cliente" tag="h6"/>
       <v-row>
         <v-col>
-          <template v-for="d in documents">
+          <template v-for="(d, i) in form.attachments">
             <v-row :key="d.key">
               <v-file-input
-                chips
-                multiple
+                :id="`attachment-${i}`"
+                :ref="`attachment-${i}`"
                 label="Anexo"
+                v-model="d.doc"
               />
               <v-btn
                 @click="delField(d.key)"
@@ -48,7 +51,7 @@
                 id="add-document"
                 class="mx-2"
                 fab
-                color="success"
+                color="primary"
                 small
               >
                 <v-icon small>
@@ -59,6 +62,13 @@
           </v-row>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col class="col-md-2 offset-10 text-right">
+          <v-btn @click="submit" id="submit" color="success" right>
+            Cadastrar
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-container>
   </v-form>
 
@@ -66,22 +76,33 @@
 
 <script>
 import BaseHeading from '@/components/base/BaseHeading'
+import services from '@/services/.'
 
 export default {
-  name: 'index',
+  name: 'AttendanceForm',
   components: { BaseHeading },
   data: () => ({
-    documents: [{ doc: null, key: Math.random() }]
+    form: {
+      name: null,
+      document_id: null,
+      attachments: [{ doc: null, key: Math.random() }]
+    }
   }),
   methods: {
     addField() {
-      this.documents.push({ doc: null, key: Math.random() })
+      this.form.attachments.push({ doc: null, key: Math.random() })
     },
     delField(key) {
-      this.documents = this.documents.filter(doc => doc.key !== key)
+      this.form.attachments = this.form.attachments.filter(doc => doc.key !== key)
     },
-    random() {
-      return Math.random()
+    async submit() {
+      function parseAttachments(attachments) {
+        return attachments.map(att => att.doc)
+      }
+
+      const attachments = parseAttachments(this.form.attachments)
+      const data = { ...this.form, attachments }
+      await services.auth.create(data)
     }
   }
 }
