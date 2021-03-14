@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col>
-      <div :class="`text-${tag} ${typography}`" v-text="text"/>
+      <div v-bind="$attrs" :class="`text-${tag} ${typography}`" v-text="text"/>
     </v-col>
   </v-row>
 </template>
