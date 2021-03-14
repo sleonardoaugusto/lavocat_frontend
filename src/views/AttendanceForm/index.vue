@@ -26,12 +26,12 @@
       <v-col>
         <template v-for="(d, i) in form.attachments">
           <v-row :key="d.id" align="center">
-            <v-col v-if="!d.added">
+            <v-col v-if="!d.added" cols="10">
               <v-chip>
                 {{ d.doc.name }}
               </v-chip>
             </v-col>
-            <v-col v-else>
+            <v-col v-else cols="10">
               <v-file-input
                 :id="`attachment-${i}`"
                 :ref="`attachment-${i}`"
