@@ -20,57 +20,24 @@
           :error-messages="errorMessage('document_id')"
         />
       </v-col>
+      <v-col cols="12" md="6" sm="12">
+        <v-file-input
+          id="attachments"
+          ref="attachments"
+          label="Anexos"
+          v-model="form.attachments"
+          multiple
+          chips
+        />
+      </v-col>
     </v-row>
-    <BaseHeading text="Documentos do Cliente" tag="h5"/>
     <v-row>
-      <v-col>
-        <template v-for="(d, i) in form.attachments">
-          <v-row :key="d.id" align="center">
-            <v-col v-if="!d.added" cols="10">
-              <v-chip>
-                {{ d.doc.name }}
-              </v-chip>
-            </v-col>
-            <v-col v-else cols="10">
-              <v-file-input
-                :id="`attachment-${i}`"
-                :ref="`attachment-${i}`"
-                label="Anexo"
-                v-model="d.doc"
-                multiple
-                chips
-              />
-            </v-col>
-            <v-col>
-              <v-btn
-                id="remove-document"
-                fab
-                x-small
-                color="error"
-                @click="delField(d.id)"
-              >
-                <v-icon small>
-                  mdi-minus
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </template>
-        <v-row>
-          <v-col>
-            <v-btn
-              id="add-document"
-              fab
-              x-small
-              color="primary"
-              @click="addField"
-            >
-              <v-icon small>
-                mdi-plus
-              </v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
+      <v-col cols="12">
+        <v-textarea
+          label="Relatório"
+          value=""
+          rows="10"
+        />
       </v-col>
     </v-row>
     <v-row>
@@ -99,7 +66,7 @@ export default {
     form: {
       name: null,
       document_id: null,
-      attachments: [{ doc: null, id: Math.random() }]
+      attachments: []
     }
   }),
   validations: {
@@ -108,37 +75,11 @@ export default {
       document_id: { required }
     }
   },
-  created() {
-    this.form = { ...this.getData() }
-  },
   methods: {
-    getData() {
-      return {
-        name: 'Maria Aparecida',
-        document_id: 45009877899,
-        attachments: [
-          { id: 1, doc: new File(['comp_end'], 'comp_end.txt') },
-          { id: 2, doc: new File(['cnh'], 'cnh.txt') },
-          { id: 3, doc: new File(['contrato'], 'contrato.txt') }
-        ]
-      }
-    },
-    addField() {
-      this.form.attachments.push({ doc: null, id: Math.random(), added: true })
-    },
-    delField(key) {
-      this.form.attachments = this.form.attachments.filter(doc => doc.id !== key)
-    },
     async submit() {
-      function parseAttachments(attachments) {
-        return attachments.map(att => att.doc)
-      }
-
       this.touch()
       if (this.formIsReady) {
-        const attachments = parseAttachments(this.form.attachments)
-        const data = { ...this.form, attachments }
-        await services.auth.create(data)
+        await services.auth.create(this.form)
       }
     }
   }

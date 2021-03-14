@@ -31,18 +31,6 @@ describe('<AttendanceForm />', () => {
     expect(wrapper.findAll(fileInput)).toHaveLength(1)
   })
 
-  test('Button must add file input element', async() => {
-    await wrapper.find('#add-document').trigger('click')
-    const fileInput = '.v-file-input__text'
-    expect(wrapper.findAll(fileInput)).toHaveLength(2)
-  })
-
-  test('Button must remove file input element', async() => {
-    await wrapper.find('#remove-document').trigger('click')
-    const fileInput = '.v-file-input__text'
-    expect(wrapper.findAll(fileInput)).toHaveLength(0)
-  })
-
   test.each([['name', null], ['document-id', null]])('%s field must be valid', async(field, msg) => {
     expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
       msg
@@ -75,7 +63,7 @@ describe('<AttendanceForm />', () => {
     }
     await wrapper.find('#name').setValue(data.name)
     await wrapper.find('#document-id').setValue(data.document_id)
-    await wrapper.findComponent({ ref: 'attachment-0' }).vm.$emit('change', data.file)
+    await wrapper.findComponent({ ref: 'attachments' }).vm.$emit('change', [data.file])
 
     return data
   }
