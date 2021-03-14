@@ -43,12 +43,11 @@
             </v-col>
             <v-col>
               <v-btn
-                @click="delField(d.id)"
                 id="remove-document"
-                class="mx-2"
                 fab
-                color="error"
                 x-small
+                color="error"
+                @click="delField(d.id)"
               >
                 <v-icon small>
                   mdi-minus
@@ -60,12 +59,11 @@
         <v-row>
           <v-col>
             <v-btn
-              @click="addField"
               id="add-document"
-              class="mx-2"
               fab
+              x-small
               color="primary"
-              small
+              @click="addField"
             >
               <v-icon small>
                 mdi-plus
