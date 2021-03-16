@@ -8,8 +8,8 @@ export default function useModal() {
     bus.emit(EVENT_NAME, { ...payload, props })
   }
 
-  function close() {
-    bus.emit(EVENT_NAME, { props: { show: false } })
+  function close(props) {
+    bus.emit(EVENT_NAME, { props: { ...props, show: false } })
   }
 
   function listen(fn) {

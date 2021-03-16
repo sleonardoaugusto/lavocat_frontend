@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar @input="close" v-model="showInternal" color="grey darken-3">
+  <v-snackbar @input="close" :timeout="timeout" v-model="showInternal" color="grey darken-3">
     <v-icon
       :color="success ? 'green accent-4': 'red accent-5'"
       dark
@@ -48,11 +48,12 @@ export default {
     }
   },
   data: () => ({
-    showInternal: true
+    showInternal: true,
+    timeout: 2500
   }),
   methods: {
     close() {
-      modal.close()
+      modal.close({ type: this.type })
     }
   },
   computed: {
