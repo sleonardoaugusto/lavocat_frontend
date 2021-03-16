@@ -14,7 +14,7 @@
       <v-col cols="12" md="6" sm="12">
         <v-text-field
           id="document-id"
-          ref="document-id"
+          ref="documentId"
           label="CPF"
           type="tel"
           v-mask="'###.###.###-##'"
@@ -60,9 +60,10 @@
 
 <script>
 import BaseHeading from '@/components/base/BaseHeading'
-import { minLength, required } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import validations from '@/mixins/validations'
 import services from '@/services'
+import { cpfValidator } from '@/utils/validators'
 
 export default {
   name: 'AttendanceForm',
@@ -80,7 +81,7 @@ export default {
   validations: {
     form: {
       customer_name: { required },
-      document_id: { required, minLength: minLength(11) }
+      document_id: { required, cpfValidator }
     }
   },
   methods: {

@@ -2,7 +2,8 @@ const Params = {
   REQUIRED: 'required',
   MIN_LENGTH: 'minLength',
   MIN_VALUE: 'minValue',
-  MAX_VALUE: 'maxValue'
+  MAX_VALUE: 'maxValue',
+  CPF_VALIDATOR: 'cpfValidator'
 }
 
 export default {
@@ -35,7 +36,8 @@ export default {
         [`${Params.REQUIRED}`]: 'Campo obrigatório',
         [`${Params.MIN_LENGTH}`]: `Campo deve conter no mínimo ${messageParam} caracteres`,
         [`${Params.MIN_VALUE}`]: `O valor deve ser no mínimo ${messageParam}`,
-        [`${Params.MAX_VALUE}`]: `O valor deve ser menor que ${messageParam}`
+        [`${Params.MAX_VALUE}`]: `O valor deve ser menor que ${messageParam}`,
+        [`${Params.CPF_VALIDATOR}`]: 'Campo deve conter 11 dígitos'
       }
       return Messages?.[validationParam] ?? 'Campo inválido'
     },

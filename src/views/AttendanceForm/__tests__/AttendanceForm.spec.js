@@ -37,16 +37,23 @@ describe('<AttendanceForm />', () => {
     expect(wrapper.findAll(fileInput)).toHaveLength(1)
   })
 
-  test.each([['customerName', null], ['document-id', null]])('%s field must be valid', async(field, msg) => {
+  test.each([['customerName', null], ['documentId', null]])('%s field must be valid', async(field, msg) => {
     expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
       msg
     )
   })
 
-  test.each([['customerName', 'Campo obrigatório'], ['document-id', 'Campo obrigatório']])('%s field must be invalid', async(field, msg) => {
+  test.each([['customerName', 'Campo obrigatório'], ['documentId', 'Campo obrigatório']])('%s field must be invalid', async(field, msg) => {
     await wrapper.find('#submit').trigger('click')
     expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
       msg
+    )
+  })
+
+  test('#document-id field must be invalid if length', async() => {
+    await wrapper.find('#document-id').setValue('9999999999')
+    expect(wrapper.findComponent({ ref: 'documentId' }).vm.errorMessages).toBe(
+      'Campo deve conter 11 dígitos'
     )
   })
 
