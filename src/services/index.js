@@ -18,5 +18,5 @@ httpClient.interceptors.response.use(function(response) {
 })
 
 export default {
-  auth: AttendanceService(httpClient)
+  attendance: AttendanceService(httpClient)
 }

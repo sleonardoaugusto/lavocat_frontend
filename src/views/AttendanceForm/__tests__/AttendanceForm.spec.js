@@ -7,6 +7,7 @@ import faker from 'faker'
 import services from '@/services/.'
 import axios from 'axios'
 import busy from '@/mixins/busy'
+import flushPromises from 'flush-promises'
 
 axios.post = jest.fn()
 
@@ -46,13 +47,24 @@ describe('<AttendanceForm />', () => {
     )
   })
 
+  test('Button must be disabled during request', async() => {
+    services.attendance.create = jest.fn(() => Promise.resolve())
+    await fillForm()
+    await wrapper.find('#submit').trigger('click')
+    expect(wrapper.find('#submit').attributes().disabled).toBeTruthy()
+    await flushPromises()
+    expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
+  })
+
   test('Must send form data', async() => {
-    const spy = jest.spyOn(services.auth, 'create')
+    const spy = jest.spyOn(services.attendance, 'create')
+    spy.mockClear()
     const data = await fillForm()
     await wrapper.find('#submit').trigger('click')
     expect(spy).toHaveBeenCalledWith({
       customer_name: data.customer_name,
-      document_id: data.document_id
+      document_id: data.document_id,
+      files: [data.file]
     })
   })
 
@@ -65,7 +77,6 @@ describe('<AttendanceForm />', () => {
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
     await wrapper.findComponent({ ref: 'files' }).vm.$emit('change', [data.file])
-
     return data
   }
 })

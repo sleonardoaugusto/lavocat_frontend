@@ -37,7 +37,7 @@ export default httpClient => ({
       }
     } catch (e) {
       return {
-        e
+        error: e
       }
     }
   }

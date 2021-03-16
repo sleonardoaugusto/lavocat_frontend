@@ -86,7 +86,7 @@ export default {
       this.touch()
       if (this.formIsReady) {
         this.toggleLoading()
-        await services.auth.create(this.form)
+        await services.attendance.create(this.form)
         this.toggleLoading()
       }
     }
