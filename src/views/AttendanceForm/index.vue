@@ -87,7 +87,6 @@ export default {
       if (this.formIsReady) {
         this.toggleLoading()
         await services.auth.create(this.form)
-        console.log('caiu aqui')
         this.toggleLoading()
       }
     }
