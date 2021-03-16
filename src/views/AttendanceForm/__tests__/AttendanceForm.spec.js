@@ -32,11 +32,6 @@ describe('<AttendanceForm />', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  test('Page must render with one file input element', () => {
-    const fileInput = '.v-file-input__text'
-    expect(wrapper.findAll(fileInput)).toHaveLength(1)
-  })
-
   test.each([['customerName', null], ['documentId', null]])('%s field must be valid', async(field, msg) => {
     expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
       msg
