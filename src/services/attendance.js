@@ -16,7 +16,7 @@ export default httpClient => ({
 
       const promises = files.map(async f => {
         const fd = new FormData()
-        fd.append('attendance', id)
+        fd.append('attendance', attendanceId)
         fd.append('file', f)
         await upload(fd)
       })
