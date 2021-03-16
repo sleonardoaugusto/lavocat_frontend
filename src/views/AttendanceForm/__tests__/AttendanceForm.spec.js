@@ -59,6 +59,17 @@ describe('<AttendanceForm />', () => {
     expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
   })
 
+  test.each([
+    ['customer_name', { customer_name: '', document_id: '99999999999' }],
+    ['document_id', { customer_name: 'maria', document_id: '' }]
+  ])('Must not send form data if %s field is invalid', async(_, data) => {
+    const spy = jest.spyOn(services.attendance, 'create')
+    spy.mockClear()
+    await fillForm(data)
+    await wrapper.find('#submit').trigger('click')
+    expect(spy).not.toHaveBeenCalled()
+  })
+
   test('Must send form data', async() => {
     const spy = jest.spyOn(services.attendance, 'create')
     spy.mockClear()
@@ -71,11 +82,12 @@ describe('<AttendanceForm />', () => {
     })
   })
 
-  const fillForm = async() => {
+  const fillForm = async(params) => {
     const data = {
       customer_name: faker.random.word(),
       document_id: '99999999999',
-      file: new File(['foo'], 'foo.png')
+      file: new File(['foo'], 'foo.png'),
+      ...params
     }
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)

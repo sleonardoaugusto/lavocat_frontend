@@ -60,7 +60,7 @@
 
 <script>
 import BaseHeading from '@/components/base/BaseHeading'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { minLength, required } from 'vuelidate/lib/validators'
 import validations from '@/mixins/validations'
 import services from '@/services'
 
@@ -94,11 +94,10 @@ export default {
       }
     },
     parseForm() {
-      const data = {
+      return {
         ...this.form,
         document_id: this.form.document_id.replace('.', '').replace('.', '').replace('-', '')
       }
-      return data
     }
   }
 }
