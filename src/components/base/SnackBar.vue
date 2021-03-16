@@ -15,6 +15,7 @@
         text
         v-bind="attrs"
         @click="close"
+        icon
       >
         <v-icon size="18">
           mdi-close

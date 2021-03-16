@@ -76,9 +76,7 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
     </div>
   </div>
   <div class="row">
-    <div class="text-right col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--right theme--light v-size--default success" id="submit"><span class="v-btn__content">
-        Cadastrar
-      </span></button></div>
+    <div class="text-right col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--right theme--light v-size--default success" id="submit"><span class="v-btn__content"><div role="progressbar" aria-valuemin="0" aria-valuemax="100" class="v-progress-circular v-progress-circular--indeterminate green--text" style="height: 18px; width: 18px; display: none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="25.714285714285715 25.714285714285715 51.42857142857143 51.42857142857143" style="transform: rotate(0deg);"><circle fill="transparent" cx="51.42857142857143" cy="51.42857142857143" r="20" stroke-width="11.428571428571429" stroke-dasharray="125.664" stroke-dashoffset="125.66370614359172px" class="v-progress-circular__overlay"></circle></svg><div class="v-progress-circular__info"></div></div> <span>Cadastrar</span></span></button></div>
   </div>
 </form>
 `;

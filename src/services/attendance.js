@@ -23,16 +23,22 @@ export default httpClient => ({
       await Promise.all(promises)
     }
 
-    const files = data.files
-    delete data.files
+    try {
+      const files = data.files
+      delete data.files
 
-    const response = await httpClient.post('/attendances/', data)
-    const { id } = response.data
+      const response = await httpClient.post('/attendances/', data)
+      const { id } = response.data
 
-    await uploadFiles(files, id)
+      await uploadFiles(files, id)
 
-    return {
-      data: response.data
+      return {
+        data: response.data
+      }
+    } catch (e) {
+      return {
+        e
+      }
     }
   }
 })

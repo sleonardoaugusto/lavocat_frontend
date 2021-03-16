@@ -6,12 +6,14 @@ import { mount } from '@vue/test-utils'
 import faker from 'faker'
 import services from '@/services/.'
 import axios from 'axios'
+import busy from '@/mixins/busy'
 
 axios.post = jest.fn()
 
 describe('<AttendanceForm />', () => {
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
+  Vue.mixin(busy)
   let wrapper
   let vuetify
 

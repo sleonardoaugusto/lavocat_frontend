@@ -42,8 +42,14 @@
     </v-row>
     <v-row>
       <v-col class="text-right">
-        <v-btn @click="submit" id="submit" color="success" right>
-          Cadastrar
+        <v-btn @click="submit" :disabled="isLoading" id="submit" color="success" right>
+          <v-progress-circular
+            v-show="isLoading"
+            size="18"
+            indeterminate
+            color="green"
+          />
+          <span v-show="!isLoading">Cadastrar</span>
         </v-btn>
       </v-col>
     </v-row>
@@ -79,7 +85,10 @@ export default {
     async submit() {
       this.touch()
       if (this.formIsReady) {
+        this.toggleLoading()
         await services.auth.create(this.form)
+        console.log('caiu aqui')
+        this.toggleLoading()
       }
     }
   }
