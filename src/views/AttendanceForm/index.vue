@@ -16,7 +16,9 @@
           id="document-id"
           ref="document-id"
           label="CPF"
-          v-model.number="$v.form.document_id.$model"
+          type="tel"
+          v-mask="'###.###.###-##'"
+          v-model="$v.form.document_id.$model"
           :error-messages="errorMessage('document_id')"
         />
       </v-col>
@@ -58,7 +60,7 @@
 
 <script>
 import BaseHeading from '@/components/base/BaseHeading'
-import { required } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 import validations from '@/mixins/validations'
 import services from '@/services'
 
@@ -78,17 +80,25 @@ export default {
   validations: {
     form: {
       customer_name: { required },
-      document_id: { required }
+      document_id: { required, minLength: minLength(11) }
     }
   },
   methods: {
     async submit() {
       this.touch()
       if (this.formIsReady) {
+        const data = this.parseForm()
         this.toggleLoading()
-        await services.attendance.create(this.form)
+        await services.attendance.create(data)
         this.toggleLoading()
       }
+    },
+    parseForm() {
+      const data = {
+        ...this.form,
+        document_id: this.form.document_id.replace('.', '').replace('.', '').replace('-', '')
+      }
+      return data
     }
   }
 }

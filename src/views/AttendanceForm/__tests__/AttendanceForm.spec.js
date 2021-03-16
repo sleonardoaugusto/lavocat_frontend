@@ -8,13 +8,16 @@ import services from '@/services/.'
 import axios from 'axios'
 import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
+import VueTheMask from 'vue-the-mask'
 
 axios.post = jest.fn()
 
 describe('<AttendanceForm />', () => {
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
+  Vue.use(VueTheMask)
   Vue.mixin(busy)
+
   let wrapper
   let vuetify
 
@@ -71,7 +74,7 @@ describe('<AttendanceForm />', () => {
   const fillForm = async() => {
     const data = {
       customer_name: faker.random.word(),
-      document_id: faker.random.number(),
+      document_id: '99999999999',
       file: new File(['foo'], 'foo.png')
     }
     await wrapper.find('#customer-name').setValue(data.customer_name)
