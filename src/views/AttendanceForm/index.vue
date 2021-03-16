@@ -6,7 +6,7 @@
         <v-text-field
           id="customer-name"
           ref="customerName"
-          label="Nome"
+          label="Nome do Cliente"
           v-model="$v.form.customer_name.$model"
           :error-messages="errorMessage('customer_name')"
         />

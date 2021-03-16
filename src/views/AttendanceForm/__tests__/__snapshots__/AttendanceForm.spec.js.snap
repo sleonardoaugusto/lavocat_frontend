@@ -12,7 +12,7 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
       <div class="v-input theme--light v-text-field">
         <div class="v-input__control">
           <div class="v-input__slot">
-            <div class="v-text-field__slot"><label for="customer-name" class="v-label theme--light" style="left: 0px; position: absolute;">Nome</label><input id="customer-name" type="text"></div>
+            <div class="v-text-field__slot"><label for="customer-name" class="v-label theme--light" style="left: 0px; position: absolute;">Nome do Cliente</label><input id="customer-name" type="text"></div>
           </div>
           <div class="v-text-field__details">
             <div class="v-messages theme--light">
