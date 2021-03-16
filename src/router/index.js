@@ -7,9 +7,13 @@ Vue.use(VueRouter)
 
 export const routes = [
   {
-    path: '/form',
-    name: 'AttendanceForm',
+    path: '/atendimento/novo',
+    name: 'attendance',
     component: () => AttendanceForm
+  },
+  {
+    path: '*',
+    redirect: '/atendimento/novo'
   }
 ]
 
