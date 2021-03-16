@@ -1,11 +1,19 @@
 <template>
-  <v-snackbar v-model="show" :timeout="timeout">
+  <v-snackbar v-model="showInternal" color="grey darken-3">
+    <v-icon
+      color="green accent-3"
+      dark
+      right
+    >
+      mdi-checkbox-marked-circle
+    </v-icon>
     {{ text }}
 
     <template v-slot:action="{ attrs }">
       <v-btn
+        v-show="showCloseBtn"
         id="close"
-        color="red"
+        color="grey lighten-2"
         text
         v-bind="attrs"
         @click="close"
@@ -23,6 +31,10 @@ const modal = useModal()
 export default {
   name: 'SnackBar',
   props: {
+    showCloseBtn: {
+      type: Boolean,
+      default: true
+    },
     show: {
       type: Boolean,
       required: true
@@ -33,11 +45,19 @@ export default {
     }
   },
   data: () => ({
-    timeout: 5000
+    showInternal: null
   }),
   methods: {
     close() {
       modal.close()
+    }
+  },
+  watch: {
+    show: {
+      immediate: true,
+      handler(val) {
+        this.showInternal = val
+      }
     }
   }
 }
