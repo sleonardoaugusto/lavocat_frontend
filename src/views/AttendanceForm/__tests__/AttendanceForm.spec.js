@@ -31,13 +31,13 @@ describe('<AttendanceForm />', () => {
     expect(wrapper.findAll(fileInput)).toHaveLength(1)
   })
 
-  test.each([['name', null], ['document-id', null]])('%s field must be valid', async(field, msg) => {
+  test.each([['customerName', null], ['document-id', null]])('%s field must be valid', async(field, msg) => {
     expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
       msg
     )
   })
 
-  test.each([['name', 'Campo obrigatório'], ['document-id', 'Campo obrigatório']])('%s field must be invalid', async(field, msg) => {
+  test.each([['customerName', 'Campo obrigatório'], ['document-id', 'Campo obrigatório']])('%s field must be invalid', async(field, msg) => {
     await wrapper.find('#submit').trigger('click')
     expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(
       msg
@@ -49,21 +49,20 @@ describe('<AttendanceForm />', () => {
     const data = await fillForm()
     await wrapper.find('#submit').trigger('click')
     expect(spy).toHaveBeenCalledWith({
-      name: data.name,
-      document_id: data.document_id,
-      attachments: [data.file]
+      customer_name: data.customer_name,
+      document_id: data.document_id
     })
   })
 
   const fillForm = async() => {
     const data = {
-      name: faker.random.word(),
+      customer_name: faker.random.word(),
       document_id: faker.random.number(),
       file: new File(['foo'], 'foo.png')
     }
-    await wrapper.find('#name').setValue(data.name)
+    await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
-    await wrapper.findComponent({ ref: 'attachments' }).vm.$emit('change', [data.file])
+    await wrapper.findComponent({ ref: 'files' }).vm.$emit('change', [data.file])
 
     return data
   }

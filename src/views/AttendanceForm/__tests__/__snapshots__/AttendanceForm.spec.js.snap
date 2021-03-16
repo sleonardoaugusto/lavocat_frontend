@@ -12,7 +12,7 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
       <div class="v-input theme--light v-text-field">
         <div class="v-input__control">
           <div class="v-input__slot">
-            <div class="v-text-field__slot"><label for="name" class="v-label theme--light" style="left: 0px; position: absolute;">Nome</label><input id="name" type="text"></div>
+            <div class="v-text-field__slot"><label for="customer-name" class="v-label theme--light" style="left: 0px; position: absolute;">Nome</label><input id="customer-name" type="text"></div>
           </div>
           <div class="v-text-field__details">
             <div class="v-messages theme--light">
@@ -43,8 +43,8 @@ exports[`<AttendanceForm /> Must render component correctly 1`] = `
         </div>
         <div class="v-input__control">
           <div class="v-input__slot">
-            <div class="v-text-field__slot"><label for="attachments" class="v-label theme--light" style="left: 0px; position: absolute;">Anexos</label>
-              <div class="v-file-input__text v-file-input__text--chips"></div><input multiple="multiple" id="attachments" type="file">
+            <div class="v-text-field__slot"><label for="files" class="v-label theme--light" style="left: 0px; position: absolute;">Anexos</label>
+              <div class="v-file-input__text v-file-input__text--chips"></div><input multiple="multiple" id="files" type="file">
             </div>
             <div class="v-input__append-inner">
               <div class="v-input__icon v-input__icon--clear"><button disabled="disabled" type="button" aria-label="clear icon" class="v-icon notranslate v-icon--disabled v-icon--link mdi mdi-close theme--light"></button></div>

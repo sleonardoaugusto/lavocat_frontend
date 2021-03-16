@@ -4,11 +4,11 @@
     <v-row>
       <v-col cols="12" md="6" sm="12">
         <v-text-field
-          id="name"
-          ref="name"
+          id="customer-name"
+          ref="customerName"
           label="Nome"
-          v-model="$v.form.name.$model"
-          :error-messages="errorMessage('name')"
+          v-model="$v.form.customer_name.$model"
+          :error-messages="errorMessage('customer_name')"
         />
       </v-col>
       <v-col cols="12" md="6" sm="12">
@@ -22,10 +22,10 @@
       </v-col>
       <v-col cols="12" md="6" sm="12">
         <v-file-input
-          id="attachments"
-          ref="attachments"
+          id="files"
+          ref="files"
           label="Anexos"
-          v-model="form.attachments"
+          v-model="form.files"
           multiple
           chips
         />
@@ -64,14 +64,14 @@ export default {
   mixins: [validations],
   data: () => ({
     form: {
-      name: null,
+      customer_name: null,
       document_id: null,
-      attachments: []
+      files: []
     }
   }),
   validations: {
     form: {
-      name: { required },
+      customer_name: { required },
       document_id: { required }
     }
   },
