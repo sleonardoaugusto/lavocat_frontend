@@ -7,12 +7,11 @@ const httpClient = axios.create({
   baseURL: BASE_URL
 })
 
-const modal = useModal()
-
 httpClient.interceptors.response.use(function(response) {
   return response
 }, function(error) {
-  modal.open({ component: 'SnackBar', props: { text: 'Erro no servidor' } })
+  const modal = useModal()
+  modal.open({ component: 'SnackBar', props: { type: 'error', text: 'Erro no servidor' } })
   return Promise.reject(error)
 })
 

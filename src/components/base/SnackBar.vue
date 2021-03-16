@@ -1,24 +1,24 @@
 <template>
-  <v-snackbar v-model="showInternal" :timeout="timeout" color="grey darken-3">
+  <v-snackbar @input="close" v-model="showInternal" color="grey darken-3">
     <v-icon
-      color="green accent-3"
+      :color="success ? 'green accent-4': 'red accent-5'"
       dark
-      right
     >
-      mdi-checkbox-marked-circle
+      {{ success ? 'mdi-checkbox-marked-circle' : 'mdi-alert-circle' }}
     </v-icon>
-    {{ text }}
+    <span class="ml-2 font-weight-medium">{{ text }}</span>
 
     <template v-slot:action="{ attrs }">
       <v-btn
         v-show="showCloseBtn"
         id="close"
-        color="grey lighten-2"
         text
         v-bind="attrs"
         @click="close"
       >
-        Fechar
+        <v-icon size="18">
+          mdi-close
+        </v-icon>
       </v-btn>
     </template>
   </v-snackbar>
@@ -40,22 +40,23 @@ export default {
       required: true
     },
     text: {
-      type: String,
-      required: true
+      type: String
+    },
+    type: {
+      type: String
     }
   },
   data: () => ({
-    showInternal: null,
-    timeout: 5000
+    showInternal: true
   }),
-  created() {
-    setTimeout(() => {
-      this.close()
-    }, this.timeout)
-  },
   methods: {
     close() {
       modal.close()
+    }
+  },
+  computed: {
+    success() {
+      return this.type === 'success'
     }
   },
   watch: {
