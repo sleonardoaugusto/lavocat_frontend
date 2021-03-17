@@ -32,10 +32,21 @@ describe('<AttendanceForm />', () => {
   })
 
   it('Snackbar must be visible', () => {
+    const data = {
+      customer_name: faker.random.word(),
+      customer_id: '99999999999'
+    }
+    cy.server()
+    cy.route({
+      method: 'POST',
+      url: 'http://localhost:8000/attendances/',
+      response: [{ id: 145, ...data }]
+    })
+
     cy.visit(BASE_URL)
 
-    cy.get('#customer-name').type(faker.random.word())
-    cy.get('#document-id').type('99999999999')
+    cy.get('#customer-name').type(data.customer_name)
+    cy.get('#document-id').type(data.customer_id)
 
     cy.get('#submit').click()
 
