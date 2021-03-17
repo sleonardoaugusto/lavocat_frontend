@@ -61,7 +61,7 @@
 <script>
 import BaseHeading from '@/components/base/BaseHeading'
 import { required } from 'vuelidate/lib/validators'
-import validations from '@/mixins/validations'
+import validations from '@/mixins/formValidations'
 import services from '@/services'
 import { cpfValidator } from '@/utils/validators'
 
