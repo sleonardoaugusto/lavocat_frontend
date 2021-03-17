@@ -15,6 +15,8 @@ module.exports = (on, config) => {
   //  watchOptions: {}
   // }))
 
+  config.ignoreTestFiles = '**/examples/*.spec.js'
+
   return Object.assign({}, config, {
     fixturesFolder: 'tests/e2e/fixtures',
     integrationFolder: 'tests/e2e/specs',
