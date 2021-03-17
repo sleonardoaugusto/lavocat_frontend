@@ -35,18 +35,16 @@ describe('<AttendanceForm />', () => {
   })
 
   it('Snackbar must be visible', () => {
-    cy.intercept('POST', `${apiServer}/attendances/`, {
-      fixture: 'attendances/create.json'
-    }).as('attendanceCreate')
-
     cy.visit(baseUrl)
 
     const data = createAttendance[0]
     cy.get('#customer-name').type(data.customer_name)
     cy.get('#document-id').type(data.customer_id)
 
+    cy.intercept('POST', `${apiServer}/attendances/`, {
+      fixture: 'attendances/create.json'
+    }).as('attendanceCreate')
     cy.get('#submit').click()
-
     cy.wait('@attendanceCreate')
 
     cy.get('.v-snack__wrapper').should('be.visible')
