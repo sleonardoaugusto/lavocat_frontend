@@ -1,11 +1,14 @@
 // https://docs.cypress.io/api/introduction/api.html
 import faker from 'faker'
 import { errorMessage } from '../utils/selectors'
+import createAttendance from '../fixtures/attendances/create.json'
 
 describe('<AttendanceForm />', () => {
-  const BASE_URL = 'http://localhost:8080'
+  const baseUrl = Cypress.env('host')
+  const apiServer = Cypress.env('api_server')
+
   it('Button click must trigger invalid form', () => {
-    cy.visit(BASE_URL)
+    cy.visit(baseUrl)
 
     cy.get('#submit').click()
 
@@ -14,7 +17,7 @@ describe('<AttendanceForm />', () => {
   })
 
   it('#document-id length field must be invalid', () => {
-    cy.visit(BASE_URL)
+    cy.visit(baseUrl)
 
     cy.get('#document-id').type('9999999999')
 
@@ -22,7 +25,7 @@ describe('<AttendanceForm />', () => {
   })
 
   it('Fields must be valid', () => {
-    cy.visit(BASE_URL)
+    cy.visit(baseUrl)
 
     cy.get('#customer-name').type(faker.random.word())
     cy.get('#document-id').type('99999999999')
@@ -32,24 +35,21 @@ describe('<AttendanceForm />', () => {
   })
 
   it('Snackbar must be visible', () => {
-    const data = {
-      customer_name: faker.random.word(),
-      customer_id: '99999999999'
-    }
-    cy.server()
-    cy.route({
-      method: 'POST',
-      url: 'http://localhost:8000/attendances/',
-      response: [{ id: 145, ...data }]
-    })
+    cy.intercept('POST', `${apiServer}/attendances/`, {
+      fixture: 'attendances/create.json'
+    }).as('attendanceCreate')
 
-    cy.visit(BASE_URL)
+    cy.visit(baseUrl)
 
+    const data = createAttendance[0]
     cy.get('#customer-name').type(data.customer_name)
     cy.get('#document-id').type(data.customer_id)
 
     cy.get('#submit').click()
 
+    cy.wait('@attendanceCreate')
+
     cy.get('.v-snack__wrapper').should('be.visible')
+    cy.get('.v-snack__wrapper').contains('Operação concluída!')
   })
 })
