@@ -1,5 +1,5 @@
 export default httpClient => ({
-  create: async(data) => {
+  create: async data => {
     async function uploadFiles(files, attendanceId) {
       async function upload(formData) {
         const requestData = {
@@ -41,5 +41,9 @@ export default httpClient => ({
       }
     }
   },
-  getAttendances: async() => await httpClient.get(`/attendances/`)
+  getAttendances: async () => {
+    const resp = await httpClient.get(`/attendances/`)
+
+    return resp.data
+  }
 })
