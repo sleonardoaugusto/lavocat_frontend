@@ -18,7 +18,7 @@ describe('AttendanceService', () => {
     expect(spy).toHaveBeenCalledWith('/attendances/', data)
   })
 
-  test('Must return data', async () => {
+  test('Must return data value', async () => {
     axios.get.mockResolvedValue({ data: [{}] })
     const resp = await AttendanceService(axios).getAttendances()
 
