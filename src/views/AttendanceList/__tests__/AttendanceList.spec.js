@@ -67,4 +67,18 @@ describe('<AttendanceList />', () => {
       wrapper.findComponent({ ref: 'attendancesList' }).vm.headers
     ).toStrictEqual(headers)
   })
+
+  test('Table must be loading during request', async () => {
+    wrapper = factory()
+
+    expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
+      true
+    )
+  })
+
+  test('Table must not be loading after response', async () => {
+    expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
+      false
+    )
+  })
 })

@@ -9,6 +9,8 @@
           :items="attendances"
           :items-per-page="5"
           class="elevation-1"
+          :loading="isLoading"
+          loading-text="Carregando atendimentos... Por favor aguarde"
         />
       </v-col>
     </v-row>
@@ -35,8 +37,15 @@ export default {
     ],
     attendances: []
   }),
-  async created() {
-    this.attendances = await services.attendance.getAttendances()
+  created() {
+    this.getAttendances()
+  },
+  methods: {
+    async getAttendances() {
+      this.toggleLoading()
+      this.attendances = await services.attendance.getAttendances()
+      this.toggleLoading()
+    }
   }
 }
 </script>
