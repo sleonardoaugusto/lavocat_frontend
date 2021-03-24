@@ -5,9 +5,12 @@ import Vuelidate from 'vuelidate'
 import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
 import AttendanceList from '@/views/AttendanceList'
-import services from '@/services/.'
+import services from '@/services'
+import flushPromises from 'flush-promises'
 
-// jest.mock('@/services')
+jest.mock('@/services')
+
+const spy = jest.spyOn(services.attendance, 'getAttendances')
 
 describe('<AttendanceList />', () => {
   Vue.use(Vuetify)
@@ -17,23 +20,51 @@ describe('<AttendanceList />', () => {
 
   let wrapper
   let vuetify
-  let propsData
 
   beforeEach(() => {
-    propsData = { attendanceId: 1 }
     vuetify = new Vuetify()
     wrapper = factory()
   })
 
-  const factory = opts => mount(AttendanceList, { Vue, vuetify, propsData, ...opts })
+  afterEach(() => {
+    spy.mockClear()
+  })
+
+  const factory = opts => mount(AttendanceList, { Vue, vuetify, ...opts })
 
   test('Component exists', () => {
     expect(wrapper.html()).toBeTruthy()
   })
 
-  test('Must get attendance by id', async() => {
-    const spy = jest.spyOn(services.attendance, 'getAttendance')
+  test('Must get attendances', async () => {
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('Table must receive attendances', async () => {
+    services.attendance.getAttendances.mockResolvedValue([{}])
     wrapper = factory()
-    expect(spy).toHaveBeenCalledWith(1)
+
+    await flushPromises()
+
+    expect(
+      wrapper.findComponent({ ref: 'attendancesList' }).vm.items
+    ).toStrictEqual([{}])
+  })
+
+  test('Table must receive headers', async () => {
+    const headers = [
+      {
+        text: 'Nome do Cliente',
+        value: 'name'
+      },
+      {
+        text: 'Documento',
+        value: 'document_id'
+      }
+    ]
+
+    expect(
+      wrapper.findComponent({ ref: 'attendancesList' }).vm.headers
+    ).toStrictEqual(headers)
   })
 })
