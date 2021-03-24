@@ -55,7 +55,7 @@ describe('<AttendanceList />', () => {
     const headers = [
       {
         text: 'Nome do Cliente',
-        value: 'name'
+        value: 'customer_name'
       },
       {
         text: 'Documento',

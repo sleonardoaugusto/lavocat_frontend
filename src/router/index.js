@@ -19,7 +19,7 @@ export const routes = [
   },
   {
     path: '*',
-    redirect: '/atendimento/novo'
+    redirect: '/atendimentos'
   }
 ]
 

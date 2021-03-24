@@ -1,13 +1,17 @@
 <template>
   <div>
     <BaseHeading text="Lista de Atendimentos" />
-    <v-data-table
-      ref="attendancesList"
-      :headers="headers"
-      :items="attendances"
-      :items-per-page="5"
-      class="elevation-1"
-    />
+    <v-row>
+      <v-col>
+        <v-data-table
+          ref="attendancesList"
+          :headers="headers"
+          :items="attendances"
+          :items-per-page="5"
+          class="elevation-1"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -22,7 +26,7 @@ export default {
     headers: [
       {
         text: 'Nome do Cliente',
-        value: 'name'
+        value: 'customer_name'
       },
       {
         text: 'Documento',
