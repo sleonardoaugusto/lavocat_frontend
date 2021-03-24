@@ -1,6 +1,6 @@
 # lavocat_frontend
 
-[![Tests](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/ci-cd.yaml/badge.svg)](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/ci-cd.yaml)
+[![Tests](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/main.yaml/badge.svg)](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/main.yaml)
 
 ## Project setup
 
