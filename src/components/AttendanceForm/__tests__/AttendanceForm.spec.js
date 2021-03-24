@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
-import AttendanceForm from '@/views/AttendanceForm'
+import AttendanceForm from '@/components/AttendanceForm'
 import { mount } from '@vue/test-utils'
 import faker from 'faker'
 import services from '@/services'

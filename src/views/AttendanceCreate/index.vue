@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AttendanceForm from '@/views/AttendanceForm'
+import AttendanceForm from '@/components/AttendanceForm'
 import services from '@/services'
 import BaseHeading from '@/components/base/BaseHeading'
 
