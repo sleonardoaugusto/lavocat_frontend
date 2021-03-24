@@ -20,15 +20,9 @@ describe('<AttendanceForm />', () => {
   let wrapper
   let vuetify
 
-  const spy = jest.spyOn(services.attendance, 'create')
-
   beforeEach(() => {
     vuetify = new Vuetify()
     wrapper = factory()
-  })
-
-  afterEach(() => {
-    spy.mockClear()
   })
 
   const factory = opts => mount(AttendanceForm, { Vue, vuetify, ...opts })
@@ -82,19 +76,21 @@ describe('<AttendanceForm />', () => {
     ],
     ['document_id', { customer_name: 'maria', document_id: '', status: 1 }],
     ['status', { customer_name: 'maria', document_id: '', status: null }]
-  ])('Must not send form data if %s field is invalid', async (_, data) => {
+  ])('Must not emit form data if %s field is invalid', async (_, data) => {
     await fillForm(data)
     await wrapper.find('#submit').trigger('click')
 
-    expect(spy).not.toHaveBeenCalled()
+    const emitted = wrapper.emitted().submit
+    expect(emitted).toBeUndefined()
   })
 
-  test('Must call service with form data', async () => {
+  test('Must emit form data', async () => {
     const data = await fillForm()
 
     await wrapper.find('#submit').trigger('click')
 
-    expect(spy).toHaveBeenCalledWith({
+    const emitted = wrapper.emitted().submit[0][0]
+    expect(emitted).toStrictEqual({
       customer_name: data.customer_name,
       document_id: data.document_id,
       status: data.status,

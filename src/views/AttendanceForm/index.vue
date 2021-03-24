@@ -1,6 +1,5 @@
 <template>
   <v-form>
-    <BaseHeading text="Novo Atendimento" />
     <v-row>
       <v-col cols="12" md="6" sm="12">
         <v-text-field
@@ -71,7 +70,6 @@
 </template>
 
 <script>
-import BaseHeading from '@/components/base/BaseHeading'
 import { required } from 'vuelidate/lib/validators'
 import validations from '@/mixins/formValidations'
 import services from '@/services'
@@ -80,9 +78,6 @@ import { objToSelect } from '@/utils/formatters'
 
 export default {
   name: 'AttendanceForm',
-  components: {
-    BaseHeading
-  },
   mixins: [validations],
   data: () => ({
     form: {
@@ -110,7 +105,9 @@ export default {
       if (this.formIsReady) {
         const data = this.parseForm()
         this.toggleLoading()
-        await services.attendance.create(data)
+
+        await this.$emit('submit', data)
+
         this.toggleLoading()
       }
     },
