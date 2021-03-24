@@ -12,7 +12,7 @@ describe('<AttendanceForm />', () => {
   })
 
   it('Must show snackbar', () => {
-    cy.visit(baseUrl)
+    cy.visit(`${baseUrl}/atendimento/novo`)
 
     const data = createAttendance[0]
     cy.get('#customer-name').type(data.customer_name)
