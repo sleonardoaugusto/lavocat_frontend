@@ -35,14 +35,16 @@ describe('<AttendanceForm />', () => {
 
   test.each([
     ['customerName', null],
-    ['documentId', null]
+    ['documentId', null],
+    ['statusesSelect', null]
   ])('%s field must be valid', async (field, msg) => {
     expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
   })
 
   test.each([
     ['customerName', 'Campo obrigatório'],
-    ['documentId', 'Campo obrigatório']
+    ['documentId', 'Campo obrigatório'],
+    ['statusesSelect', 'Campo obrigatório']
   ])('%s field must be invalid', async (field, msg) => {
     await wrapper.find('#submit').trigger('click')
 
@@ -55,16 +57,6 @@ describe('<AttendanceForm />', () => {
     expect(wrapper.findComponent({ ref: 'documentId' }).vm.errorMessages).toBe(
       'Campo deve conter 11 dígitos'
     )
-  })
-
-  test.each([
-    ['customer_name', { customer_name: '', document_id: '99999999999' }],
-    ['document_id', { customer_name: 'maria', document_id: '' }]
-  ])('Must not send form data if %s field is invalid', async (_, data) => {
-    await fillForm(data)
-    await wrapper.find('#submit').trigger('click')
-
-    expect(spy).not.toHaveBeenCalled()
   })
 
   test('Button must be disabled during request', async () => {
@@ -81,6 +73,20 @@ describe('<AttendanceForm />', () => {
     await flushPromises()
 
     expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
+  })
+
+  test.each([
+    [
+      'customer_name',
+      { customer_name: '', document_id: '99999999999', status: 1 }
+    ],
+    ['document_id', { customer_name: 'maria', document_id: '', status: 1 }],
+    ['status', { customer_name: 'maria', document_id: '', status: null }]
+  ])('Must not send form data if %s field is invalid', async (_, data) => {
+    await fillForm(data)
+    await wrapper.find('#submit').trigger('click')
+
+    expect(spy).not.toHaveBeenCalled()
   })
 
   test('Must call service with form data', async () => {

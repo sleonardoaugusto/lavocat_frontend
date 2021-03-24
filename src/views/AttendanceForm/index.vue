@@ -27,8 +27,9 @@
           id="status"
           ref="statusesSelect"
           label="Status"
-          v-model.number="form.status"
+          v-model.number="$v.form.status.$model"
           :items="statusesOptions"
+          :error-messages="errorMessage('status')"
         />
       </v-col>
       <v-col cols="12" md="6" sm="12">
@@ -95,7 +96,8 @@ export default {
   validations: {
     form: {
       customer_name: { required },
-      document_id: { required, cpfValidator }
+      document_id: { required, cpfValidator },
+      status: { required }
     }
   },
   async created() {
