@@ -9,7 +9,7 @@ import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
 import VueTheMask from 'vue-the-mask'
 
-jest.mock('services')
+jest.mock('@/services')
 
 describe('<AttendanceForm />', () => {
   Vue.use(Vuetify)
@@ -49,18 +49,6 @@ describe('<AttendanceForm />', () => {
     )
   })
 
-  test('Button must be disabled during request', async() => {
-    services.attendance.create = jest.fn(() => Promise.resolve())
-    await fillForm()
-
-    await wrapper.find('#submit').trigger('click')
-    expect(wrapper.find('#submit').attributes().disabled).toBeTruthy()
-
-    await flushPromises()
-
-    expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
-  })
-
   test.each([
     ['customer_name', { customer_name: '', document_id: '99999999999' }],
     ['document_id', { customer_name: 'maria', document_id: '' }]
@@ -68,29 +56,41 @@ describe('<AttendanceForm />', () => {
     const spy = jest.spyOn(services.attendance, 'create')
     spy.mockClear()
     await fillForm(data)
-
     await wrapper.find('#submit').trigger('click')
 
     expect(spy).not.toHaveBeenCalled()
   })
 
-  test('Must send form data', async() => {
+  test('Button must be disabled during request', async() => {
     const spy = jest.spyOn(services.attendance, 'create')
     spy.mockClear()
-    const data = await fillForm()
-
+    await fillForm()
     await wrapper.find('#submit').trigger('click')
 
     expect(wrapper.find('#submit').attributes().disabled).toBeTruthy()
+  })
+
+  test('Button must not be disabled after response', async() => {
+    const spy = jest.spyOn(services.attendance, 'create')
+    spy.mockClear()
+    await fillForm()
+    await wrapper.find('#submit').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
+  })
+
+  test('Must call service with form data', async() => {
+    const spy = jest.spyOn(services.attendance, 'create')
+    spy.mockClear()
+    const data = await fillForm()
+    await wrapper.find('#submit').trigger('click')
+
     expect(spy).toHaveBeenCalledWith({
       customer_name: data.customer_name,
       document_id: data.document_id,
       files: [data.file]
     })
-
-    await flushPromises()
-
-    expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
   })
 
   const fillForm = async(params) => {
