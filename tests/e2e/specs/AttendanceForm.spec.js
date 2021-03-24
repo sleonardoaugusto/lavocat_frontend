@@ -12,9 +12,11 @@ describe('<AttendanceForm />', () => {
     cy.get('#customer-name').type(data.customer_name)
     cy.get('#document-id').type(data.customer_id)
 
-    cy.intercept('POST', `${apiServer}/attendances/`, {
+    cy.server()
+    cy.route('POST', `${apiServer}/attendances/`, {
       fixture: 'attendances/create.json'
     }).as('attendanceCreate')
+
     cy.get('#submit').click()
     cy.wait('@attendanceCreate')
 
