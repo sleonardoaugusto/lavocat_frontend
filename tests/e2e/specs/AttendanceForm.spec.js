@@ -5,6 +5,12 @@ describe('<AttendanceForm />', () => {
   const baseUrl = Cypress.env('host')
   const apiServer = Cypress.env('api_server')
 
+  it('Must render new attendance page', () => {
+    cy.visit(`${baseUrl}/atendimento/novo`)
+
+    cy.contains('Novo Atendimento')
+  })
+
   it('Must show snackbar', () => {
     cy.visit(baseUrl)
 

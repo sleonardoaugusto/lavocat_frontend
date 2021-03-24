@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <BaseHeading text="Atendimento"/>
+    <BaseHeading text="Novo Atendimento" />
     <v-row>
       <v-col cols="12" md="6" sm="12">
         <v-text-field
@@ -35,16 +35,18 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-textarea
-          label="Relatório"
-          value=""
-          rows="10"
-        />
+        <v-textarea label="Relatório" value="" rows="10" />
       </v-col>
     </v-row>
     <v-row>
       <v-col class="text-right">
-        <v-btn @click="submit" :disabled="isLoading" id="submit" color="success" right>
+        <v-btn
+          @click="submit"
+          :disabled="isLoading"
+          id="submit"
+          color="success"
+          right
+        >
           <v-progress-circular
             v-show="isLoading"
             size="18"
@@ -97,13 +99,14 @@ export default {
     parseForm() {
       return {
         ...this.form,
-        document_id: this.form.document_id.replace('.', '').replace('.', '').replace('-', '')
+        document_id: this.form.document_id
+          .replace('.', '')
+          .replace('.', '')
+          .replace('-', '')
       }
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
