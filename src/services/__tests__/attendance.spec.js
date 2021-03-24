@@ -27,4 +27,12 @@ describe('AttendanceService', () => {
 
     expect(resp).toStrictEqual([{}])
   })
+
+  test('Must return data value', async () => {
+    axios.get.mockResolvedValue({ data: {} })
+
+    const resp = await AttendanceService(axios).getStatuses()
+
+    expect(resp).toStrictEqual({})
+  })
 })

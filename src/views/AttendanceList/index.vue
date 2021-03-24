@@ -7,7 +7,7 @@
           ref="attendancesList"
           :headers="headers"
           :items="attendances"
-          :items-per-page="5"
+          :items-per-page="10"
           class="elevation-1"
           :loading="isLoading"
           loading-text="Carregando atendimentos... Por favor aguarde"

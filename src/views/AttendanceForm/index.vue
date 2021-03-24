@@ -22,6 +22,15 @@
           :error-messages="errorMessage('document_id')"
         />
       </v-col>
+      <v-col col="12" md="6" sm="12">
+        <v-select
+          id="status"
+          ref="statusesSelect"
+          label="Status"
+          v-model.number="form.status"
+          :items="statusesOptions"
+        />
+      </v-col>
       <v-col cols="12" md="6" sm="12">
         <v-file-input
           id="files"
@@ -66,6 +75,7 @@ import { required } from 'vuelidate/lib/validators'
 import validations from '@/mixins/formValidations'
 import services from '@/services'
 import { cpfValidator } from '@/utils/validators'
+import { objToSelect } from '@/utils/formatters'
 
 export default {
   name: 'AttendanceForm',
@@ -77,14 +87,20 @@ export default {
     form: {
       customer_name: null,
       document_id: null,
+      status: null,
       files: []
-    }
+    },
+    statusesOptions: []
   }),
   validations: {
     form: {
       customer_name: { required },
       document_id: { required, cpfValidator }
     }
+  },
+  async created() {
+    const statuses = await services.attendance.getStatuses()
+    this.statusesOptions = objToSelect(statuses)
   },
   methods: {
     async submit() {

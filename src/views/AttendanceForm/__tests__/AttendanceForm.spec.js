@@ -91,20 +91,35 @@ describe('<AttendanceForm />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: data.customer_name,
       document_id: data.document_id,
+      status: data.status,
       files: [data.file]
     })
+  })
+
+  test('Component must receive attendance statuses', async () => {
+    const respData = { StatusName: 1 }
+    services.attendance.getStatuses.mockResolvedValue(respData)
+    wrapper = factory()
+
+    await flushPromises()
+
+    expect(
+      wrapper.findComponent({ ref: 'statusesSelect' }).vm.items
+    ).toStrictEqual([{ text: 'StatusName', value: 1 }])
   })
 
   const fillForm = async params => {
     const data = {
       customer_name: faker.random.word(),
       document_id: '99999999999',
+      status: 1,
       file: new File(['foo'], 'foo.png'),
       ...params
     }
 
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
+    await wrapper.find('#status').setValue(data.status)
     await wrapper
       .findComponent({ ref: 'files' })
       .vm.$emit('change', [data.file])

@@ -45,5 +45,10 @@ export default httpClient => ({
     const resp = await httpClient.get(`/attendances/`)
 
     return resp.data
+  },
+  getStatuses: async () => {
+    const resp = await httpClient.get(`/attendance-statuses/`)
+
+    return resp.data
   }
 })
