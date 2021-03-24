@@ -41,14 +41,16 @@ export default httpClient => ({
       }
     }
   },
-  getAttendances: async () => {
-    const resp = await httpClient.get(`/attendances/`)
 
-    return resp.data
-  },
-  getStatuses: async () => {
-    const resp = await httpClient.get(`/attendance-statuses/`)
+  getAttendances: () =>
+    httpClient
+      .get('/attendances/')
+      .then(res => res.data)
+      .catch(() => []),
 
-    return resp.data
-  }
+  getStatuses: () =>
+    httpClient
+      .get(`/attendance-statuses/`)
+      .then(res => res.data)
+      .catch(() => [])
 })
