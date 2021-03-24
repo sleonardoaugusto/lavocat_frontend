@@ -40,5 +40,6 @@ export default httpClient => ({
         error: e
       }
     }
-  }
+  },
+  getAttendance: async(id) => await httpClient.post(`/attendances/${id}/`)
 })
