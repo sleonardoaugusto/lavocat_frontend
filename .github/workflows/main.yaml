@@ -12,7 +12,7 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Run unittests
+      - name: Run unit tests
         run: yarn jest
 
       - name: Run e2e tests
