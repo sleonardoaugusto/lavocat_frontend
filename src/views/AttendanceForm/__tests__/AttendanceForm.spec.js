@@ -81,11 +81,16 @@ describe('<AttendanceForm />', () => {
 
     await wrapper.find('#submit').trigger('click')
 
+    expect(wrapper.find('#submit').attributes().disabled).toBeTruthy()
     expect(spy).toHaveBeenCalledWith({
       customer_name: data.customer_name,
       document_id: data.document_id,
       files: [data.file]
     })
+
+    await flushPromises()
+
+    expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
   })
 
   const fillForm = async(params) => {
