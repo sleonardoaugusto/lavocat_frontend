@@ -8,13 +8,13 @@ Vue.use(VueRouter)
 
 export const routes = [
   {
-    path: '/atendimento/novo',
-    name: 'attendance',
+    path: '/atendimentos/novo',
+    name: 'attendances-new',
     component: () => AttendanceForm
   },
   {
     path: '/atendimentos',
-    name: 'attendances',
+    name: 'attendances-list',
     component: () => AttendanceList
   },
   {

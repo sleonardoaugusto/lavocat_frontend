@@ -6,13 +6,13 @@ describe('<AttendanceForm />', () => {
   const apiServer = Cypress.env('api_server')
 
   it('Must render new attendance page', () => {
-    cy.visit(`${baseUrl}/atendimento/novo`)
+    cy.visit(`${baseUrl}/atendimentos/novo`)
 
     cy.contains('Novo Atendimento')
   })
 
   it('Must show snackbar', () => {
-    cy.visit(`${baseUrl}/atendimento/novo`)
+    cy.visit(`${baseUrl}/atendimentos/novo`)
 
     const data = createAttendance[0]
     cy.get('#customer-name').type(data.customer_name)
