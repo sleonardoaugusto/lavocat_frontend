@@ -20,9 +20,15 @@ describe('<AttendanceForm />', () => {
   let wrapper
   let vuetify
 
+  const spy = jest.spyOn(services.attendance, 'create')
+
   beforeEach(() => {
     vuetify = new Vuetify()
     wrapper = factory()
+  })
+
+  afterEach(() => {
+    spy.mockClear()
   })
 
   const factory = opts => mount(AttendanceForm, { Vue, vuetify, ...opts })
@@ -55,8 +61,6 @@ describe('<AttendanceForm />', () => {
     ['customer_name', { customer_name: '', document_id: '99999999999' }],
     ['document_id', { customer_name: 'maria', document_id: '' }]
   ])('Must not send form data if %s field is invalid', async (_, data) => {
-    const spy = jest.spyOn(services.attendance, 'create')
-    spy.mockClear()
     await fillForm(data)
     await wrapper.find('#submit').trigger('click')
 
@@ -64,8 +68,6 @@ describe('<AttendanceForm />', () => {
   })
 
   test('Button must be disabled during request', async () => {
-    const spy = jest.spyOn(services.attendance, 'create')
-    spy.mockClear()
     await fillForm()
     await wrapper.find('#submit').trigger('click')
 
@@ -73,19 +75,17 @@ describe('<AttendanceForm />', () => {
   })
 
   test('Button must not be disabled after response', async () => {
-    const spy = jest.spyOn(services.attendance, 'create')
-    spy.mockClear()
     await fillForm()
     await wrapper.find('#submit').trigger('click')
+
     await flushPromises()
 
     expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
   })
 
   test('Must call service with form data', async () => {
-    const spy = jest.spyOn(services.attendance, 'create')
-    spy.mockClear()
     const data = await fillForm()
+
     await wrapper.find('#submit').trigger('click')
 
     expect(spy).toHaveBeenCalledWith({
