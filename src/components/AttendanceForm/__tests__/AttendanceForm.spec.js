@@ -28,98 +28,106 @@ describe('<AttendanceForm />', () => {
 
   const factory = opts => mount(AttendanceForm, { Vue, vuetify, ...opts })
 
-  test.each([
-    ['customerName', null],
-    ['documentId', null],
-    ['statusesSelect', null]
-  ])('%s field must be valid', async (field, msg) => {
-    expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
-  })
+  describe('Validations', () => {
+    test.each([
+      ['customerName', null],
+      ['documentId', null],
+      ['statusesSelect', null]
+    ])('%s field must be valid', async (field, msg) => {
+      expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
+    })
 
-  test.each([
-    ['customerName', 'Campo obrigatório'],
-    ['documentId', 'Campo obrigatório'],
-    ['statusesSelect', 'Campo obrigatório']
-  ])('%s field must be invalid', async (field, msg) => {
-    await wrapper.find('#submit').trigger('click')
+    test.each([
+      ['customerName', 'Campo obrigatório'],
+      ['documentId', 'Campo obrigatório'],
+      ['statusesSelect', 'Campo obrigatório']
+    ])('%s field must be invalid', async (field, msg) => {
+      await wrapper.find('#submit').trigger('click')
 
-    expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
-  })
+      expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
+    })
 
-  test('#document-id field must be invalid if length', async () => {
-    await wrapper.find('#document-id').setValue('9999999999')
+    test('#document-id field must be invalid if length', async () => {
+      await wrapper.find('#document-id').setValue('9999999999')
 
-    expect(wrapper.findComponent({ ref: 'documentId' }).vm.errorMessages).toBe(
-      'Campo deve conter 11 dígitos'
-    )
-  })
-
-  test('Button must be disabled during request', async () => {
-    await fillForm()
-    await wrapper.find('#submit').trigger('click')
-
-    expect(wrapper.find('#submit').attributes().disabled).toBeTruthy()
-  })
-
-  test('Button must not be disabled after response', async () => {
-    await fillForm()
-    await wrapper.find('#submit').trigger('click')
-    await flushPromises()
-
-    expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
-  })
-
-  test.each([
-    [
-      'customer_name',
-      { customer_name: '', document_id: '99999999999', status: 1 }
-    ],
-    ['document_id', { customer_name: 'maria', document_id: '', status: 1 }],
-    ['status', { customer_name: 'maria', document_id: '', status: null }]
-  ])('Must not emit form data if %s field is invalid', async (_, data) => {
-    await fillForm(data)
-    await wrapper.find('#submit').trigger('click')
-    const emitted = wrapper.emitted().submit
-
-    expect(emitted).toBeUndefined()
-  })
-
-  test('Must emit form data', async () => {
-    const data = await fillForm()
-    await wrapper.find('#submit').trigger('click')
-    const emitted = wrapper.emitted().submit[0][0]
-
-    expect(emitted).toStrictEqual({
-      customer_name: data.customer_name,
-      document_id: data.document_id,
-      status: data.status,
-      files: [data.files]
+      expect(
+        wrapper.findComponent({ ref: 'documentId' }).vm.errorMessages
+      ).toBe('Campo deve conter 11 dígitos')
     })
   })
 
-  test('Component must receive attendance statuses', async () => {
-    wrapper = factory()
-    await flushPromises()
+  describe('Promise behavior', () => {
+    test('Button must be disabled during request', async () => {
+      await fillForm()
+      await wrapper.find('#submit').trigger('click')
 
-    expect(
-      wrapper.findComponent({ ref: 'statusesSelect' }).vm.items
-    ).toStrictEqual([{ text: 'StatusName', value: 1 }])
+      expect(wrapper.find('#submit').attributes().disabled).toBeTruthy()
+    })
+
+    test('Button must not be disabled after response', async () => {
+      await fillForm()
+      await wrapper.find('#submit').trigger('click')
+      await flushPromises()
+
+      expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
+    })
   })
 
-  test('Fields must receive props value', async () => {
-    const data = generateData()
-    await wrapper.setProps({ value: data })
+  describe('Form submit', () => {
+    test.each([
+      [
+        'customer_name',
+        { customer_name: '', document_id: '99999999999', status: 1 }
+      ],
+      ['document_id', { customer_name: 'maria', document_id: '', status: 1 }],
+      ['status', { customer_name: 'maria', document_id: '', status: null }]
+    ])('Must not emit form data if %s field is invalid', async (_, data) => {
+      await fillForm(data)
+      await wrapper.find('#submit').trigger('click')
+      const emitted = wrapper.emitted().submit
 
-    expect(wrapper.findComponent({ ref: 'customerName' }).vm.value).toBe(
-      data.customer_name
-    )
-    expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
-      data.document_id
-    )
-    expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
-      data.status
-    )
-    expect(wrapper.findComponent({ ref: 'files' }).vm.value).toBe(data.files)
+      expect(emitted).toBeUndefined()
+    })
+
+    test('Must emit form data', async () => {
+      const data = await fillForm()
+      await wrapper.find('#submit').trigger('click')
+      const emitted = wrapper.emitted().submit[0][0]
+
+      expect(emitted).toStrictEqual({
+        customer_name: data.customer_name,
+        document_id: data.document_id,
+        status: data.status,
+        files: [data.files]
+      })
+    })
+  })
+
+  describe('Update behavior', () => {
+    test('Component must receive attendance statuses', async () => {
+      wrapper = factory()
+      await flushPromises()
+
+      expect(
+        wrapper.findComponent({ ref: 'statusesSelect' }).vm.items
+      ).toStrictEqual([{ text: 'StatusName', value: 1 }])
+    })
+
+    test('Fields must receive props value', async () => {
+      const data = generateData()
+      await wrapper.setProps({ value: data })
+
+      expect(wrapper.findComponent({ ref: 'customerName' }).vm.value).toBe(
+        data.customer_name
+      )
+      expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
+        data.document_id
+      )
+      expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
+        data.status
+      )
+      expect(wrapper.findComponent({ ref: 'files' }).vm.value).toBe(data.files)
+    })
   })
 
   const generateData = opts => ({
