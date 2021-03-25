@@ -85,23 +85,25 @@ describe('<AttendanceForm />', () => {
     ])('Must not emit form data if %s field is invalid', async (_, data) => {
       await fillForm(data)
       await wrapper.find('#submit').trigger('click')
-      const emitted = wrapper.emitted().submit
 
-      expect(emitted).toBeUndefined()
+      expect(wrapper.emitted().submit).toBeFalsy()
     })
 
     test('Must emit form data', async () => {
       const data = await fillForm()
       await wrapper.find('#submit').trigger('click')
-      const emitted = wrapper.emitted().submit[0][0]
 
-      expect(emitted).toStrictEqual({
-        customer_name: data.customer_name,
-        document_id: data.document_id,
-        status: data.status,
-        files: [data.files],
-        resume: data.resume
-      })
+      expect(wrapper.emitted().submit).toBeTruthy()
+      expect(wrapper.emitted().submit).toHaveLength(1)
+      expect(wrapper.emitted().submit[0]).toStrictEqual([
+        {
+          customer_name: data.customer_name,
+          document_id: data.document_id,
+          status: data.status,
+          files: [data.files],
+          resume: data.resume
+        }
+      ])
     })
   })
 
