@@ -62,7 +62,9 @@ describe('<AttendanceForm />', () => {
       await fillForm()
       await wrapper.find('#submit').trigger('click')
 
-      expect(wrapper.find('#submit').attributes().disabled).toBeTruthy()
+      expect(
+        wrapper.findComponent({ ref: 'submitBtn' }).vm.loading
+      ).toBeTruthy()
     })
 
     test('Button must not be disabled after response', async () => {
@@ -70,7 +72,7 @@ describe('<AttendanceForm />', () => {
       await wrapper.find('#submit').trigger('click')
       await flushPromises()
 
-      expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
+      expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBeFalsy()
     })
   })
 

@@ -56,19 +56,14 @@
     <v-row>
       <v-col class="text-right">
         <v-btn
-          @click="submit"
-          :disabled="isLoading"
+          ref="submitBtn"
           id="submit"
+          @click="submit"
+          :loading="isLoading"
           :color="colorStyle"
           right
         >
-          <v-progress-circular
-            v-show="isLoading"
-            size="18"
-            indeterminate
-            :color="colorStyle"
-          />
-          <span v-show="!isLoading">{{ submitBtnLabel }}</span>
+          {{ submitBtnLabel }}
         </v-btn>
       </v-col>
     </v-row>
