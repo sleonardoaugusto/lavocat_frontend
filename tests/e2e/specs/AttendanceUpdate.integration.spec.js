@@ -23,13 +23,15 @@ describe('<AttendanceUpdate />', () => {
     cy.contains('Editar Atendimento')
   })
 
-  it.todo('Must fill fields with response content', () => {
+  it('Must fill fields with response content', () => {
     cy.visit(`${baseUrl}/atendimentos/1/editar`)
 
     cy.wait('@attendanceStatuses')
     cy.wait('@attendanceGetById')
 
-    cy.get('#customer-name').should('have.value', attendanceResp.customer_name)
-    cy.get('#document-id').should('have.value', attendanceResp.document_id)
+    cy.get('#customer-name').should('have.value', 'Maria da Sorte')
+    cy.get('#document-id').should('have.value', '999.999.999-99')
+    cy.get('#status').siblings().should('contain', 'key')
+    cy.get('#files').siblings('.v-file-input__text').should('have.length', 1)
   })
 })
