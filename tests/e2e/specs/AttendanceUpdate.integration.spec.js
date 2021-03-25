@@ -8,13 +8,13 @@ describe('<AttendanceUpdate />', () => {
 
   beforeEach(() => {
     cy.server()
-
     cy.route('GET', `${apiServer}/attendance-statuses/`, statuses).as(
       'attendanceStatuses'
     )
     cy.route('GET', `${apiServer}/attendances/1/`, attendanceResp).as(
       'attendanceGetById'
     )
+    cy.route('PUT', `${apiServer}/attendances/1/`, {})
   })
 
   it('Must render update attendance page', () => {
@@ -33,5 +33,17 @@ describe('<AttendanceUpdate />', () => {
     cy.get('#document-id').should('have.value', '999.999.999-99')
     cy.get('#status').siblings().should('contain', 'key')
     cy.get('#files').siblings('.v-file-input__text').should('have.length', 1)
+  })
+
+  it('Must show snackbar', () => {
+    cy.visit(`${baseUrl}/atendimentos/1/editar`)
+
+    cy.wait('@attendanceStatuses')
+    cy.wait('@attendanceGetById')
+
+    cy.get('#submit').click()
+
+    cy.get('.v-snack__wrapper').should('be.visible')
+    cy.get('.v-snack__wrapper').should('contain', 'Atendimento salvo!')
   })
 })

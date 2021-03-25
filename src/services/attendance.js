@@ -1,3 +1,6 @@
+import useModal from '@/hooks/useModal'
+const modal = useModal()
+
 export default httpClient => ({
   createAttendance: async data => {
     async function uploadFiles(files, attendanceId) {
@@ -32,6 +35,11 @@ export default httpClient => ({
 
       await uploadFiles(files, id)
 
+      modal.open({
+        component: 'SnackBar',
+        props: { type: 'success', text: 'Atendimento criado!' }
+      })
+
       return {
         data: response.data
       }
@@ -57,7 +65,13 @@ export default httpClient => ({
   updateAttendance: (id, data) =>
     httpClient
       .put(`/attendances/${id}/`, data)
-      .then(res => res.data)
+      .then(res => {
+        modal.open({
+          component: 'SnackBar',
+          props: { type: 'success', text: 'Atendimento salvo!' }
+        })
+        return res.data
+      })
       .catch(() => ({})),
 
   getAttendanceById: id =>

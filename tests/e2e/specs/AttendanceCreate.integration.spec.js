@@ -37,6 +37,6 @@ describe('<AttendanceCreate />', () => {
     cy.wait('@attendanceCreate')
 
     cy.get('.v-snack__wrapper').should('be.visible')
-    cy.get('.v-snack__wrapper').contains('Operação concluída!')
+    cy.get('.v-snack__wrapper').should('contain', 'Atendimento criado!')
   })
 })
