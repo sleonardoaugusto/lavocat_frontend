@@ -19,9 +19,10 @@ export const routes = [
     component: () => AttendanceCreate
   },
   {
-    path: '/atendimentos/:id/editar',
+    path: '/atendimentos/:attendanceId/editar',
     name: 'attendances-update',
-    component: () => AttendanceUpdate
+    component: () => AttendanceUpdate,
+    props: true
   },
   {
     path: '*',

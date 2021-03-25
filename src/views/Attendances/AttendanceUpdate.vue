@@ -22,7 +22,7 @@ export default {
   },
   props: {
     attendanceId: {
-      type: Number,
+      type: [String, Number],
       required: true
     }
   },

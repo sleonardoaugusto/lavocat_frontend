@@ -11,7 +11,24 @@
           class="elevation-1"
           :loading="isLoading"
           loading-text="Carregando atendimentos... Por favor aguarde"
-        />
+        >
+          <template v-slot:item.attendanceLink="{ item }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  :ref="`attendance${item.id}`"
+                  :href="`/atendimentos/${item.id}/editar`"
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon dark> mdi-pencil-outline </v-icon>
+                </v-btn>
+              </template>
+              <span>Editar</span>
+            </v-tooltip>
+          </template>
+        </v-data-table>
       </v-col>
     </v-row>
   </div>
@@ -33,7 +50,8 @@ export default {
       {
         text: 'Documento',
         value: 'document_id'
-      }
+      },
+      { text: 'Ação', value: 'attendanceLink' }
     ],
     attendances: []
   }),

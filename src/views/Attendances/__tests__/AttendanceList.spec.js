@@ -10,8 +10,6 @@ import flushPromises from 'flush-promises'
 
 jest.mock('@/services')
 
-const spy = jest.spyOn(services.attendance, 'getAttendances')
-
 describe('<AttendanceList />', () => {
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
@@ -26,17 +24,10 @@ describe('<AttendanceList />', () => {
     wrapper = factory()
   })
 
-  afterEach(() => {
-    spy.mockClear()
-  })
-
   const factory = opts => mount(AttendanceList, { Vue, vuetify, ...opts })
 
-  test('Component exists', () => {
-    expect(wrapper.html()).toBeTruthy()
-  })
-
   test('Must get attendances', async () => {
+    const spy = jest.spyOn(services.attendance, 'getAttendances')
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -60,6 +51,10 @@ describe('<AttendanceList />', () => {
       {
         text: 'Documento',
         value: 'document_id'
+      },
+      {
+        text: 'Ação',
+        value: 'attendanceLink'
       }
     ]
 
@@ -79,6 +74,16 @@ describe('<AttendanceList />', () => {
   test('Table must not be loading after response', async () => {
     expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
       false
+    )
+  })
+
+  test('Table must contain button link to attendance', async () => {
+    services.attendance.getAttendances.mockResolvedValue([{ id: 1 }])
+    wrapper = factory()
+    await flushPromises()
+
+    expect(wrapper.findComponent({ ref: 'attendance1' }).vm.href).toBe(
+      '/atendimentos/1/editar'
     )
   })
 })

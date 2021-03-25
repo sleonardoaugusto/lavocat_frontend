@@ -1,1 +1,3 @@
-export const cpfValidator = (value) => value?.replace('.', '')?.replace('.', '')?.replace('-', '').length === 11
+export const cpfValidator = value =>
+  value?.toString().replace('.', '')?.replace('.', '')?.replace('-', '')
+    .length === 11
