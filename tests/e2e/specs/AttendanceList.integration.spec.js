@@ -1,7 +1,14 @@
+import attendances from '../fixtures/attendances/attendances.json'
+
 describe('<AttendanceList />', () => {
   before(() => {
     const baseUrl = Cypress.env('host')
+    const apiServer = Cypress.env('api_server')
+
     cy.visit(`${baseUrl}/atendimentos`)
+
+    cy.server()
+    cy.route('GET', `${apiServer}/attendances/`, attendances).as('attendances')
   })
 
   it('Must render attendance list page', () => {

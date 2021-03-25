@@ -1,0 +1,15 @@
+[
+  {
+    "customer_name": "dawdawdawdaw",
+    "document_id": 31231231313,
+    "files": [
+      {
+        "id": 1,
+        "attendance": 1,
+        "file": "http://localhost:8000/documentos/t.txt"
+      }
+    ],
+    "id": 1,
+    "status": 4
+  }
+]

@@ -16,6 +16,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
+                  :id="`attendance-${item.id}`"
                   :ref="`attendance${item.id}`"
                   :href="`/atendimentos/${item.id}/editar`"
                   icon
