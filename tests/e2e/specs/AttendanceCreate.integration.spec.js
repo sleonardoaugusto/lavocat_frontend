@@ -20,7 +20,7 @@ describe('<AttendanceCreate />', () => {
   it('Must render new attendance page', () => {
     cy.visit(`${baseUrl}/atendimentos/novo`)
 
-    cy.contains('Novo Atendimento')
+    cy.get('.text-h4').should('contain', 'Novo Atendimento')
   })
 
   it('Must show snackbar', () => {
