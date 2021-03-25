@@ -3,6 +3,7 @@
     <BaseHeading text="Editar Atendimento" />
     <AttendanceForm
       ref="attendanceForm"
+      :update="true"
       :value="internalAttendance"
       @submit="updateAttendance"
     />

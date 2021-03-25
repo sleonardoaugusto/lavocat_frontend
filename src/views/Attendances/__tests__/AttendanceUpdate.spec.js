@@ -62,4 +62,10 @@ describe('<AttendanceUpdate />', () => {
 
     expect(spy).toHaveBeenCalledWith(1, {})
   })
+
+  test('Form component must receive flag update true', () => {
+    expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.update).toBe(
+      true
+    )
+  })
 })

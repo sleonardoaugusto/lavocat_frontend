@@ -53,16 +53,16 @@
           @click="submit"
           :disabled="isLoading"
           id="submit"
-          color="success"
+          :color="colorStyle"
           right
         >
           <v-progress-circular
             v-show="isLoading"
             size="18"
             indeterminate
-            color="green"
+            :color="colorStyle"
           />
-          <span v-show="!isLoading">Cadastrar</span>
+          <span v-show="!isLoading">{{ submitBtnLabel }}</span>
         </v-btn>
       </v-col>
     </v-row>
@@ -83,6 +83,10 @@ export default {
     value: {
       type: [Object],
       default: () => {}
+    },
+    update: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -125,6 +129,14 @@ export default {
           .replace('.', '')
           .replace('-', '')
       }
+    }
+  },
+  computed: {
+    submitBtnLabel() {
+      return this.update ? 'Salvar' : 'Cadastrar'
+    },
+    colorStyle() {
+      return this.update ? 'primary' : 'green'
     }
   },
   watch: {

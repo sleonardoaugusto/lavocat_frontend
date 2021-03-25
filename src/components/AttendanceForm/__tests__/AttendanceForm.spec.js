@@ -104,6 +104,15 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Update behavior', () => {
+    test.each([
+      ['Salvar', true],
+      ['Cadastrar', false]
+    ])('Button label must be %s if update is %s', (label, flag) => {
+      wrapper = factory({ propsData: { update: flag } })
+
+      expect(wrapper.find('#submit').text()).toBe(label)
+    })
+
     test('Component must receive attendance statuses', async () => {
       wrapper = factory()
       await flushPromises()
