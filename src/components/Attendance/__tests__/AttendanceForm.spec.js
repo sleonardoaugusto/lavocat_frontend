@@ -95,15 +95,7 @@ describe('<AttendanceForm />', () => {
 
       expect(wrapper.emitted().submit).toBeTruthy()
       expect(wrapper.emitted().submit).toHaveLength(1)
-      expect(wrapper.emitted().submit[0]).toStrictEqual([
-        {
-          customer_name: data.customer_name,
-          document_id: data.document_id,
-          status: data.status,
-          files: [data.files],
-          resume: data.resume
-        }
-      ])
+      expect(wrapper.emitted().submit[0]).toStrictEqual([data])
     })
   })
 
@@ -160,9 +152,7 @@ describe('<AttendanceForm />', () => {
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
     await wrapper.find('#status').setValue(data.status)
-    await wrapper
-      .findComponent({ ref: 'files' })
-      .vm.$emit('change', [data.files])
+    await wrapper.findComponent({ ref: 'files' }).vm.$emit('change', data.files)
     await wrapper.find('#resume').setValue(data.resume)
 
     return data
