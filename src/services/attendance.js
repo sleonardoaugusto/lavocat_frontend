@@ -1,5 +1,5 @@
 export default httpClient => ({
-  create: async data => {
+  createAttendance: async data => {
     async function uploadFiles(files, attendanceId) {
       async function upload(formData) {
         const requestData = {
@@ -52,5 +52,17 @@ export default httpClient => ({
     httpClient
       .get(`/attendance-statuses/`)
       .then(res => res.data)
-      .catch(() => [])
+      .catch(() => []),
+
+  updateAttendance: (id, data) =>
+    httpClient
+      .put(`/attendances/${id}/`, data)
+      .then(res => res.data)
+      .catch(() => ({})),
+
+  getAttendanceById: id =>
+    httpClient
+      .get(`/attendances/${id}/`)
+      .then(res => res.data)
+      .catch(() => ({}))
 })

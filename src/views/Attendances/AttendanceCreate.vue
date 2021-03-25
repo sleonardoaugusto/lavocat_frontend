@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AttendanceForm from '@/components/AttendanceForm'
+import AttendanceForm from '@/components/AttendanceForm/AttendanceForm'
 import services from '@/services'
 import BaseHeading from '@/components/base/BaseHeading'
 
@@ -15,7 +15,7 @@ export default {
   components: { BaseHeading, AttendanceForm },
   methods: {
     async createAttendance(data) {
-      await services.attendance.create(data)
+      await services.attendance.createAttendance(data)
     }
   }
 }

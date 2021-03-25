@@ -5,7 +5,7 @@ import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
 import services from '@/services'
 import { mount } from '@vue/test-utils'
-import AttendanceCreate from '@/views/AttendanceCreate'
+import AttendanceCreate from '@/views/Attendances/AttendanceCreate'
 
 describe('<AttendanceCreate />', () => {
   Vue.use(Vuetify)
@@ -16,7 +16,6 @@ describe('<AttendanceCreate />', () => {
   let wrapper
   let vuetify
 
-  const spy = jest.spyOn(services.attendance, 'create')
   const stubs = { AttendanceForm: true }
 
   beforeEach(() => {
@@ -24,16 +23,11 @@ describe('<AttendanceCreate />', () => {
     wrapper = factory()
   })
 
-  afterEach(() => {
-    spy.mockClear()
-  })
-
   const factory = opts =>
     mount(AttendanceCreate, { Vue, vuetify, stubs, ...opts })
 
   test('Must call create attendance service on receive emit', async () => {
-    const spy = jest.spyOn(services.attendance, 'create')
-
+    const spy = jest.spyOn(services.attendance, 'createAttendance')
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})

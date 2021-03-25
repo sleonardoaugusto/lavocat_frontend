@@ -4,7 +4,7 @@ import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
 import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
-import AttendanceList from '@/views/AttendanceList'
+import AttendanceList from '@/views/Attendances/AttendanceList'
 import services from '@/services'
 import flushPromises from 'flush-promises'
 

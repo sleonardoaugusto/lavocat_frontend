@@ -1,21 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const AttendanceCreate = import('@/views/AttendanceCreate')
-const AttendanceList = import('@/views/AttendanceList')
+const AttendanceCreate = import('@/views/Attendances/AttendanceCreate')
+const AttendanceUpdate = import('@/views/Attendances/AttendanceUpdate')
+const AttendanceList = import('@/views/Attendances/AttendanceList')
 
 Vue.use(VueRouter)
 
 export const routes = [
+  {
+    path: '/atendimentos',
+    name: 'attendances-list',
+    component: () => AttendanceList
+  },
   {
     path: '/atendimentos/novo',
     name: 'attendances-new',
     component: () => AttendanceCreate
   },
   {
-    path: '/atendimentos',
-    name: 'attendances-list',
-    component: () => AttendanceList
+    path: '/atendimentos/:id/editar',
+    name: 'attendances-update',
+    component: () => AttendanceUpdate
   },
   {
     path: '*',

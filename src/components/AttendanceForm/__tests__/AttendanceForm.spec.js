@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
-import AttendanceForm from '@/components/AttendanceForm'
+import AttendanceForm from '@/components/AttendanceForm/AttendanceForm'
 import { mount } from '@vue/test-utils'
 import faker from 'faker'
 import services from '@/services'
@@ -63,7 +63,6 @@ describe('<AttendanceForm />', () => {
   test('Button must not be disabled after response', async () => {
     await fillForm()
     await wrapper.find('#submit').trigger('click')
-
     await flushPromises()
 
     expect(wrapper.find('#submit').attributes().disabled).toBeFalsy()
@@ -79,17 +78,16 @@ describe('<AttendanceForm />', () => {
   ])('Must not emit form data if %s field is invalid', async (_, data) => {
     await fillForm(data)
     await wrapper.find('#submit').trigger('click')
-
     const emitted = wrapper.emitted().submit
+
     expect(emitted).toBeUndefined()
   })
 
   test('Must emit form data', async () => {
     const data = await fillForm()
-
     await wrapper.find('#submit').trigger('click')
-
     const emitted = wrapper.emitted().submit[0][0]
+
     expect(emitted).toStrictEqual({
       customer_name: data.customer_name,
       document_id: data.document_id,
@@ -102,7 +100,6 @@ describe('<AttendanceForm />', () => {
     const respData = { StatusName: 1 }
     services.attendance.getStatuses.mockResolvedValue(respData)
     wrapper = factory()
-
     await flushPromises()
 
     expect(
@@ -118,7 +115,6 @@ describe('<AttendanceForm />', () => {
       file: new File(['foo'], 'foo.png'),
       ...params
     }
-
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
     await wrapper.find('#status').setValue(data.status)
