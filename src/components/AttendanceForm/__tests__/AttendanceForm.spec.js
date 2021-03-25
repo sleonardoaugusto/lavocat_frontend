@@ -29,13 +29,14 @@ describe('<AttendanceForm />', () => {
   const factory = opts => mount(AttendanceForm, { Vue, vuetify, ...opts })
 
   describe('Validations', () => {
-    test.each([
-      ['customerName', null],
-      ['documentId', null],
-      ['statusesSelect', null]
-    ])('%s field must be valid', async (field, msg) => {
-      expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
-    })
+    test.each([['customerName'], ['documentId'], ['statusesSelect']])(
+      '%s field must be valid',
+      async field => {
+        expect(
+          wrapper.findComponent({ ref: field }).vm.errorMessages
+        ).toBeNull()
+      }
+    )
 
     test.each([
       ['customerName', 'Campo obrigatório'],

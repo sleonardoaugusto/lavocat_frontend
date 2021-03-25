@@ -9,13 +9,22 @@ const httpClient = axios.create({
 
 const modal = useModal()
 
-httpClient.interceptors.response.use(function(response) {
-  modal.open({ component: 'SnackBar', props: { type: 'success', text: 'Operação concluída!' } })
-  return response
-}, function(error) {
-  modal.open({ component: 'SnackBar', props: { type: 'error', text: 'Ocorreu algum erro' } })
-  return Promise.reject(error)
-})
+httpClient.interceptors.response.use(
+  function (response) {
+    modal.open({
+      component: 'SnackBar',
+      props: { type: 'success', text: 'Operação concluída!' }
+    })
+    return response
+  },
+  function (error) {
+    modal.open({
+      component: 'SnackBar',
+      props: { type: 'error', text: 'Ocorreu algum erro' }
+    })
+    return Promise.reject(error)
+  }
+)
 
 export default {
   attendance: AttendanceService(httpClient)
