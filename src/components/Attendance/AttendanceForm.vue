@@ -122,9 +122,7 @@ export default {
       if (this.formIsReady) {
         const data = this.parseForm()
         this.toggleLoading()
-
         await this.$emit('submit', data)
-
         this.toggleLoading()
       }
     },
