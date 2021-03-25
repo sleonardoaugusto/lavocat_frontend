@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const AttendanceForm = import('@/components/AttendanceForm')
+const AttendanceCreate = import('@/views/AttendanceCreate')
 const AttendanceList = import('@/views/AttendanceList')
 
 Vue.use(VueRouter)
@@ -10,7 +10,7 @@ export const routes = [
   {
     path: '/atendimentos/novo',
     name: 'attendances-new',
-    component: () => AttendanceForm
+    component: () => AttendanceCreate
   },
   {
     path: '/atendimentos',
