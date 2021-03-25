@@ -1,7 +1,11 @@
 <template>
   <div>
     <BaseHeading text="Editar Atendimento" />
-    <AttendanceForm ref="attendanceForm" @submit="updateAttendance" />
+    <AttendanceForm
+      ref="attendanceForm"
+      :value="internalAttendance"
+      @submit="updateAttendance"
+    />
   </div>
 </template>
 
@@ -22,12 +26,15 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    internalAttendance: {}
+  }),
   created() {
     this.getAttendance(this.attendanceId)
   },
   methods: {
     async getAttendance(id) {
-      await services.attendance.getAttendanceById(id)
+      this.internalAttendance = await services.attendance.getAttendanceById(id)
     },
     updateAttendance(data) {
       services.attendance.updateAttendance(this.attendanceId, data)

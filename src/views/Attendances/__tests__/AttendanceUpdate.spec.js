@@ -6,6 +6,7 @@ import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
 import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
+import flushPromises from 'flush-promises'
 
 jest.mock('@/services')
 
@@ -39,6 +40,18 @@ describe('<AttendanceUpdate />', () => {
     const spy = jest.spyOn(services.attendance, 'getAttendanceById')
 
     expect(spy).toHaveBeenCalledWith(1)
+  })
+
+  test('Form component must receive attendance data', async () => {
+    services.attendance.getAttendanceById.mockResolvedValueOnce({
+      some: 'data'
+    })
+    wrapper = factory()
+    await flushPromises()
+
+    expect(
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.value
+    ).toStrictEqual({ some: 'data' })
   })
 
   test('Must call update attendance service on receive emit', async () => {

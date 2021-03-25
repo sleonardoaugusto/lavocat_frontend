@@ -21,6 +21,7 @@ describe('<AttendanceForm />', () => {
   let vuetify
 
   beforeEach(() => {
+    services.attendance.getStatuses.mockResolvedValue({ StatusName: 1 })
     vuetify = new Vuetify()
     wrapper = factory()
   })
@@ -92,13 +93,11 @@ describe('<AttendanceForm />', () => {
       customer_name: data.customer_name,
       document_id: data.document_id,
       status: data.status,
-      files: [data.file]
+      files: [data.files]
     })
   })
 
   test('Component must receive attendance statuses', async () => {
-    const respData = { StatusName: 1 }
-    services.attendance.getStatuses.mockResolvedValue(respData)
     wrapper = factory()
     await flushPromises()
 
@@ -107,20 +106,38 @@ describe('<AttendanceForm />', () => {
     ).toStrictEqual([{ text: 'StatusName', value: 1 }])
   })
 
+  test('Fields must receive props value', async () => {
+    const data = generateData()
+    await wrapper.setProps({ value: data })
+
+    expect(wrapper.findComponent({ ref: 'customerName' }).vm.value).toBe(
+      data.customer_name
+    )
+    expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
+      data.document_id
+    )
+    expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
+      data.status
+    )
+    expect(wrapper.findComponent({ ref: 'files' }).vm.value).toBe(data.files)
+  })
+
+  const generateData = opts => ({
+    customer_name: faker.random.word(),
+    document_id: '99999999999',
+    status: 1,
+    files: [new File(['foo'], 'foo.png')],
+    ...opts
+  })
+
   const fillForm = async params => {
-    const data = {
-      customer_name: faker.random.word(),
-      document_id: '99999999999',
-      status: 1,
-      file: new File(['foo'], 'foo.png'),
-      ...params
-    }
+    const data = generateData(params)
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
     await wrapper.find('#status').setValue(data.status)
     await wrapper
       .findComponent({ ref: 'files' })
-      .vm.$emit('change', [data.file])
+      .vm.$emit('change', [data.files])
 
     return data
   }

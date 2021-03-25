@@ -79,6 +79,12 @@ import { objToSelect } from '@/utils/formatters'
 export default {
   name: 'AttendanceForm',
   mixins: [validations],
+  props: {
+    value: {
+      type: [Object],
+      default: () => {}
+    }
+  },
   data: () => ({
     form: {
       customer_name: null,
@@ -118,6 +124,15 @@ export default {
           .replace('.', '')
           .replace('.', '')
           .replace('-', '')
+      }
+    }
+  },
+  watch: {
+    value: {
+      immediate: true,
+      deep: true,
+      handler(val) {
+        this.form = { ...this.form, ...val }
       }
     }
   }
