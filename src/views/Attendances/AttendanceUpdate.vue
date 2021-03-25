@@ -12,7 +12,7 @@
 
 <script>
 import BaseHeading from '@/components/base/BaseHeading'
-import AttendanceForm from '@/components/AttendanceForm/AttendanceForm'
+import AttendanceForm from '@/components/Attendance/AttendanceForm'
 import services from '@/services'
 
 export default {

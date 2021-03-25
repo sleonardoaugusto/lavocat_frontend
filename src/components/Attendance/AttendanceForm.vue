@@ -44,7 +44,13 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-textarea label="Relatório" value="" rows="10" />
+        <v-textarea
+          id="resume"
+          ref="resume"
+          label="Relatório"
+          v-model="form.resume"
+          rows="10"
+        />
       </v-col>
     </v-row>
     <v-row>
@@ -94,7 +100,8 @@ export default {
       customer_name: null,
       document_id: null,
       status: null,
-      files: []
+      files: [],
+      resume: null
     },
     statusesOptions: []
   }),

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
-import AttendanceForm from '@/components/AttendanceForm/AttendanceForm'
+import AttendanceForm from '@/components/Attendance/AttendanceForm'
 import { mount } from '@vue/test-utils'
 import faker from 'faker'
 import services from '@/services'
@@ -99,7 +99,8 @@ describe('<AttendanceForm />', () => {
         customer_name: data.customer_name,
         document_id: data.document_id,
         status: data.status,
-        files: [data.files]
+        files: [data.files],
+        resume: data.resume
       })
     })
   })
@@ -137,6 +138,9 @@ describe('<AttendanceForm />', () => {
         data.status
       )
       expect(wrapper.findComponent({ ref: 'files' }).vm.value).toBe(data.files)
+      expect(wrapper.findComponent({ ref: 'resume' }).vm.value).toBe(
+        data.resume
+      )
     })
   })
 
@@ -145,7 +149,8 @@ describe('<AttendanceForm />', () => {
     document_id: '99999999999',
     status: 1,
     files: [new File(['foo'], 'foo.png')],
-    ...opts
+    ...opts,
+    resume: faker.random.word()
   })
 
   const fillForm = async params => {
@@ -156,6 +161,7 @@ describe('<AttendanceForm />', () => {
     await wrapper
       .findComponent({ ref: 'files' })
       .vm.$emit('change', [data.files])
+    await wrapper.find('#resume').setValue(data.resume)
 
     return data
   }
