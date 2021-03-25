@@ -74,7 +74,7 @@ import { required } from 'vuelidate/lib/validators'
 import validations from '@/mixins/formValidations'
 import services from '@/services'
 import { cpfValidator } from '@/utils/validators'
-import { objToSelect } from '@/utils/formatters'
+import { clearDocumentId, objToSelect } from '@/utils/formatters'
 
 export default {
   name: 'AttendanceForm',
@@ -124,10 +124,7 @@ export default {
     parseForm() {
       return {
         ...this.form,
-        document_id: this.form.document_id
-          .replace('.', '')
-          .replace('.', '')
-          .replace('-', '')
+        document_id: clearDocumentId(this.form.document_id)
       }
     }
   },
