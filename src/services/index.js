@@ -1,5 +1,6 @@
 import axios from 'axios'
 import AttendanceService from './attendance'
+import AttendanceServiceClass from './attendanceClass'
 import useModal from '@/hooks/useModal'
 
 const BASE_URL = process.env.VUE_APP_SERVICE_URL
@@ -7,7 +8,7 @@ const httpClient = axios.create({
   baseURL: BASE_URL
 })
 
-const modal = useModal()
+const modal = useModal
 
 httpClient.interceptors.response.use(
   function (response) {
@@ -23,5 +24,6 @@ httpClient.interceptors.response.use(
 )
 
 export default {
-  attendance: AttendanceService(httpClient)
+  attendance: AttendanceService(httpClient),
+  attendanceClass: AttendanceServiceClass(httpClient)
 }

@@ -1,5 +1,5 @@
 import useModal from '@/hooks/useModal'
-const modal = useModal()
+const modal = useModal
 
 export default httpClient => ({
   createAttendance: async data => {

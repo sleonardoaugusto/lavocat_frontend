@@ -1,9 +1,11 @@
 <template>
-  <v-snackbar @input="close" :timeout="timeout" v-model="showInternal" color="grey darken-3">
-    <v-icon
-      :color="success ? 'green accent-4': 'red accent-5'"
-      dark
-    >
+  <v-snackbar
+    @input="close"
+    :timeout="timeout"
+    v-model="showInternal"
+    color="grey darken-3"
+  >
+    <v-icon :color="success ? 'green accent-4' : 'red accent-5'" dark>
       {{ success ? 'mdi-checkbox-marked-circle' : 'mdi-alert-circle' }}
     </v-icon>
     <span class="ml-2 font-weight-medium">{{ text }}</span>
@@ -17,9 +19,7 @@
         @click="close"
         icon
       >
-        <v-icon size="18">
-          mdi-close
-        </v-icon>
+        <v-icon size="18"> mdi-close </v-icon>
       </v-btn>
     </template>
   </v-snackbar>
@@ -28,7 +28,7 @@
 <script>
 import useModal from '@/hooks/useModal'
 
-const modal = useModal()
+const modal = useModal
 export default {
   name: 'SnackBar',
   props: {
