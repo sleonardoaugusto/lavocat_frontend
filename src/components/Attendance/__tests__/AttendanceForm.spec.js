@@ -133,7 +133,9 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
         data.status
       )
-      expect(wrapper.findComponent({ ref: 'files' }).vm.value).toBe(data.files)
+      expect(wrapper.findComponent({ ref: 'attachments' }).vm.value).toBe(
+        data.files
+      )
       expect(wrapper.findComponent({ ref: 'resume' }).vm.value).toBe(
         data.resume
       )
@@ -145,16 +147,19 @@ describe('<AttendanceForm />', () => {
     document_id: '99999999999',
     status: 1,
     files: [new File(['foo'], 'foo.png')],
-    ...opts,
-    resume: faker.random.word()
+    resume: faker.random.word(),
+    ...opts
   })
 
   const fillForm = async params => {
     const data = generateData(params)
+
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
     await wrapper.find('#status').setValue(data.status)
-    await wrapper.findComponent({ ref: 'files' }).vm.$emit('change', data.files)
+    await wrapper
+      .findComponent({ ref: 'attachments' })
+      .vm.$emit('changed', data.files)
     await wrapper.find('#resume').setValue(data.resume)
 
     return data

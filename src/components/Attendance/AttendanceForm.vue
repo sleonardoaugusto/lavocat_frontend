@@ -31,14 +31,11 @@
           :error-messages="errorMessage('status')"
         />
       </v-col>
-      <v-col cols="12" md="6" sm="12">
-        <v-file-input
-          id="files"
-          ref="files"
-          label="Anexos"
-          v-model="form.files"
-          multiple
-          chips
+      <v-col col="12" md="6" sm="12">
+        <AttendanceFiles
+          ref="attachments"
+          @changed="files => (form.files = files)"
+          :value="form.files"
         />
       </v-col>
     </v-row>
@@ -78,9 +75,11 @@ import validations from '@/mixins/formValidations'
 import services from '@/services'
 import { cpfValidator } from '@/utils/validators'
 import { clearDocumentId, objToSelect } from '@/utils/formatters'
+import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
 
 export default {
   name: 'AttendanceForm',
+  components: { AttendanceFiles },
   mixins: [validations],
   props: {
     value: {
