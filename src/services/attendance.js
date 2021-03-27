@@ -47,7 +47,7 @@ class Attendance {
   }
   async getAttendanceById(attendanceId) {
     return await this.http
-      .get(`/attendance/${attendanceId}/`)
+      .get(`/attendances/${attendanceId}/`)
       .then(resp => resp.data)
   }
 }
