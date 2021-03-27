@@ -1,82 +1,57 @@
 import useModal from '@/hooks/useModal'
-const modal = useModal
+import Upload from '@/services/upload'
 
-export default httpClient => ({
-  createAttendance: async data => {
-    async function uploadFiles(files, attendanceId) {
-      async function upload(formData) {
-        const requestData = {
-          method: 'post',
-          url: '/attendance-files/',
-          data: formData,
-          headers: {
-            'Content-type': 'multipart/form-data'
-          }
-        }
-        const response = await httpClient.request(requestData)
-        return response.data
-      }
+const modal = useModal()
 
-      const promises = files.map(async f => {
-        const fd = new FormData()
-        fd.append('attendance', attendanceId)
-        fd.append('file', f)
-        await upload(fd)
-      })
-      await Promise.all(promises)
-    }
-
-    try {
-      const files = data.files
-      delete data.files
-
-      const response = await httpClient.post('/attendances/', data)
-      const { id } = response.data
-
-      await uploadFiles(files, id)
+class Attendance {
+  constructor(http) {
+    this.http = http
+  }
+  async createAttendance(data) {
+    const { files } = data
+    return await this.http.post('/attendances/', data).then(resp => {
+      const { id } = resp.data
+      this.uploadAttendanceFiles(id, files)
 
       modal.open({
         component: 'SnackBar',
         props: { type: 'success', text: 'Atendimento criado!' }
       })
-
-      return {
-        data: response.data
-      }
-    } catch (e) {
-      return {
-        error: e
-      }
-    }
-  },
-
-  getAttendances: () =>
-    httpClient
-      .get('/attendances/')
-      .then(res => res.data)
-      .catch(() => []),
-
-  getStatuses: () =>
-    httpClient
-      .get(`/attendance-statuses/`)
-      .then(res => res.data)
-      .catch(() => []),
-
-  updateAttendance: (id, data) =>
-    httpClient
-      .put(`/attendances/${id}/`, data)
-      .then(res => {
-        modal.open({
-          component: 'SnackBar',
-          props: { type: 'success', text: 'Atendimento salvo!' }
-        })
-        return res.data
-      })
-      .catch(() => ({})),
-
-  getAttendanceById: id =>
-    httpClient
-      .get(`/attendances/${id}/`)
-      .then(res => res.data)
+      return resp.data
+    })
+  }
+  async updateAttendance(attendanceId, data) {
+    return await this.http
+      .put(`/attendances/${attendanceId}/`, data)
+      .then(resp => resp.data)
       .catch(() => ({}))
-})
+  }
+  uploadAttendanceFiles(attendanceId, files) {
+    if (files && files.length) {
+      const filesParsed = files.map(f => {
+        const fd = new FormData()
+        fd.append('attendance', attendanceId)
+        fd.append('file', f)
+        return fd
+      })
+
+      const uploadService = new Upload(this.http)
+      uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
+    }
+  }
+  async getAttendances() {
+    return await this.http.get('/attendances/').then(resp => resp.data)
+  }
+  async getStatuses() {
+    return await this.http.get('/attendance-statuses/').then(resp => resp.data)
+  }
+  async getAttendanceById(attendanceId) {
+    return await this.http
+      .get(`/attendance/${attendanceId}/`)
+      .then(resp => resp.data)
+  }
+}
+
+const factory = httpClient => new Attendance(httpClient)
+
+export default factory

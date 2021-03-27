@@ -3,14 +3,16 @@ export default class Upload {
     this.http = http
   }
   uploadFiles(files, method, url) {
-    const requestData = {
-      method: method,
-      url: url,
-      data: files,
-      headers: {
-        'Content-type': 'multipart/form-data'
+    files.map(f => {
+      const requestData = {
+        method: method,
+        url: url,
+        data: f,
+        headers: {
+          'Content-type': 'multipart/form-data'
+        }
       }
-    }
-    this.http.request(requestData)
+      this.http.request(requestData)
+    })
   }
 }

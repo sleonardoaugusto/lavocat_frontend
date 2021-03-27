@@ -6,7 +6,7 @@
 import SnackBar from '@/components/base/SnackBar'
 import useModal from '@/hooks/useModal'
 
-const modal = useModal
+const modal = useModal()
 
 export default {
   name: 'ModalFactory',

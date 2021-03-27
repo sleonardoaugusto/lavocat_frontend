@@ -28,7 +28,7 @@
 <script>
 import useModal from '@/hooks/useModal'
 
-const modal = useModal
+const modal = useModal()
 export default {
   name: 'SnackBar',
   props: {

@@ -27,7 +27,7 @@ describe('<AttendanceCreate />', () => {
     mount(AttendanceCreate, { Vue, vuetify, stubs, ...opts })
 
   test('Must call create attendance service on receive emit', async () => {
-    const spy = jest.spyOn(services.attendanceClass, 'createAttendance')
+    const spy = jest.spyOn(services.attendance, 'createAttendance')
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})

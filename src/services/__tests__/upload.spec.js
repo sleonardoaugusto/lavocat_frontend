@@ -13,7 +13,7 @@ describe('Upload Service', () => {
     expect(service.http).toBe(httpClient)
   })
 
-  test('uploadFiles', () => {
+  test('Must make a request for each file', () => {
     const spy = jest.spyOn(httpClient, 'request')
 
     const files = [{}, {}]
@@ -22,13 +22,19 @@ describe('Upload Service', () => {
 
     service.uploadFiles(files, method, url)
 
-    expect(spy).toHaveBeenCalledWith({
-      method: 'post',
-      url: '/',
-      data: files,
-      headers: {
-        'Content-type': 'multipart/form-data'
-      }
-    })
+    const call1 = makePayload(files[0], method, url)
+    const call2 = makePayload(files[1], method, url)
+
+    expect(spy).toHaveBeenCalledTimes(2)
+    expect(spy).toHaveBeenCalledWith({ ...call1, ...call2 })
+  })
+
+  const makePayload = (file, method, url) => ({
+    method: method,
+    url: url,
+    data: file,
+    headers: {
+      'Content-type': 'multipart/form-data'
+    }
   })
 })
