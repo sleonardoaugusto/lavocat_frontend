@@ -20,12 +20,6 @@ class Attendance {
       return resp.data
     })
   }
-  async updateAttendance(attendanceId, data) {
-    return await this.http
-      .put(`/attendances/${attendanceId}/`, data)
-      .then(resp => resp.data)
-      .catch(() => ({}))
-  }
   uploadAttendanceFiles(attendanceId, files) {
     if (files && files.length) {
       const filesParsed = files.map(f => {
@@ -38,6 +32,18 @@ class Attendance {
       const uploadService = new Upload(this.http)
       uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
     }
+  }
+  async updateAttendance(attendanceId, data) {
+    return await this.http
+      .put(`/attendances/${attendanceId}/`, data)
+      .then(resp => {
+        modal.open({
+          component: 'SnackBar',
+          props: { type: 'success', text: 'Atendimento salvo!' }
+        })
+        return resp.data
+      })
+      .catch(() => ({}))
   }
   async getAttendances() {
     return await this.http.get('/attendances/').then(resp => resp.data)

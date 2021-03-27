@@ -101,7 +101,7 @@ describe('Attendance Service', () => {
       const spy = jest.spyOn(httpClient, 'get')
       await service.getAttendanceById(1)
 
-      expect(spy).toHaveBeenCalledWith('/attendance/1/')
+      expect(spy).toHaveBeenCalledWith('/attendances/1/')
     })
 
     test('Must return response data', async () => {
