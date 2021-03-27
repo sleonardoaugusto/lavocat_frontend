@@ -61,6 +61,8 @@
           @click="submit"
           :loading="isLoading"
           :color="colorStyle"
+          class="white--text"
+          depressed
           right
         >
           {{ submitBtnLabel }}
