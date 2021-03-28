@@ -30,6 +30,7 @@ describe('Attendance Service', () => {
 
     test('Must call uploadAttendanceFiles method passing files and attendance id', async () => {
       const spy = jest.spyOn(service, 'uploadAttendanceFiles')
+      httpClient.post.mockResolvedValueOnce({ data: { id: 1 } })
       await service.createAttendance({ files: [{}] })
 
       expect(spy).toHaveBeenCalledWith(1, [{}])

@@ -9,18 +9,18 @@ class Attendance {
   }
   async createAttendance(data) {
     const { files } = data
-    return await this.http.post('/attendances/', data).then(resp => {
-      const { id } = resp.data
-      this.uploadAttendanceFiles(id, files)
 
-      modal.open({
-        component: 'SnackBar',
-        props: { type: 'success', text: 'Atendimento criado!' }
-      })
-      return resp.data
+    const resp = await this.http.post('/attendances/', data)
+    await this.uploadAttendanceFiles(resp.data.id, files)
+
+    modal.open({
+      component: 'SnackBar',
+      props: { type: 'success', text: 'Atendimento criado!' }
     })
+
+    return resp.data
   }
-  uploadAttendanceFiles(attendanceId, files) {
+  async uploadAttendanceFiles(attendanceId, files) {
     if (files && files.length) {
       const filesParsed = files.map(f => {
         const fd = new FormData()
@@ -30,7 +30,7 @@ class Attendance {
       })
 
       const uploadService = new Upload(this.http)
-      uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
+      await uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
     }
   }
   async updateAttendance(attendanceId, data) {

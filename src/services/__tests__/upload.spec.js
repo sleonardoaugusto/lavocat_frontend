@@ -1,4 +1,5 @@
 import Upload from '@/services/upload'
+import flushPromises from 'flush-promises'
 
 describe('Upload Service', () => {
   let service
@@ -13,7 +14,7 @@ describe('Upload Service', () => {
     expect(service.http).toBe(httpClient)
   })
 
-  test('Must make a request for each file', () => {
+  test('Must make a request for each file', async () => {
     const spy = jest.spyOn(httpClient, 'request')
 
     const files = [{}, {}]
@@ -21,6 +22,7 @@ describe('Upload Service', () => {
     const url = '/'
 
     service.uploadFiles(files, method, url)
+    await flushPromises()
 
     const call1 = makePayload(files[0], method, url)
     const call2 = makePayload(files[1], method, url)
