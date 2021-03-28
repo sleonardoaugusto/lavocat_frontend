@@ -94,7 +94,13 @@ describe('<AttendanceForm />', () => {
 
       expect(wrapper.emitted().submit).toBeTruthy()
       expect(wrapper.emitted().submit).toHaveLength(1)
-      expect(wrapper.emitted().submit[0]).toStrictEqual([data])
+      expect(wrapper.emitted().submit[0][0]).toStrictEqual({
+        customer_name: data.customer_name,
+        document_id: data.document_id,
+        status: data.status,
+        files: data.files,
+        resume: data.resume
+      })
     })
   })
 
@@ -125,14 +131,14 @@ describe('<AttendanceForm />', () => {
         data.customer_name
       )
       expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
-        data.document_id
+        data._document_id_formatted
       )
       expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
         data.status
       )
-      expect(wrapper.findComponent({ ref: 'attachments' }).vm.value).toBe(
-        data.files
-      )
+      expect(
+        wrapper.findComponent({ ref: 'attachments' }).vm.value
+      ).toStrictEqual(data.files)
       expect(wrapper.findComponent({ ref: 'resume' }).vm.value).toBe(
         data.resume
       )
@@ -142,6 +148,7 @@ describe('<AttendanceForm />', () => {
   const generateData = opts => ({
     customer_name: faker.random.word(),
     document_id: '99999999999',
+    _document_id_formatted: '999.999.999-99',
     status: 1,
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),

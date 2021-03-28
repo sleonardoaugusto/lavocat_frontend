@@ -3,8 +3,8 @@
     <v-file-input
       ref="attachments"
       id="files"
-      chips
       multiple
+      hide-input
       label="Anexar arquivos"
       v-model="files"
       @change="setInternal"
@@ -61,9 +61,8 @@ export default {
   data: () => ({ internalFiles: [], files: [] }),
   methods: {
     setInternal(files) {
-      this.files = []
-      files.forEach(f => this.internalFiles.push(f))
-      this.$emit('changed', files)
+      files.map(f => this.internalFiles.push(f))
+      this.$emit('changed', this.internalFiles)
     },
     remove(idx) {
       this.internalFiles.splice(idx, 1)
@@ -74,9 +73,7 @@ export default {
       deep: true,
       immediate: true,
       handler(val) {
-        if (val && val.length) {
-          this.setInternal(val)
-        }
+        if (val.length !== this.internalFiles.length) this.setInternal(val)
       }
     }
   }
