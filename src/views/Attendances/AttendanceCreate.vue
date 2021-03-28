@@ -15,7 +15,9 @@ export default {
   components: { BaseHeading, AttendanceForm },
   methods: {
     async createAttendance(data) {
+      this.toggleLoading()
       await services.attendance.createAttendance(data)
+      this.toggleLoading()
     }
   }
 }

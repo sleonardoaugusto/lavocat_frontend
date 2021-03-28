@@ -6,6 +6,7 @@ import busy from '@/mixins/busy'
 import services from '@/services'
 import { mount } from '@vue/test-utils'
 import AttendanceCreate from '@/views/Attendances/AttendanceCreate'
+import flushPromises from 'flush-promises'
 
 describe('<AttendanceCreate />', () => {
   Vue.use(Vuetify)
@@ -28,10 +29,30 @@ describe('<AttendanceCreate />', () => {
 
   test('Must call create attendance service on receive emit', async () => {
     const spy = jest.spyOn(services.attendance, 'createAttendance')
+
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
 
     expect(spy).toHaveBeenCalledWith({})
+  })
+
+  test('Must be loading during request', async () => {
+    await wrapper
+      .findComponent({ ref: 'attendanceForm' })
+      .vm.$emit('submit', {})
+
+    expect(wrapper.vm.isLoading).toBeTruthy()
+  })
+
+  test('Must not be loading after request', async () => {
+    services.attendance.createAttendance.mockResolvedValueOnce({})
+
+    await wrapper
+      .findComponent({ ref: 'attendanceForm' })
+      .vm.$emit('submit', {})
+    await flushPromises()
+
+    expect(wrapper.vm.isLoading).toBeFalsy()
   })
 })

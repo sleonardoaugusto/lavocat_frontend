@@ -47,6 +47,7 @@ describe('<AttendanceUpdate />', () => {
       some: 'data'
     })
     wrapper = factory()
+
     await flushPromises()
 
     expect(
@@ -56,6 +57,7 @@ describe('<AttendanceUpdate />', () => {
 
   test('Must call update attendance service on receive emit', async () => {
     const spy = jest.spyOn(services.attendance, 'updateAttendance')
+
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -63,9 +65,30 @@ describe('<AttendanceUpdate />', () => {
     expect(spy).toHaveBeenCalledWith(1, {})
   })
 
-  test('Form component must receive flag update true', () => {
+  test('Form component must receive update props true', () => {
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.update).toBe(
       true
     )
+  })
+
+  test('Must be loading during request', async () => {
+    services.attendance.updateAttendance.mockResolvedValueOnce({})
+
+    await wrapper
+      .findComponent({ ref: 'attendanceForm' })
+      .vm.$emit('submit', {})
+
+    expect(wrapper.vm.isLoading).toBeTruthy()
+  })
+
+  test('Must not be loading after request', async () => {
+    services.attendance.updateAttendance.mockResolvedValueOnce({})
+
+    await wrapper
+      .findComponent({ ref: 'attendanceForm' })
+      .vm.$emit('submit', {})
+    await flushPromises()
+
+    expect(wrapper.vm.isLoading).toBeFalsy()
   })
 })

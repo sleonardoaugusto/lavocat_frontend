@@ -113,13 +113,11 @@ export default {
     this.statusesOptions = objToSelect(statuses)
   },
   methods: {
-    async submit() {
+    submit() {
       this.touch()
       if (this.formIsReady) {
         const data = this.parseForm()
-        this.toggleLoading()
-        await this.$emit('submit', data)
-        this.toggleLoading()
+        this.$emit('submit', data)
       }
     },
     parseForm() {

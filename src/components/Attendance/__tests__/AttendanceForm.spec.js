@@ -58,19 +58,16 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Promise behavior', () => {
-    test('Button must be disabled during request', async () => {
-      await fillForm()
-      await wrapper.find('#submit').trigger('click')
+    test('Button must be loading', async () => {
+      await wrapper.setData({ isLoading: true })
 
       expect(
         wrapper.findComponent({ ref: 'submitBtn' }).vm.loading
       ).toBeTruthy()
     })
 
-    test('Button must not be disabled after response', async () => {
-      await fillForm()
-      await wrapper.find('#submit').trigger('click')
-      await flushPromises()
+    test('Button must not be loading', async () => {
+      await wrapper.setData({ isLoading: false })
 
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBeFalsy()
     })
