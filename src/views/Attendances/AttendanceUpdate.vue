@@ -3,9 +3,10 @@
     <BaseHeading text="Editar Atendimento" />
     <AttendanceForm
       ref="attendanceForm"
+      @submit="updateAttendance"
       :update="true"
       :value="internalAttendance"
-      @submit="updateAttendance"
+      :busy="isLoading"
     />
   </div>
 </template>

@@ -78,7 +78,9 @@ describe('<AttendanceUpdate />', () => {
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
 
-    expect(wrapper.vm.isLoading).toBeTruthy()
+    expect(
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy
+    ).toBeTruthy()
   })
 
   test('Must not be loading after request', async () => {
@@ -89,6 +91,6 @@ describe('<AttendanceUpdate />', () => {
       .vm.$emit('submit', {})
     await flushPromises()
 
-    expect(wrapper.vm.isLoading).toBeFalsy()
+    expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
 })

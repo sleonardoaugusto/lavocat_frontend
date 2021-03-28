@@ -56,7 +56,7 @@
           ref="submitBtn"
           id="submit"
           @click="submit"
-          :loading="isLoading"
+          :loading="busy"
           :color="colorStyle"
           class="white--text"
           depressed
@@ -87,6 +87,10 @@ export default {
       default: () => {}
     },
     update: {
+      type: Boolean,
+      default: false
+    },
+    busy: {
       type: Boolean,
       default: false
     }

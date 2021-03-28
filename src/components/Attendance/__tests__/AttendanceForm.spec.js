@@ -58,18 +58,16 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Promise behavior', () => {
+    test('Button must not be loading', async () => {
+      expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBeFalsy()
+    })
+
     test('Button must be loading', async () => {
-      await wrapper.setData({ isLoading: true })
+      await wrapper.setProps({ busy: true })
 
       expect(
         wrapper.findComponent({ ref: 'submitBtn' }).vm.loading
       ).toBeTruthy()
-    })
-
-    test('Button must not be loading', async () => {
-      await wrapper.setData({ isLoading: false })
-
-      expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBeFalsy()
     })
   })
 

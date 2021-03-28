@@ -1,7 +1,11 @@
 <template>
   <div>
     <BaseHeading text="Novo Atendimento" />
-    <AttendanceForm ref="attendanceForm" @submit="createAttendance" />
+    <AttendanceForm
+      ref="attendanceForm"
+      @submit="createAttendance"
+      :busy="isLoading"
+    />
   </div>
 </template>
 
