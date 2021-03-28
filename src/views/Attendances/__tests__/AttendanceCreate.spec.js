@@ -38,6 +38,8 @@ describe('<AttendanceCreate />', () => {
   })
 
   test('Must be loading during request', async () => {
+    services.attendance.createAttendance.mockResolvedValueOnce({})
+
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
