@@ -17,7 +17,8 @@ jobs:
 
       - name: Run e2e tests
         uses: cypress-io/github-action@v2
+        env:
+          CYPRESS_api_server: https://lavocat-backend.herokuapp.com/api/v1
         with:
           build: yarn build
           start: yarn run start
-
