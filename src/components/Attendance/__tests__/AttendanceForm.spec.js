@@ -143,7 +143,7 @@ describe('<AttendanceForm />', () => {
         data.customer_name
       )
       expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
-        data.document_id
+        data._document_id_formatted
       )
       expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
         data.status
@@ -160,6 +160,7 @@ describe('<AttendanceForm />', () => {
   const generateData = opts => ({
     customer_name: faker.random.word(),
     document_id: '99999999999',
+    _document_id_formatted: '999.999.999-99',
     status: 1,
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),
