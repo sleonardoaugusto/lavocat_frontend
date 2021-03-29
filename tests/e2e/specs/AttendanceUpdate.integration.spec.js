@@ -36,7 +36,7 @@ describe('<AttendanceUpdate />', () => {
     cy.get('#resume').should('have.value', 'Some text')
   })
 
-  it.only('Must show snackbar', () => {
+  it('Must show snackbar', () => {
     cy.visit(`${baseUrl}/atendimentos/1/editar`)
 
     cy.wait('@attendanceStatuses')
