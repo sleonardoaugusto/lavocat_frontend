@@ -16,6 +16,7 @@ describe('Upload Service', () => {
 
   test('Must make a request for each file', async () => {
     const spy = jest.spyOn(httpClient, 'request')
+    httpClient.request.mockResolvedValue({})
 
     const files = [{}, {}]
     const method = 'post'
