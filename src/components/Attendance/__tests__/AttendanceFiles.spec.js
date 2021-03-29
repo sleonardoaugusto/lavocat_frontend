@@ -47,6 +47,19 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.findAll('tbody tr')).toHaveLength(2)
   })
 
+  test('Must show if attachment is not a instance of File', async () => {
+    await wrapper.setData({ internalFiles: [{ id: 1, file: 'link' }] })
+
+    expect(wrapper.find('#download-0').isVisible()).toBeTruthy()
+    expect(wrapper.find('#download-0').vm.href).toBe('link')
+  })
+
+  test('Must not show if attachment is a instance of File', async () => {
+    await wrapper.setData({ internalFiles: [files[0]] })
+
+    expect(wrapper.find('#download-0').isVisible()).toBeFalsy()
+  })
+
   test('Must not call service if is not instance of File', async () => {
     const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
     await wrapper.setData({ internalFiles: [files[0]] })

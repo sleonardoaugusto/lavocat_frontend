@@ -29,6 +29,23 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
+                    v-show="instanceOfFile(file)"
+                    :id="`download-${idx}`"
+                    :href="file.file"
+                    target="_blank"
+                    icon
+                    small
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-cloud-download-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span>Baixar</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
                     :id="`remove-${idx}`"
                     @click="remove(file, idx)"
                     icon
@@ -72,6 +89,9 @@ export default {
         await services.attendance.deleteAttendanceFile(id)
       }
       this.internalFiles.splice(idx, 1)
+    },
+    instanceOfFile(attachment) {
+      return !(attachment instanceof File)
     }
   },
   watch: {
