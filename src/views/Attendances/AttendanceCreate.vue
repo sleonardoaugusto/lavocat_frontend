@@ -22,6 +22,7 @@ export default {
       this.toggleLoading()
       await services.attendance.createAttendance(data)
       this.toggleLoading()
+      this.$router.push({ name: 'attendances-list' })
     }
   }
 }

@@ -31,5 +31,7 @@ describe('<AttendanceCreate />', () => {
 
     cy.get('.v-snack__wrapper').should('be.visible')
     cy.get('.v-snack__wrapper').should('contain', 'Atendimento criado!')
+
+    cy.url().should('include', '/atendimentos')
   })
 })
