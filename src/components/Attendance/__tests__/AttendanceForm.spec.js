@@ -28,6 +28,12 @@ describe('<AttendanceForm />', () => {
 
   const factory = opts => mount(AttendanceForm, { Vue, vuetify, ...opts })
 
+  test('Previous button', () => {
+    expect(wrapper.findComponent({ ref: 'previousBtn' }).vm.$props.href).toBe(
+      '/atendimentos'
+    )
+  })
+
   describe('Validations', () => {
     test.each([['customerName'], ['documentId'], ['statusesSelect']])(
       '%s field must be valid',

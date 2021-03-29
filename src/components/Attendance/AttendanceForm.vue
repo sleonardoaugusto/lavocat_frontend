@@ -51,7 +51,10 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col class="text-right">
+      <v-col class="d-flex justify-space-between">
+        <v-btn ref="previousBtn" id="previousBtn" href="/atendimentos">
+          Voltar
+        </v-btn>
         <v-btn
           ref="submitBtn"
           id="submit"
