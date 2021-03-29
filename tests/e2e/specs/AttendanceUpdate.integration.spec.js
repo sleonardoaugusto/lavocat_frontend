@@ -12,7 +12,9 @@ describe('<AttendanceUpdate />', () => {
     cy.intercept('GET', `${apiServer}/attendances/1/`, attendanceResp).as(
       'attendanceGetById'
     )
-    cy.intercept('PUT', `${apiServer}/attendances/1/`, {})
+    cy.intercept('PUT', `${apiServer}/attendances/1/`, {}).as(
+      'attendanceUpdate'
+    )
   })
 
   it('Must render update attendance page', () => {
@@ -34,7 +36,7 @@ describe('<AttendanceUpdate />', () => {
     cy.get('#resume').should('have.value', 'Some text')
   })
 
-  it('Must show snackbar', () => {
+  it.only('Must show snackbar', () => {
     cy.visit(`${baseUrl}/atendimentos/1/editar`)
 
     cy.wait('@attendanceStatuses')

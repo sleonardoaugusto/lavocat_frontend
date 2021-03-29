@@ -93,4 +93,18 @@ describe('<AttendanceUpdate />', () => {
 
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
+
+  test('Must refresh form data from database after update', async () => {
+    services.attendance.updateAttendance.mockResolvedValueOnce({})
+    services.attendance.getAttendanceById.mockResolvedValueOnce({ key: 'pair' })
+
+    await wrapper
+      .findComponent({ ref: 'attendanceForm' })
+      .vm.$emit('submit', {})
+    await flushPromises()
+
+    expect(
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.value
+    ).toStrictEqual({ key: 'pair' })
+  })
 })

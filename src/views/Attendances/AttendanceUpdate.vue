@@ -42,6 +42,7 @@ export default {
       this.toggleLoading()
       await services.attendance.updateAttendance(this.attendanceId, data)
       this.toggleLoading()
+      await this.getAttendance(this.attendanceId)
     }
   }
 }

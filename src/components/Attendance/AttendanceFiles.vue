@@ -98,7 +98,15 @@ export default {
     value: {
       deep: true,
       handler(files) {
-        if (!this.internalFiles.length) this.setInternal(files)
+        if (
+          files &&
+          files.length &&
+          files[files.length - 1] !==
+            this.internalFiles[this.internalFiles.length - 1]
+        ) {
+          this.internalFiles = []
+          this.setInternal(files)
+        }
       }
     }
   }

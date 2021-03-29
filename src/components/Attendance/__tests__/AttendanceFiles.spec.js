@@ -100,9 +100,9 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.emitted().changed[0][0]).toStrictEqual([file])
   })
 
-  test('Table must list files received by props', async () => {
-    const file = new File(['buzzfizz'], 'buzzfizz.txt')
-    await wrapper.setProps({ value: [file] })
+  test('Table must list only files received by props', async () => {
+    await wrapper.setData({ internalFiles: [files[0]] })
+    await wrapper.setProps({ value: [files[1]] })
 
     expect(wrapper.findAll('tbody tr')).toHaveLength(1)
   })
