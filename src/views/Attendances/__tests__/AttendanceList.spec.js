@@ -26,8 +26,18 @@ describe('<AttendanceList />', () => {
 
   const factory = opts => mount(AttendanceList, { Vue, vuetify, ...opts })
 
+  test('New attendance btn', () => {
+    expect(wrapper.findComponent({ ref: 'newAttendance' }).vm.$props.href).toBe(
+      '/atendimentos/novo'
+    )
+  })
+
   test('Must get attendances', async () => {
     const spy = jest.spyOn(services.attendance, 'getAttendances')
+
+    spy.mockClear()
+    wrapper = factory()
+
     expect(spy).toHaveBeenCalledTimes(1)
   })
 

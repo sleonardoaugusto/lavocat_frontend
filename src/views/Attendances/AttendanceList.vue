@@ -2,6 +2,13 @@
   <div>
     <BaseHeading text="Lista de Atendimentos" />
     <v-row>
+      <v-col class="text-right">
+        <v-btn ref="newAttendance" href="/atendimentos/novo" color="primary"
+          >Novo</v-btn
+        >
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col>
         <v-data-table
           ref="attendancesList"
