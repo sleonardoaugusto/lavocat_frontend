@@ -24,7 +24,7 @@
         </thead>
         <tbody>
           <tr v-for="(file, idx) in internalFiles" :key="idx">
-            <td>{{ file.name }}</td>
+            <td>{{ file.name || file.filename }}</td>
             <td>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
