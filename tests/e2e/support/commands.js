@@ -23,3 +23,11 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('fillAttendanceForm', data => {
+  const { customer_name, customer_id, statuses } = data
+
+  cy.get('#customer-name').type(customer_name)
+  cy.get('#document-id').type(customer_id)
+  cy.get('#status').type(statuses.key, { force: true })
+})

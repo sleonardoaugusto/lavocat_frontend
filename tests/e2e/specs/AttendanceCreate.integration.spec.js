@@ -13,23 +13,18 @@ describe('<AttendanceCreate />', () => {
     cy.intercept('POST', `${apiServer}/attendances/`, {
       fixture: 'attendances/create.json'
     }).as('attendanceCreate')
+
+    cy.visit(`${baseUrl}/atendimentos/novo`)
   })
 
   it('Must render new attendance page', () => {
-    cy.visit(`${baseUrl}/atendimentos/novo`)
-
     cy.get('.text-h4').should('contain', 'Novo Atendimento')
   })
 
   it('Must show snackbar', () => {
-    cy.visit(`${baseUrl}/atendimentos/novo`)
-
     cy.wait('@attendanceStatuses')
 
-    const data = createAttendance[0]
-    cy.get('#customer-name').type(data.customer_name)
-    cy.get('#document-id').type(data.customer_id)
-    cy.get('#status').type(statuses.key, { force: true })
+    cy.fillAttendanceForm({ ...createAttendance[0], statuses })
 
     cy.get('#submit').click()
     cy.wait('@attendanceCreate')
