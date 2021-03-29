@@ -29,7 +29,7 @@ describe('<AttendanceCreate />', () => {
     cy.wait('@attendanceCreate')
 
     cy.get('.v-snack__wrapper').should('be.visible')
-    cy.get('.v-snack__wrapper').should('contain', 'Atendimento criado!')
+    cy.get('.v-snack__wrapper').should('contain', 'Atendimento cadastrado!')
 
     cy.url().should('include', '/atendimentos')
   })
