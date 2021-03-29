@@ -36,7 +36,9 @@ export default {
   },
   methods: {
     async getAttendance(id) {
+      this.toggleLoading()
       this.internalAttendance = await services.attendance.getAttendanceById(id)
+      this.toggleLoading()
     },
     async updateAttendance(data) {
       this.toggleLoading()

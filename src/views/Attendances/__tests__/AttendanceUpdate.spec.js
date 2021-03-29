@@ -42,6 +42,25 @@ describe('<AttendanceUpdate />', () => {
     expect(spy).toHaveBeenCalledWith(1)
   })
 
+  test('Form component must be busy during request', () => {
+    services.attendance.getAttendanceById.mockResolvedValueOnce({})
+
+    wrapper = factory()
+
+    expect(
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy
+    ).toBeTruthy()
+  })
+
+  test('Form component must not be busy after request', async () => {
+    services.attendance.getAttendanceById.mockResolvedValueOnce({})
+
+    wrapper = factory()
+    await flushPromises()
+
+    expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
+  })
+
   test('Form component must receive attendance data', async () => {
     services.attendance.getAttendanceById.mockResolvedValueOnce({
       some: 'data'

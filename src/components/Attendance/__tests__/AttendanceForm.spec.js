@@ -64,16 +64,18 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Promise behavior', () => {
-    test('Button must not be loading', async () => {
+    test('Button and overlay must not be loading', async () => {
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBeFalsy()
+      expect(wrapper.findComponent({ ref: 'overlay' }).vm.value).toBeFalsy()
     })
 
-    test('Button must be loading', async () => {
+    test('Button and overlay must be loading', async () => {
       await wrapper.setProps({ busy: true })
 
       expect(
         wrapper.findComponent({ ref: 'submitBtn' }).vm.loading
       ).toBeTruthy()
+      expect(wrapper.findComponent({ ref: 'overlay' }).vm.value).toBeTruthy()
     })
   })
 
