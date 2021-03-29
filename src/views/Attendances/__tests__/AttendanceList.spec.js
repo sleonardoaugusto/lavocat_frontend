@@ -32,7 +32,7 @@ describe('<AttendanceList />', () => {
     )
   })
 
-  test('Must get attendances', async () => {
+  test('Must get attendances', () => {
     const spy = jest.spyOn(services.attendance, 'getAttendances')
 
     spy.mockClear()
@@ -52,7 +52,7 @@ describe('<AttendanceList />', () => {
     ).toStrictEqual([{}])
   })
 
-  test('Table must receive headers', async () => {
+  test('Table must receive headers', () => {
     const headers = [
       {
         text: 'Nome do Cliente',
@@ -73,7 +73,7 @@ describe('<AttendanceList />', () => {
     ).toStrictEqual(headers)
   })
 
-  test('Table must be loading during request', async () => {
+  test('Table must be loading during request', () => {
     wrapper = factory()
 
     expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
@@ -81,7 +81,7 @@ describe('<AttendanceList />', () => {
     )
   })
 
-  test('Table must not be loading after response', async () => {
+  test('Table must not be loading after response', () => {
     expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
       false
     )

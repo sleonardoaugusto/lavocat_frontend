@@ -115,7 +115,7 @@ describe('<AttendanceFiles />', () => {
     ).toBeTruthy()
   })
 
-  test('Table must be hidden if do not have files to show', async () => {
+  test('Table must be hidden if do not have files to show', () => {
     expect(
       wrapper.findComponent({ ref: 'attachmentsTable' }).isVisible()
     ).toBeFalsy()
