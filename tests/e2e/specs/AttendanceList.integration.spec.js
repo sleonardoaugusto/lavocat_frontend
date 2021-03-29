@@ -1,12 +1,10 @@
-import attendances from '../fixtures/attendances/attendances.json'
-
 describe('<AttendanceList />', () => {
   const baseUrl = Cypress.env('host')
   const apiServer = Cypress.env('api_server')
 
   beforeEach(() => {
     cy.intercept('GET', `${apiServer}/attendances/`, {
-      fixture: 'attendances/attendances/json'
+      fixture: 'attendances/attendances.json'
     }).as('attendances')
   })
 
