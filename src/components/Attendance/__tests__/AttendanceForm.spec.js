@@ -127,6 +127,14 @@ describe('<AttendanceForm />', () => {
       ).toStrictEqual([{ text: 'StatusName', value: 1 }])
     })
 
+    test('Component must emit passed props only once to avoid infinite loop', async () => {
+      await wrapper.setData({ form: { files: [{}] } })
+
+      expect(
+        wrapper.findComponent({ ref: 'attachments' }).emitted().changed[0]
+      ).toHaveLength(1)
+    })
+
     test('Fields must receive props value', async () => {
       const data = generateData()
       await wrapper.setProps({ value: data })
@@ -135,7 +143,7 @@ describe('<AttendanceForm />', () => {
         data.customer_name
       )
       expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
-        data._document_id_formatted
+        data.document_id
       )
       expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
         data.status
@@ -152,7 +160,6 @@ describe('<AttendanceForm />', () => {
   const generateData = opts => ({
     customer_name: faker.random.word(),
     document_id: '99999999999',
-    _document_id_formatted: '999.999.999-99',
     status: 1,
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),

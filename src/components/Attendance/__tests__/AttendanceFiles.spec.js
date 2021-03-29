@@ -60,7 +60,7 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.find('#download-0').isVisible()).toBeFalsy()
   })
 
-  test('Must not call service if is not instance of File', async () => {
+  test('Must not call delete file service if is not instance of File', async () => {
     const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
     await wrapper.setData({ internalFiles: [files[0]] })
 
@@ -69,7 +69,7 @@ describe('<AttendanceFiles />', () => {
     expect(spy).not.toHaveBeenCalled()
   })
 
-  test('Must call service if is instance of File', async () => {
+  test('Must call delete file service if is instance of File', async () => {
     const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
     await wrapper.setData({ internalFiles: [{ id: 1 }] })
 
@@ -100,11 +100,19 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.emitted().changed[0][0]).toStrictEqual([file])
   })
 
-  test('Table must list only files received by props', async () => {
+  test('Must not set props if last value is equal of data', async () => {
+    const spy = jest.spyOn(wrapper.vm, 'setInternal')
     await wrapper.setData({ internalFiles: [files[0]] })
-    await wrapper.setProps({ value: [files[1]] })
+    await wrapper.setProps({ value: [files[0]] })
 
-    expect(wrapper.findAll('tbody tr')).toHaveLength(1)
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  test('Must set props if last value is not the equal of data', async () => {
+    const spy = jest.spyOn(wrapper.vm, 'setInternal')
+    await wrapper.setProps({ value: [{}] })
+
+    expect(spy).toHaveBeenCalledWith([{}])
   })
 
   test('Table must be visible if have files to show', async () => {
