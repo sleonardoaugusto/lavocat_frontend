@@ -47,14 +47,14 @@ describe('<AttendanceFiles />', () => {
   })
 
   test('Must add new files to existent files', async () => {
-    await wrapper.setData({ internalFiles: files })
+    await wrapper.setData({ internalFiles: [files[0]] })
 
     const file = new File(['buzzfizz'], 'buzzfizz.txt')
     await wrapper
       .findComponent({ ref: 'attachments' })
       .vm.$emit('change', [file])
 
-    expect(wrapper.findAll('tbody tr')).toHaveLength(4)
+    expect(wrapper.findAll('tbody tr')).toHaveLength(2)
   })
 
   test('Must emit files on change', async () => {

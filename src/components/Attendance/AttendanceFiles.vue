@@ -61,7 +61,7 @@ export default {
   data: () => ({ internalFiles: [], files: [] }),
   methods: {
     setInternal(files) {
-      files.map(f => this.internalFiles.push(f))
+      files.forEach(f => this.internalFiles.push(f))
       this.$emit('changed', this.internalFiles)
     },
     remove(idx) {
@@ -71,9 +71,8 @@ export default {
   watch: {
     value: {
       deep: true,
-      immediate: true,
-      handler(val) {
-        if (val.length !== this.internalFiles.length) this.setInternal(val)
+      handler(files) {
+        if (!this.internalFiles.length) this.setInternal(files)
       }
     }
   }
