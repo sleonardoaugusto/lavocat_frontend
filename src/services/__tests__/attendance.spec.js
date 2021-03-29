@@ -1,5 +1,6 @@
 import Attendance from '@/services/attendance'
 import Upload from '@/services/upload'
+import flushPromises from 'flush-promises'
 
 jest.mock('@/services/upload')
 
@@ -15,6 +16,7 @@ describe('Attendance Service', () => {
       delete: jest.fn()
     }
     service = Attendance(httpClient)
+    jest.clearAllMocks()
   })
 
   test('Constructor', () => {
@@ -48,18 +50,6 @@ describe('Attendance Service', () => {
     })
   })
 
-  describe('Upload attendance files', () => {
-    jest.mock('@/services/upload')
-
-    test('Must upload files', () => {
-      service.uploadAttendanceFiles(1, [{}, {}])
-      const mockUploadService = Upload.mock.instances[0]
-      const mockUploadFile = mockUploadService.uploadFiles
-
-      expect(mockUploadFile).toHaveBeenCalledTimes(1)
-    })
-  })
-
   describe('Update attendance', () => {
     beforeEach(() => {
       httpClient.put.mockResolvedValueOnce({ data: {} })
@@ -72,6 +62,13 @@ describe('Attendance Service', () => {
       expect(spy).toHaveBeenCalledWith('/attendances/1/', {})
     })
 
+    test('Must call uploadAttendanceFiles method passing files and attendance id', async () => {
+      const spy = jest.spyOn(service, 'uploadAttendanceFiles')
+      await service.updateAttendance(1, { files: [{}] })
+
+      expect(spy).toHaveBeenCalledWith(1, [{}])
+    })
+
     test('Must return response data', async () => {
       const resp = await service.updateAttendance(1, {})
 
@@ -79,7 +76,24 @@ describe('Attendance Service', () => {
     })
   })
 
-  describe('Delete attendance file', async () => {
+  describe('Upload attendance files', () => {
+    test('Must upload files', async () => {
+      const files = [new File(['t'], 'teste.txt')]
+      await service.uploadAttendanceFiles(1, files)
+      const mockUploadService = Upload.mock.instances[0]
+      const mockUploadFile = mockUploadService.uploadFiles
+
+      await flushPromises()
+
+      expect(mockUploadFile).toHaveBeenCalledTimes(1)
+      expect(mockUploadFile.mock.calls[0][0]).toHaveLength(1)
+      expect(mockUploadFile.mock.calls[0][0][0]).toBeInstanceOf(FormData)
+      expect(mockUploadFile.mock.calls[0][1]).toBe('post')
+      expect(mockUploadFile.mock.calls[0][2]).toBe('/attendance-files/')
+    })
+  })
+
+  describe('Delete attendance file', () => {
     beforeEach(() => {
       httpClient.delete.mockResolvedValueOnce({})
     })

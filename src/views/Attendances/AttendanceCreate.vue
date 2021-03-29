@@ -13,6 +13,7 @@
 import AttendanceForm from '@/components/Attendance/AttendanceForm'
 import services from '@/services'
 import BaseHeading from '@/components/base/BaseHeading'
+import router from '@/router'
 
 export default {
   name: 'AttendanceCreate',
@@ -22,7 +23,7 @@ export default {
       this.toggleLoading()
       await services.attendance.createAttendance(data)
       this.toggleLoading()
-      this.$router.push({ name: 'attendances-list' })
+      router.push({ name: 'attendances-list' }).catch(() => {})
     }
   }
 }

@@ -15,35 +15,40 @@ class Attendance {
 
     modal.open({
       component: 'SnackBar',
-      props: { type: 'success', text: 'Atendimento criado!' }
+      props: { type: 'success', text: 'Atendimento cadastrado!' }
+    })
+
+    return resp.data
+  }
+  async updateAttendance(attendanceId, data) {
+    const { files } = data
+
+    const resp = await this.http.put(`/attendances/${attendanceId}/`, data)
+    await this.uploadAttendanceFiles(attendanceId, files)
+
+    modal.open({
+      component: 'SnackBar',
+      props: { type: 'success', text: 'Atendimento salvo!' }
     })
 
     return resp.data
   }
   async uploadAttendanceFiles(attendanceId, files) {
     if (files && files.length) {
-      const filesParsed = files.map(f => {
-        const fd = new FormData()
-        fd.append('attendance', attendanceId)
-        fd.append('file', f)
-        return fd
-      })
+      const filesParsed = []
+
+      for (let i = 0; i < files.length; i++) {
+        if (files[i] instanceof File) {
+          const fd = new FormData()
+          fd.append('attendance', attendanceId)
+          fd.append('file', files[i])
+          filesParsed.push(fd)
+        }
+      }
 
       const uploadService = new Upload(this.http)
       await uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
     }
-  }
-  async updateAttendance(attendanceId, data) {
-    return await this.http
-      .put(`/attendances/${attendanceId}/`, data)
-      .then(resp => {
-        modal.open({
-          component: 'SnackBar',
-          props: { type: 'success', text: 'Atendimento salvo!' }
-        })
-        return resp.data
-      })
-      .catch(() => ({}))
   }
   async getAttendances() {
     return await this.http.get('/attendances/').then(resp => resp.data)

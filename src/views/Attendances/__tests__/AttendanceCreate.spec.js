@@ -7,11 +7,13 @@ import services from '@/services'
 import { mount } from '@vue/test-utils'
 import AttendanceCreate from '@/views/Attendances/AttendanceCreate'
 import flushPromises from 'flush-promises'
+import VueRouter from 'vue-router'
 
 describe('<AttendanceCreate />', () => {
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
   Vue.use(VueTheMask)
+  Vue.use(VueRouter)
   Vue.mixin(busy)
 
   let wrapper

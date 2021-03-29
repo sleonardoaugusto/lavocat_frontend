@@ -1,4 +1,3 @@
-// https://docs.cypress.io/api/introduction/api.html
 import createAttendance from '../fixtures/attendances/create.json'
 import statuses from '../fixtures/attendances/statuses.json'
 
