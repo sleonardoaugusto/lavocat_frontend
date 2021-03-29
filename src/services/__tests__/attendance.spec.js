@@ -8,7 +8,12 @@ describe('Attendance Service', () => {
   let httpClient
 
   beforeEach(() => {
-    httpClient = { post: jest.fn(), put: jest.fn(), get: jest.fn() }
+    httpClient = {
+      post: jest.fn(),
+      put: jest.fn(),
+      get: jest.fn(),
+      delete: jest.fn()
+    }
     service = Attendance(httpClient)
   })
 
@@ -60,9 +65,9 @@ describe('Attendance Service', () => {
       httpClient.put.mockResolvedValueOnce({ data: {} })
     })
 
-    test('Must update attendance', async () => {
+    test('Must update attendance', () => {
       const spy = jest.spyOn(httpClient, 'put')
-      await service.updateAttendance(1, {})
+      service.updateAttendance(1, {})
 
       expect(spy).toHaveBeenCalledWith('/attendances/1/', {})
     })
@@ -74,14 +79,28 @@ describe('Attendance Service', () => {
     })
   })
 
+  describe('Delete attendance file', async () => {
+    beforeEach(() => {
+      httpClient.delete.mockResolvedValueOnce({})
+    })
+
+    test('Must delete file', () => {
+      const spy = jest.spyOn(httpClient, 'delete')
+
+      service.deleteAttendanceFile(1)
+
+      expect(spy).toHaveBeenCalledWith(`/attendance-files/1/`)
+    })
+  })
+
   describe('Get attendances', () => {
     beforeEach(() => {
       httpClient.get.mockResolvedValueOnce({ data: [] })
     })
 
-    test('Must get attendances', async () => {
+    test('Must get attendances', () => {
       const spy = jest.spyOn(httpClient, 'get')
-      await service.getAttendances()
+      service.getAttendances()
 
       expect(spy).toHaveBeenCalledWith('/attendances/')
     })
@@ -98,9 +117,9 @@ describe('Attendance Service', () => {
       httpClient.get.mockResolvedValueOnce({ data: {} })
     })
 
-    test('Must get attendance by id', async () => {
+    test('Must get attendance by id', () => {
       const spy = jest.spyOn(httpClient, 'get')
-      await service.getAttendanceById(1)
+      service.getAttendanceById(1)
 
       expect(spy).toHaveBeenCalledWith('/attendances/1/')
     })
@@ -117,9 +136,9 @@ describe('Attendance Service', () => {
       httpClient.get.mockResolvedValueOnce({ data: {} })
     })
 
-    test('Must get attendance statuses', async () => {
+    test('Must get attendance statuses', () => {
       const spy = jest.spyOn(httpClient, 'get')
-      await service.getStatuses()
+      service.getStatuses()
 
       expect(spy).toHaveBeenCalledWith('/attendance-statuses/')
     })

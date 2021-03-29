@@ -56,6 +56,9 @@ class Attendance {
       .get(`/attendances/${attendanceId}/`)
       .then(resp => resp.data)
   }
+  async deleteAttendanceFile(attendanceFileId) {
+    return await this.http.delete(`/attendance-files/${attendanceFileId}/`)
+  }
 }
 
 const factory = httpClient => new Attendance(httpClient)
