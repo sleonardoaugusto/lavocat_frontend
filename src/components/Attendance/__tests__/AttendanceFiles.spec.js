@@ -5,6 +5,7 @@ import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
 import { mount } from '@vue/test-utils'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
+import services from '@/services'
 
 describe('<AttendanceFiles />', () => {
   Vue.use(Vuetify)
@@ -44,6 +45,24 @@ describe('<AttendanceFiles />', () => {
 
     expect(wrapper.html()).not.toContain('fizzbuzz')
     expect(wrapper.findAll('tbody tr')).toHaveLength(2)
+  })
+
+  test('Must not call service if is not instance of File', async () => {
+    const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
+    await wrapper.setData({ internalFiles: [files[0]] })
+
+    await wrapper.find('#remove-0').trigger('click')
+
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  test('Must call service if is instance of File', async () => {
+    const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
+    await wrapper.setData({ internalFiles: [{ id: 1 }] })
+
+    await wrapper.find('#remove-0').trigger('click')
+
+    expect(spy).toHaveBeenCalledWith(1)
   })
 
   test('Must add new files to existent files', async () => {

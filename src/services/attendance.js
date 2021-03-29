@@ -57,7 +57,14 @@ class Attendance {
       .then(resp => resp.data)
   }
   async deleteAttendanceFile(attendanceFileId) {
-    return await this.http.delete(`/attendance-files/${attendanceFileId}/`)
+    return await this.http
+      .delete(`/attendance-files/${attendanceFileId}/`)
+      .then(() => {
+        modal.open({
+          component: 'SnackBar',
+          props: { type: 'success', text: 'Arquivo deletado.' }
+        })
+      })
   }
 }
 

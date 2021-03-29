@@ -30,7 +30,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     :id="`remove-${idx}`"
-                    @click="remove(idx)"
+                    @click="remove(file, idx)"
                     icon
                     small
                     v-bind="attrs"
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import services from '@/services'
+
 export default {
   name: 'AttendanceFiles',
   props: {
@@ -64,7 +66,11 @@ export default {
       files.forEach(f => this.internalFiles.push(f))
       this.$emit('changed', this.internalFiles)
     },
-    remove(idx) {
+    async remove(file, idx) {
+      if (!(file instanceof File)) {
+        const { id } = file
+        await services.attendance.deleteAttendanceFile(id)
+      }
       this.internalFiles.splice(idx, 1)
     }
   },
