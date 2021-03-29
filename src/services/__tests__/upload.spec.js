@@ -21,7 +21,7 @@ describe('Upload Service', () => {
     const method = 'post'
     const url = '/'
 
-    service.uploadFiles(files, method, url)
+    await service.uploadFiles(files, method, url)
     await flushPromises()
 
     const call1 = makePayload(files[0], method, url)
