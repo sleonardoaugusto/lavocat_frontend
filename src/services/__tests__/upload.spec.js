@@ -14,7 +14,7 @@ describe('Upload Service', () => {
     expect(service.http).toBe(httpClient)
   })
 
-  test('Must make a request for each file', async () => {
+  test('Must upload all files in parallel', () => {
     const spy = jest.spyOn(httpClient, 'request')
     httpClient.request.mockResolvedValue({})
 
@@ -22,8 +22,7 @@ describe('Upload Service', () => {
     const method = 'post'
     const url = '/'
 
-    await service.uploadFiles(files, method, url)
-    await flushPromises()
+    service.uploadFiles(files, method, url)
 
     const call1 = makePayload(files[0], method, url)
     const call2 = makePayload(files[1], method, url)
