@@ -63,7 +63,6 @@ export default {
   },
   watch: {
     show: {
-      immediate: true,
       handler(val) {
         this.showInternal = val
       }
