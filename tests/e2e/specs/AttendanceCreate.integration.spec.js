@@ -7,14 +7,12 @@ describe('<AttendanceCreate />', () => {
   const apiServer = Cypress.env('api_server')
 
   beforeEach(() => {
-    cy.server()
-
-    cy.route('GET', `${apiServer}/attendance-statuses/`, statuses).as(
-      'attendanceStatuses'
-    )
-    cy.route('POST', `${apiServer}/attendances/`, createAttendance).as(
-      'attendanceCreate'
-    )
+    cy.intercept('GET', `${apiServer}/attendance-statuses/`, {
+      fixture: 'attendances/statuses.json'
+    }).as('attendanceStatuses')
+    cy.intercept('POST', `${apiServer}/attendances/`, {
+      fixture: 'attendances/create.json'
+    }).as('attendanceCreate')
   })
 
   it('Must render new attendance page', () => {

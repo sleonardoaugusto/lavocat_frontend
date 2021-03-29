@@ -1,4 +1,3 @@
-import statuses from '../fixtures/attendances/statuses.json'
 import attendances from '../fixtures/attendances/attendances.json'
 
 describe('<AttendanceUpdate />', () => {
@@ -7,14 +6,13 @@ describe('<AttendanceUpdate />', () => {
   const attendanceResp = attendances[0]
 
   beforeEach(() => {
-    cy.server()
-    cy.route('GET', `${apiServer}/attendance-statuses/`, statuses).as(
-      'attendanceStatuses'
-    )
-    cy.route('GET', `${apiServer}/attendances/1/`, attendanceResp).as(
+    cy.intercept('GET', `${apiServer}/attendance-statuses/`, {
+      fixture: 'attendances/statuses.json'
+    }).as('attendanceStatuses')
+    cy.intercept('GET', `${apiServer}/attendances/1/`, attendanceResp).as(
       'attendanceGetById'
     )
-    cy.route('PUT', `${apiServer}/attendances/1/`, {})
+    cy.intercept('PUT', `${apiServer}/attendances/1/`, {})
   })
 
   it('Must render update attendance page', () => {

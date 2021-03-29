@@ -5,8 +5,9 @@ describe('<AttendanceList />', () => {
   const apiServer = Cypress.env('api_server')
 
   beforeEach(() => {
-    cy.server()
-    cy.route('GET', `${apiServer}/attendances/`, attendances).as('attendances')
+    cy.intercept('GET', `${apiServer}/attendances/`, {
+      fixture: 'attendances/attendances/json'
+    }).as('attendances')
   })
 
   it('Must render attendance list page', () => {
