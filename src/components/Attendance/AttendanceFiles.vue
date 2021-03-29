@@ -4,7 +4,6 @@
       ref="attachments"
       id="files"
       multiple
-      hide-input
       label="Anexar arquivos"
       v-model="files"
       @change="setInternal"
@@ -80,6 +79,7 @@ export default {
   data: () => ({ internalFiles: [], files: [] }),
   methods: {
     setInternal(files) {
+      this.files = []
       files.forEach(f => this.internalFiles.push(f))
       this.$emit('changed', this.internalFiles)
     },
