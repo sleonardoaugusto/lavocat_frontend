@@ -127,10 +127,14 @@ describe('Attendance Service', () => {
     test('Must get attendances with querystring', () => {
       const spy = jest.spyOn(httpClient, 'get')
 
-      service.getAttendances({ customer_name: 'Any Name' })
+      service.getAttendances({
+        customer_name: '',
+        document_id: '',
+        status: [0, 1]
+      })
 
       expect(spy).toHaveBeenCalledWith('/attendances/', {
-        params: { customer_name: 'Any Name' }
+        params: { customer_name: '', document_id: '', status: [0, 1] }
       })
     })
 

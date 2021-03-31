@@ -13,7 +13,7 @@
         <v-card>
           <v-card-title>
             <v-row>
-              <v-col>
+              <v-col cols="8" md="7" sm="12">
                 <v-text-field
                   id="customer-name-filter"
                   append-icon="mdi-magnify"
@@ -25,6 +25,24 @@
                   @click:append="getAttendances(filters)"
                   @click:clear="getAttendances()"
                 />
+              </v-col>
+              <v-col class="d-flex align-center">
+                <v-chip-group
+                  ref="statusFilter"
+                  multiple
+                  column
+                  @change="statusFilter"
+                >
+                  <v-chip
+                    v-for="status in statusOptions"
+                    :key="status.value"
+                    outlined
+                    filter
+                    color="primary"
+                  >
+                    {{ status.text }}
+                  </v-chip>
+                </v-chip-group>
               </v-col>
             </v-row>
           </v-card-title>
@@ -69,6 +87,7 @@
 <script>
 import services from '@/services'
 import BaseHeading from '@/components/base/BaseHeading'
+import { objToSelect } from '@/utils/formatters'
 
 export default {
   name: 'AttendanceList',
@@ -92,20 +111,33 @@ export default {
         value: 'attendanceLink'
       }
     ],
+    statusOptions: [],
     attendances: [],
     filters: {
       customer_name: '',
-      document_id: ''
+      document_id: '',
+      status: []
     }
   }),
   created() {
     this.getAttendances()
+    this.getStatuses()
   },
   methods: {
+    statusFilter(selected) {
+      const statuses = []
+      selected.map(idx => statuses.push(this.statusOptions[idx].value))
+      this.filters.status = statuses
+      this.getAttendances(this.filters)
+    },
     async getAttendances(filters) {
       this.toggleLoading()
       this.attendances = await services.attendance.getAttendances(filters)
       this.toggleLoading()
+    },
+    async getStatuses() {
+      const data = await services.attendance.getStatuses()
+      this.statusOptions = objToSelect(data)
     },
     statusColor(status) {
       const colors = {

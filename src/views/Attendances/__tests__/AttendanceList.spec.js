@@ -42,9 +42,9 @@ describe('<AttendanceList />', () => {
   })
 
   test('Table must receive attendances', async () => {
-    services.attendance.getAttendances.mockResolvedValue([{}])
-    wrapper = factory()
+    services.attendance.getAttendances.mockResolvedValueOnce([{}])
 
+    wrapper = factory()
     await flushPromises()
 
     expect(
@@ -92,7 +92,8 @@ describe('<AttendanceList />', () => {
   })
 
   test('Table must contain button link to attendance', async () => {
-    services.attendance.getAttendances.mockResolvedValue([{ id: 1 }])
+    services.attendance.getAttendances.mockResolvedValueOnce([{ id: 1 }])
+
     wrapper = factory()
     await flushPromises()
 
@@ -101,7 +102,7 @@ describe('<AttendanceList />', () => {
     )
   })
 
-  test('Customer name filter', async () => {
+  test('Must get attendances on customer name filter', async () => {
     const spy = jest.spyOn(services.attendance, 'getAttendances')
     spy.mockClear()
 
@@ -111,11 +112,12 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith({
       customer_name: 'Anonymous999',
-      document_id: ''
+      document_id: '',
+      status: []
     })
   })
 
-  test('Document id filter', async () => {
+  test('Must get attendances on document id filter', async () => {
     const spy = jest.spyOn(services.attendance, 'getAttendances')
     spy.mockClear()
 
@@ -123,6 +125,33 @@ describe('<AttendanceList />', () => {
     wrapper.find('#customer-name-filter').trigger('keydown.enter')
 
     expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith({ customer_name: '', document_id: '999' })
+    expect(spy).toHaveBeenCalledWith({
+      customer_name: '',
+      document_id: '999',
+      status: []
+    })
+  })
+
+  test('Must get attendances on status filter', async () => {
+    services.attendance.getStatuses.mockResolvedValueOnce({
+      OtherStatus: 0,
+      SomeStatus: 1
+    })
+    const spy = jest.spyOn(services.attendance, 'getAttendances')
+
+    wrapper = factory()
+    spy.mockClear()
+    await flushPromises()
+
+    await wrapper
+      .findComponent({ ref: 'statusFilter' })
+      .vm.$emit('change', [0, 1])
+
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith({
+      customer_name: '',
+      document_id: '',
+      status: [0, 1]
+    })
   })
 })
