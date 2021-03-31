@@ -4,7 +4,7 @@
       <v-progress-circular indeterminate size="64" />
     </v-overlay>
     <v-row>
-      <v-col cols="12" md="6" sm="12">
+      <v-col cols="12" md="6">
         <v-text-field
           id="customer-name"
           ref="customerName"
@@ -13,7 +13,7 @@
           :error-messages="errorMessage('customer_name')"
         />
       </v-col>
-      <v-col cols="12" md="6" sm="12">
+      <v-col cols="12" md="6">
         <v-text-field
           id="document-id"
           ref="documentId"
@@ -24,7 +24,7 @@
           :error-messages="errorMessage('document_id')"
         />
       </v-col>
-      <v-col col="12" md="6" sm="12">
+      <v-col cols="12" md="6">
         <v-select
           id="status"
           ref="statusesSelect"
@@ -34,7 +34,7 @@
           :error-messages="errorMessage('status')"
         />
       </v-col>
-      <v-col col="12" md="6" sm="12">
+      <v-col cols="12" md="6">
         <AttendanceFiles
           ref="attachments"
           @changed="files => (form.files = files)"
