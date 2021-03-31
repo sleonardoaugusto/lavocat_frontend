@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseHeading text="Lista de Atendimentos" />
+    <BaseHeading text="Atendimentos" />
     <v-row>
       <v-col class="text-right">
         <v-btn ref="newAttendance" href="/atendimentos/novo" color="primary">
