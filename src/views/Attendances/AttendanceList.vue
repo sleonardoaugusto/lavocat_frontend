@@ -23,7 +23,7 @@
                   @input="setFilters"
                   @keydown.enter="getAttendances(filters)"
                   @click:append="getAttendances(filters)"
-                  @click:clear="getAttendances()"
+                  @click:clear="getAttendances(filters)"
                 />
               </v-col>
               <v-col cols="12" md="7" class="d-flex align-center">
