@@ -16,12 +16,14 @@
               <v-col>
                 <v-text-field
                   id="customer-name-filter"
-                  @input="setFilters"
                   append-icon="mdi-magnify"
                   label="Buscar por Nome ou CPF"
                   clearable
                   single-line
+                  @input="setFilters"
                   @keydown.enter="getAttendances(filters)"
+                  @click:append="getAttendances(filters)"
+                  @click:clear="getAttendances()"
                 />
               </v-col>
             </v-row>
