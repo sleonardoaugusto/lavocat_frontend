@@ -13,7 +13,7 @@
         <v-card>
           <v-card-title>
             <v-row>
-              <v-col cols="12" md="7">
+              <v-col cols="12" md="5">
                 <v-text-field
                   id="customer-name-filter"
                   append-icon="mdi-magnify"
@@ -26,7 +26,7 @@
                   @click:clear="getAttendances()"
                 />
               </v-col>
-              <v-col cols="12" md="5" class="d-flex align-center">
+              <v-col cols="12" md="7" class="d-flex align-center">
                 <v-chip-group
                   ref="statusFilter"
                   multiple
