@@ -38,15 +38,9 @@
             loading-text="Carregando atendimentos... Por favor aguarde"
           >
             <template v-slot:item.status_label="{ item }">
-              <v-chip
-                :color="statusColor(item.status)"
-                text-color="white"
-                class="font-weight-medium"
-                label
-                small
-              >
+              <v-badge dot inline left :color="statusColor(item.status)">
                 {{ item.status_label }}
-              </v-chip>
+              </v-badge>
             </template>
             <template v-slot:item.attendanceLink="{ item }">
               <v-tooltip bottom>
