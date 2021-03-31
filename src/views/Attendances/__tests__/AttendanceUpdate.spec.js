@@ -65,8 +65,8 @@ describe('<AttendanceUpdate />', () => {
     services.attendance.getAttendanceById.mockResolvedValueOnce({
       some: 'data'
     })
-    wrapper = factory()
 
+    wrapper = factory()
     await flushPromises()
 
     expect(

@@ -30,6 +30,7 @@ describe('Attendance Service', () => {
 
     test('Must create attendance', () => {
       let spy = jest.spyOn(httpClient, 'post')
+
       service.createAttendance({})
 
       expect(spy).toHaveBeenCalledWith('/attendances/', {})
@@ -38,6 +39,7 @@ describe('Attendance Service', () => {
     test('Must call uploadAttendanceFiles method passing files and attendance id', async () => {
       const spy = jest.spyOn(service, 'uploadAttendanceFiles')
       httpClient.post.mockResolvedValueOnce({ data: { id: 1 } })
+
       await service.createAttendance({ files: [{}] })
 
       expect(spy).toHaveBeenCalledWith(1, [{}])
@@ -57,6 +59,7 @@ describe('Attendance Service', () => {
 
     test('Must update attendance', () => {
       const spy = jest.spyOn(httpClient, 'put')
+
       service.updateAttendance(1, {})
 
       expect(spy).toHaveBeenCalledWith('/attendances/1/', {})
@@ -64,6 +67,7 @@ describe('Attendance Service', () => {
 
     test('Must call uploadAttendanceFiles method passing files and attendance id', async () => {
       const spy = jest.spyOn(service, 'uploadAttendanceFiles')
+
       await service.updateAttendance(1, { files: [{}] })
 
       expect(spy).toHaveBeenCalledWith(1, [{}])
@@ -114,9 +118,20 @@ describe('Attendance Service', () => {
 
     test('Must get attendances', () => {
       const spy = jest.spyOn(httpClient, 'get')
+
       service.getAttendances()
 
-      expect(spy).toHaveBeenCalledWith('/attendances/')
+      expect(spy).toHaveBeenCalledWith('/attendances/', { params: {} })
+    })
+
+    test('Must get attendances with querystring', () => {
+      const spy = jest.spyOn(httpClient, 'get')
+
+      service.getAttendances({ customer_name: 'Any Name' })
+
+      expect(spy).toHaveBeenCalledWith('/attendances/', {
+        params: { customer_name: 'Any Name' }
+      })
     })
 
     test('Must return response data', async () => {
@@ -133,6 +148,7 @@ describe('Attendance Service', () => {
 
     test('Must get attendance by id', () => {
       const spy = jest.spyOn(httpClient, 'get')
+
       service.getAttendanceById(1)
 
       expect(spy).toHaveBeenCalledWith('/attendances/1/')
@@ -152,6 +168,7 @@ describe('Attendance Service', () => {
 
     test('Must get attendance statuses', () => {
       const spy = jest.spyOn(httpClient, 'get')
+
       service.getStatuses()
 
       expect(spy).toHaveBeenCalledWith('/attendance-statuses/')

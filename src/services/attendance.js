@@ -50,8 +50,10 @@ class Attendance {
       await uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
     }
   }
-  async getAttendances() {
-    return await this.http.get('/attendances/').then(resp => resp.data)
+  async getAttendances(params = {}) {
+    return await this.http
+      .get('/attendances/', { params })
+      .then(resp => resp.data)
   }
   async getStatuses() {
     return await this.http.get('/attendance-statuses/').then(resp => resp.data)

@@ -100,4 +100,29 @@ describe('<AttendanceList />', () => {
       '/atendimentos/1/editar'
     )
   })
+
+  test('Customer name filter', async () => {
+    const spy = jest.spyOn(services.attendance, 'getAttendances')
+    spy.mockClear()
+
+    await wrapper.find('#customer-name-filter').setValue('Anonymous999')
+    wrapper.find('#customer-name-filter').trigger('keydown.enter')
+
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith({
+      customer_name: 'Anonymous999',
+      document_id: ''
+    })
+  })
+
+  test('Document id filter', async () => {
+    const spy = jest.spyOn(services.attendance, 'getAttendances')
+    spy.mockClear()
+
+    await wrapper.find('#customer-name-filter').setValue('999')
+    wrapper.find('#customer-name-filter').trigger('keydown.enter')
+
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith({ customer_name: '', document_id: '999' })
+  })
 })

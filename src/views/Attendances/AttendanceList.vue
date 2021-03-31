@@ -10,44 +10,61 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-data-table
-          ref="attendancesList"
-          :headers="headers"
-          :items="attendances"
-          :items-per-page="10"
-          class="elevation-1"
-          :loading="isLoading"
-          loading-text="Carregando atendimentos... Por favor aguarde"
-        >
-          <template v-slot:item.status_label="{ item }">
-            <v-chip
-              :color="statusColor(item.status)"
-              text-color="white"
-              class="font-weight-medium"
-              label
-              small
-            >
-              {{ item.status_label }}
-            </v-chip>
-          </template>
-          <template v-slot:item.attendanceLink="{ item }">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  :id="`attendance-${item.id}`"
-                  :ref="`attendance${item.id}`"
-                  :href="`/atendimentos/${item.id}/editar`"
-                  icon
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon dark> mdi-pencil-outline </v-icon>
-                </v-btn>
-              </template>
-              <span>Editar</span>
-            </v-tooltip>
-          </template>
-        </v-data-table>
+        <v-card>
+          <v-card-title>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  id="customer-name-filter"
+                  @input="setFilters"
+                  append-icon="mdi-magnify"
+                  label="Buscar por Nome ou CPF"
+                  clearable
+                  single-line
+                  @keydown.enter="getAttendances(filters)"
+                />
+              </v-col>
+            </v-row>
+          </v-card-title>
+          <v-data-table
+            ref="attendancesList"
+            :headers="headers"
+            :items="attendances"
+            :items-per-page="10"
+            class="elevation-1"
+            :loading="isLoading"
+            loading-text="Carregando atendimentos... Por favor aguarde"
+          >
+            <template v-slot:item.status_label="{ item }">
+              <v-chip
+                :color="statusColor(item.status)"
+                text-color="white"
+                class="font-weight-medium"
+                label
+                small
+              >
+                {{ item.status_label }}
+              </v-chip>
+            </template>
+            <template v-slot:item.attendanceLink="{ item }">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    :id="`attendance-${item.id}`"
+                    :ref="`attendance${item.id}`"
+                    :href="`/atendimentos/${item.id}/editar`"
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon dark> mdi-pencil-outline </v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar</span>
+              </v-tooltip>
+            </template>
+          </v-data-table>
+        </v-card>
       </v-col>
     </v-row>
   </div>
@@ -79,15 +96,19 @@ export default {
         value: 'attendanceLink'
       }
     ],
-    attendances: []
+    attendances: [],
+    filters: {
+      customer_name: '',
+      document_id: ''
+    }
   }),
   created() {
     this.getAttendances()
   },
   methods: {
-    async getAttendances() {
+    async getAttendances(filters) {
       this.toggleLoading()
-      this.attendances = await services.attendance.getAttendances()
+      this.attendances = await services.attendance.getAttendances(filters)
       this.toggleLoading()
     },
     statusColor(status) {
@@ -98,6 +119,17 @@ export default {
         4: 'green'
       }
       return colors[status]
+    },
+    setFilters(value) {
+      let params
+
+      if (!isNaN(value)) {
+        params = { customer_name: '', document_id: value }
+      } else {
+        params = { customer_name: value, document_id: '' }
+      }
+
+      this.filters = { ...this.filters, ...params }
     }
   }
 }
