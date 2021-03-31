@@ -19,6 +19,17 @@
           :loading="isLoading"
           loading-text="Carregando atendimentos... Por favor aguarde"
         >
+          <template v-slot:item.status_label="{ item }">
+            <v-chip
+              :color="statusColor(item.status)"
+              text-color="white"
+              class="font-weight-medium"
+              label
+              small
+            >
+              {{ item.status_label }}
+            </v-chip>
+          </template>
           <template v-slot:item.attendanceLink="{ item }">
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
@@ -59,7 +70,14 @@ export default {
         text: 'Documento',
         value: 'document_id'
       },
-      { text: 'Ação', value: 'attendanceLink' }
+      {
+        text: 'Status',
+        value: 'status_label'
+      },
+      {
+        text: 'Ação',
+        value: 'attendanceLink'
+      }
     ],
     attendances: []
   }),
@@ -71,6 +89,15 @@ export default {
       this.toggleLoading()
       this.attendances = await services.attendance.getAttendances()
       this.toggleLoading()
+    },
+    statusColor(status) {
+      const colors = {
+        1: 'red',
+        2: 'blue',
+        3: 'orange',
+        4: 'green'
+      }
+      return colors[status]
     }
   }
 }

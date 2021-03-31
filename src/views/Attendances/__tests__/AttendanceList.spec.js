@@ -63,6 +63,10 @@ describe('<AttendanceList />', () => {
         value: 'document_id'
       },
       {
+        text: 'Status',
+        value: 'status_label'
+      },
+      {
         text: 'Ação',
         value: 'attendanceLink'
       }
