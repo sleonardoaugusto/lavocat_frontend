@@ -17,13 +17,13 @@ describe('<AttendanceUpdate />', () => {
     )
   })
 
-  it('Must render update attendance page', () => {
+  it('Should render update attendance page', () => {
     cy.visit(`${baseUrl}/atendimentos/1/editar`)
 
     cy.get('.text-h4').should('contain', 'Editar Atendimento')
   })
 
-  it('Must fill fields with response content', () => {
+  it('Should fill fields with response content', () => {
     cy.visit(`${baseUrl}/atendimentos/1/editar`)
 
     cy.wait('@attendanceStatuses')
@@ -36,7 +36,7 @@ describe('<AttendanceUpdate />', () => {
     cy.get('#resume').should('have.value', 'Some text')
   })
 
-  it('Must show snackbar', () => {
+  it('Should show snackbar', () => {
     cy.visit(`${baseUrl}/atendimentos/1/editar`)
 
     cy.wait('@attendanceStatuses')

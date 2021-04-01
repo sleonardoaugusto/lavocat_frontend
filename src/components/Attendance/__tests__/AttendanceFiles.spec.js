@@ -29,7 +29,7 @@ describe('<AttendanceFiles />', () => {
     new File(['fizzbuzz'], 'fizzbuzz.txt')
   ]
 
-  test('Table must list attachments', async () => {
+  test('Table should list attachments', async () => {
     await wrapper
       .findComponent({ ref: 'attachments' })
       .vm.$emit('change', files)
@@ -37,7 +37,7 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.findAll('tbody tr')).toHaveLength(3)
   })
 
-  test('Must remove attachment', async () => {
+  test('Should remove attachment', async () => {
     await wrapper
       .findComponent({ ref: 'attachments' })
       .vm.$emit('change', files)
@@ -47,20 +47,20 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.findAll('tbody tr')).toHaveLength(2)
   })
 
-  test('Must show if attachment is not a instance of File', async () => {
+  test('Should show if attachment is not a instance of File', async () => {
     await wrapper.setData({ internalFiles: [{ id: 1, file: 'link' }] })
 
     expect(wrapper.find('#download-0').isVisible()).toBeTruthy()
     expect(wrapper.find('#download-0').vm.href).toBe('link')
   })
 
-  test('Must not show if attachment is a instance of File', async () => {
+  test('Should not show if attachment is a instance of File', async () => {
     await wrapper.setData({ internalFiles: [files[0]] })
 
     expect(wrapper.find('#download-0').isVisible()).toBeFalsy()
   })
 
-  test('Must not call delete file service if is not instance of File', async () => {
+  test('Should not call delete file service if is not instance of File', async () => {
     const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
     await wrapper.setData({ internalFiles: [files[0]] })
 
@@ -69,7 +69,7 @@ describe('<AttendanceFiles />', () => {
     expect(spy).not.toHaveBeenCalled()
   })
 
-  test('Must call delete file service if is instance of File', async () => {
+  test('Should call delete file service if is instance of File', async () => {
     const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
     await wrapper.setData({ internalFiles: [{ id: 1 }] })
 
@@ -78,7 +78,7 @@ describe('<AttendanceFiles />', () => {
     expect(spy).toHaveBeenCalledWith(1)
   })
 
-  test('Must add new files to existent files', async () => {
+  test('Should add new files to existent files', async () => {
     await wrapper.setData({ internalFiles: [files[0]] })
 
     const file = new File(['buzzfizz'], 'buzzfizz.txt')
@@ -89,7 +89,7 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.findAll('tbody tr')).toHaveLength(2)
   })
 
-  test('Must emit files on change', async () => {
+  test('Should emit files on change', async () => {
     const file = new File(['buzzfizz'], 'buzzfizz.txt')
     await wrapper
       .findComponent({ ref: 'attachments' })
@@ -100,7 +100,7 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.emitted().changed[0][0]).toStrictEqual([file])
   })
 
-  test('Must not set props if last value is equal of data', async () => {
+  test('Should not set props if last value is equal of data', async () => {
     const spy = jest.spyOn(wrapper.vm, 'setInternal')
     await wrapper.setData({ internalFiles: [files[0]] })
     await wrapper.setProps({ value: [files[0]] })
@@ -108,14 +108,14 @@ describe('<AttendanceFiles />', () => {
     expect(spy).not.toHaveBeenCalled()
   })
 
-  test('Must set props if last value is not the equal of data', async () => {
+  test('Should set props if last value is not the equal of data', async () => {
     const spy = jest.spyOn(wrapper.vm, 'setInternal')
     await wrapper.setProps({ value: [{}] })
 
     expect(spy).toHaveBeenCalledWith([{}])
   })
 
-  test('Table must be visible if have files to show', async () => {
+  test('Table should be visible if have files to show', async () => {
     await wrapper.setData({ internalFiles: files })
 
     expect(
@@ -123,7 +123,7 @@ describe('<AttendanceFiles />', () => {
     ).toBeTruthy()
   })
 
-  test('Table must be hidden if do not have files to show', () => {
+  test('Table should be hidden if do not have files to show', () => {
     expect(
       wrapper.findComponent({ ref: 'attachmentsTable' }).isVisible()
     ).toBeFalsy()

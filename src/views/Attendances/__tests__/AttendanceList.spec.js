@@ -32,7 +32,7 @@ describe('<AttendanceList />', () => {
     )
   })
 
-  test('Must get attendances', () => {
+  test('Should get attendances', () => {
     const spy = jest.spyOn(services.attendance, 'getAttendances')
 
     spy.mockClear()
@@ -41,7 +41,7 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('Table must receive attendances', async () => {
+  test('Table should receive attendances', async () => {
     services.attendance.getAttendances.mockResolvedValueOnce([{}])
 
     wrapper = factory()
@@ -52,7 +52,7 @@ describe('<AttendanceList />', () => {
     ).toStrictEqual([{}])
   })
 
-  test('Table must receive headers', () => {
+  test('Table should receive headers', () => {
     const headers = [
       {
         text: 'Nome do Cliente',
@@ -77,7 +77,7 @@ describe('<AttendanceList />', () => {
     ).toStrictEqual(headers)
   })
 
-  test('Table must be loading during request', () => {
+  test('Table should be loading during request', () => {
     wrapper = factory()
 
     expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
@@ -85,13 +85,13 @@ describe('<AttendanceList />', () => {
     )
   })
 
-  test('Table must not be loading after response', () => {
+  test('Table should not be loading after response', () => {
     expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
       false
     )
   })
 
-  test('Table must contain button link to attendance', async () => {
+  test('Table should contain button link to attendance', async () => {
     services.attendance.getAttendances.mockResolvedValueOnce([{ id: 1 }])
 
     wrapper = factory()
@@ -102,7 +102,7 @@ describe('<AttendanceList />', () => {
     )
   })
 
-  test('Must get attendances on customer name filter', async () => {
+  test('Should get attendances on customer name filter', async () => {
     const spy = jest.spyOn(services.attendance, 'getAttendances')
     spy.mockClear()
 
@@ -117,7 +117,7 @@ describe('<AttendanceList />', () => {
     })
   })
 
-  test('Must get attendances on document id filter', async () => {
+  test('Should get attendances on document id filter', async () => {
     const spy = jest.spyOn(services.attendance, 'getAttendances')
     spy.mockClear()
 
@@ -132,7 +132,7 @@ describe('<AttendanceList />', () => {
     })
   })
 
-  test('Must get attendances on status filter', async () => {
+  test('Should get attendances on status filter', async () => {
     services.attendance.getStatuses.mockResolvedValueOnce({
       OtherStatus: 0,
       SomeStatus: 1

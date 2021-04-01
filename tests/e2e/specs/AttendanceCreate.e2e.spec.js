@@ -16,11 +16,11 @@ describe('<AttendanceCreate />', () => {
     cy.visit(`${baseUrl}/atendimentos/novo`)
   })
 
-  it('Must render new attendance page', () => {
+  it('Should render new attendance page', () => {
     cy.get('.text-h4').should('contain', 'Novo Atendimento')
   })
 
-  it('Must show snackbar', () => {
+  it('Should show snackbar', () => {
     cy.wait('@attendanceStatuses')
 
     cy.fillAttendanceForm({ ...createAttendance[0], statuses })

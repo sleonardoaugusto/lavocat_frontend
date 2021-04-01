@@ -9,6 +9,8 @@ import AttendanceCreate from '@/views/Attendances/AttendanceCreate'
 import flushPromises from 'flush-promises'
 import VueRouter from 'vue-router'
 
+jest.mock('@/services')
+
 describe('<AttendanceCreate />', () => {
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
@@ -29,7 +31,7 @@ describe('<AttendanceCreate />', () => {
   const factory = opts =>
     mount(AttendanceCreate, { Vue, vuetify, stubs, ...opts })
 
-  test('Must call create attendance service on receive emit', async () => {
+  test('Should call create attendance service on receive emit', async () => {
     const spy = jest.spyOn(services.attendance, 'createAttendance')
 
     await wrapper
@@ -39,9 +41,7 @@ describe('<AttendanceCreate />', () => {
     expect(spy).toHaveBeenCalledWith({})
   })
 
-  test('Must be loading during request', async () => {
-    services.attendance.createAttendance.mockResolvedValueOnce({})
-
+  test('Should be loading during request', async () => {
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -51,9 +51,7 @@ describe('<AttendanceCreate />', () => {
     ).toBeTruthy()
   })
 
-  test('Must not be loading after request', async () => {
-    services.attendance.createAttendance.mockResolvedValueOnce({})
-
+  test('Should not be loading after request', async () => {
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})

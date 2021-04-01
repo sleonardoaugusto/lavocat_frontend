@@ -36,15 +36,13 @@ describe('<AttendanceUpdate />', () => {
       ...opts
     }))
 
-  test('Must get attendance data', () => {
+  test('Should get attendance data', () => {
     const spy = jest.spyOn(services.attendance, 'getAttendanceById')
 
     expect(spy).toHaveBeenCalledWith(1)
   })
 
-  test('Form component must be busy during request', () => {
-    services.attendance.getAttendanceById.mockResolvedValueOnce({})
-
+  test('Form component should be busy during request', () => {
     wrapper = factory()
 
     expect(
@@ -52,16 +50,14 @@ describe('<AttendanceUpdate />', () => {
     ).toBeTruthy()
   })
 
-  test('Form component must not be busy after request', async () => {
-    services.attendance.getAttendanceById.mockResolvedValueOnce({})
-
+  test('Form component should not be busy after request', async () => {
     wrapper = factory()
     await flushPromises()
 
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
 
-  test('Form component must receive attendance data', async () => {
+  test('Form component should receive attendance data', async () => {
     services.attendance.getAttendanceById.mockResolvedValueOnce({
       some: 'data'
     })
@@ -74,7 +70,7 @@ describe('<AttendanceUpdate />', () => {
     ).toStrictEqual({ some: 'data' })
   })
 
-  test('Must call update attendance service on receive emit', async () => {
+  test('Should call update attendance service on receive emit', async () => {
     const spy = jest.spyOn(services.attendance, 'updateAttendance')
 
     await wrapper
@@ -84,15 +80,13 @@ describe('<AttendanceUpdate />', () => {
     expect(spy).toHaveBeenCalledWith(1, {})
   })
 
-  test('Form component must receive update props true', () => {
+  test('Form component should receive update props true', () => {
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.update).toBe(
       true
     )
   })
 
-  test('Must be loading during request', async () => {
-    services.attendance.updateAttendance.mockResolvedValueOnce({})
-
+  test('Should be loading during request', async () => {
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -102,9 +96,7 @@ describe('<AttendanceUpdate />', () => {
     ).toBeTruthy()
   })
 
-  test('Must not be loading after request', async () => {
-    services.attendance.updateAttendance.mockResolvedValueOnce({})
-
+  test('Should not be loading after request', async () => {
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -113,7 +105,7 @@ describe('<AttendanceUpdate />', () => {
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
 
-  test('Must refresh form data from database after update', async () => {
+  test('Should refresh form data from database after update', async () => {
     services.attendance.updateAttendance.mockResolvedValueOnce({})
     services.attendance.getAttendanceById.mockResolvedValueOnce({ key: 'pair' })
 

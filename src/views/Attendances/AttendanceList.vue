@@ -151,10 +151,10 @@ export default {
     setFilters(value) {
       let params
 
-      if (!isNaN(value)) {
-        params = { customer_name: '', document_id: value }
-      } else {
+      if (isNaN(value)) {
         params = { customer_name: value, document_id: '' }
+      } else {
+        params = { customer_name: '', document_id: value }
       }
 
       this.filters = { ...this.filters, ...params }

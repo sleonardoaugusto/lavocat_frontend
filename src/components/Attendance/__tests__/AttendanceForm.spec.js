@@ -36,7 +36,7 @@ describe('<AttendanceForm />', () => {
 
   describe('Validations', () => {
     test.each([['customerName'], ['documentId'], ['statusesSelect']])(
-      '%s field must be valid',
+      '%s field validation state must be null',
       async field => {
         expect(
           wrapper.findComponent({ ref: field }).vm.errorMessages
@@ -48,13 +48,13 @@ describe('<AttendanceForm />', () => {
       ['customerName', 'Campo obrigatório'],
       ['documentId', 'Campo obrigatório'],
       ['statusesSelect', 'Campo obrigatório']
-    ])('%s field must be invalid', async (field, msg) => {
+    ])('%s field should be invalid', async (field, msg) => {
       await wrapper.find('#submit').trigger('click')
 
       expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
     })
 
-    test('#document-id field must be invalid if length', async () => {
+    test('#document-id field should be invalid if length', async () => {
       await wrapper.find('#document-id').setValue('9999999999')
 
       expect(
@@ -64,12 +64,12 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Promise behavior', () => {
-    test('Button and overlay must not be loading', async () => {
+    test('Button and overlay should not be loading', async () => {
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBeFalsy()
       expect(wrapper.findComponent({ ref: 'overlay' }).vm.value).toBeFalsy()
     })
 
-    test('Button and overlay must be loading', async () => {
+    test('Button and overlay should be loading', async () => {
       await wrapper.setProps({ busy: true })
 
       expect(
@@ -87,14 +87,14 @@ describe('<AttendanceForm />', () => {
       ],
       ['document_id', { customer_name: 'maria', document_id: '', status: 1 }],
       ['status', { customer_name: 'maria', document_id: '', status: null }]
-    ])('Must not emit form data if %s field is invalid', async (_, data) => {
+    ])('Should not emit form data if %s field is invalid', async (_, data) => {
       await fillForm(data)
       await wrapper.find('#submit').trigger('click')
 
       expect(wrapper.emitted().submit).toBeFalsy()
     })
 
-    test('Must emit form data', async () => {
+    test('Should emit form data', async () => {
       const data = await fillForm()
       await wrapper.find('#submit').trigger('click')
 
@@ -114,13 +114,13 @@ describe('<AttendanceForm />', () => {
     test.each([
       ['Salvar', true],
       ['Cadastrar', false]
-    ])('Button label must be %s if update is %s', (label, flag) => {
+    ])('Button label should be %s if update is %s', (label, flag) => {
       wrapper = factory({ propsData: { update: flag } })
 
       expect(wrapper.find('#submit').text()).toBe(label)
     })
 
-    test('Component must receive attendance statuses', async () => {
+    test('Component should receive attendance statuses', async () => {
       wrapper = factory()
       await flushPromises()
 
@@ -129,7 +129,7 @@ describe('<AttendanceForm />', () => {
       ).toStrictEqual([{ text: 'StatusName', value: 1 }])
     })
 
-    test('Component must emit passed props only once to avoid infinite loop', async () => {
+    test('Component should emit passed props only once to avoid infinite loop', async () => {
       await wrapper.setData({ form: { files: [{}] } })
 
       expect(
@@ -137,7 +137,7 @@ describe('<AttendanceForm />', () => {
       ).toHaveLength(1)
     })
 
-    test('Fields must receive props value', async () => {
+    test('Fields should receive props value', async () => {
       const data = generateData()
       await wrapper.setProps({ value: data })
 
