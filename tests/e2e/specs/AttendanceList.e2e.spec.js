@@ -11,7 +11,7 @@ describe('<AttendanceList />', () => {
   it('Should render attendance list page', () => {
     cy.visit(`${baseUrl}/atendimentos`)
 
-    cy.get('.text-h4').should('contain', 'Lista de Atendimentos')
+    cy.get('.text-h4').should('contain', 'Atendimentos')
   })
 
   it('Should go to attendance page', () => {
