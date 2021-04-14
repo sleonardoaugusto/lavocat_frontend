@@ -6,6 +6,11 @@ describe('<AttendanceList />', () => {
     cy.intercept('GET', `${apiServer}/attendances/`, {
       fixture: 'attendances/attendances.json'
     }).as('attendances')
+    cy.intercept('GET', `${apiServer}/attendance-statuses/`, {
+      fixture: 'attendances/statuses.json'
+    }).as('attendanceStatuses')
+
+    cy.login()
   })
 
   it('Should render attendance list page', () => {
@@ -14,7 +19,7 @@ describe('<AttendanceList />', () => {
     cy.get('.text-h4').should('contain', 'Atendimentos')
   })
 
-  it('Should go to attendance page', () => {
+  it('Should go to /attendance/{pk}/editar', () => {
     cy.visit(`${baseUrl}/atendimentos`)
     cy.wait('@attendances')
 

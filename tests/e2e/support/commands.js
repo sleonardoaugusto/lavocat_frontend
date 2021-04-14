@@ -31,3 +31,33 @@ Cypress.Commands.add('fillAttendanceForm', data => {
   cy.get('#document-id').type(customer_id)
   cy.get('#status').type(statuses.key, { force: true })
 })
+
+Cypress.Commands.add('login', () => {
+  const baseUrl = Cypress.env('host')
+  const apiServer = Cypress.env('api_server')
+
+  cy.visit(`${baseUrl}/`)
+
+  cy.intercept('POST', `${apiServer}/api/token/`, {
+    fixture: 'auth/login.json'
+  }).as('login')
+
+  cy.get('#username').type('admin')
+  cy.get('#password').type('admin')
+  cy.get('#submit').click()
+
+  cy.wait('@login')
+})
+
+Cypress.Commands.add('loginInvalid', () => {
+  const apiServer = Cypress.env('api_server')
+  cy.intercept('POST', `${apiServer}/api/token/`, {
+    statusCode: 401
+  }).as('login')
+
+  cy.get('#username').type('admin')
+  cy.get('#password').type('admin')
+  cy.get('#submit').click()
+
+  cy.wait('@login')
+})

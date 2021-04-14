@@ -12,15 +12,14 @@ describe('<AttendanceUpdate />', () => {
     cy.intercept('GET', `${apiServer}/attendances/1/`, attendanceResp).as(
       'attendanceGetById'
     )
+    cy.intercept('GET', `${apiServer}/attendances/`, {
+      fixture: 'attendances/attendances.json'
+    }).as('attendances')
     cy.intercept('PUT', `${apiServer}/attendances/1/`, {}).as(
       'attendanceUpdate'
     )
-  })
 
-  it('Should render update attendance page', () => {
-    cy.visit(`${baseUrl}/atendimentos/1/editar`)
-
-    cy.get('.text-h4').should('contain', 'Editar Atendimento')
+    cy.login()
   })
 
   it('Should fill fields with response content', () => {

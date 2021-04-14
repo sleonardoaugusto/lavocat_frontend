@@ -1,7 +1,9 @@
 import axios from 'axios'
 import AttendanceService from './attendance'
-import useModal from '@/hooks/useModal'
+import AuthService from './auth'
 import Qs from 'qs'
+import { Auth } from '@/utils/auth'
+import router from '@/router'
 
 const BASE_URL = process.env.VUE_APP_SERVICE_URL
 const httpClient = axios.create({
@@ -9,21 +11,20 @@ const httpClient = axios.create({
   paramsSerializer: params => Qs.stringify(params, { arrayFormat: 'repeat' })
 })
 
-const modal = useModal()
-
 httpClient.interceptors.response.use(
   function (response) {
     return response
   },
   function (error) {
-    modal.open({
-      component: 'SnackBar',
-      props: { type: 'error', text: 'Erro no servidor.' }
-    })
+    if (error.response.status === 401) {
+      Auth.removeToken()
+      router.push({ name: 'login' })
+    }
     return Promise.reject(error)
   }
 )
 
 export default {
-  attendance: AttendanceService(httpClient)
+  attendance: AttendanceService(httpClient),
+  auth: AuthService(httpClient)
 }

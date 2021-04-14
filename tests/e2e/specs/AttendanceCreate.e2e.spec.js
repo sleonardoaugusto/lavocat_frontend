@@ -6,6 +6,9 @@ describe('<AttendanceCreate />', () => {
   const apiServer = Cypress.env('api_server')
 
   beforeEach(() => {
+    cy.intercept('GET', `${apiServer}/attendances/`, {
+      fixture: 'attendances/attendances.json'
+    }).as('attendances')
     cy.intercept('GET', `${apiServer}/attendance-statuses/`, {
       fixture: 'attendances/statuses.json'
     }).as('attendanceStatuses')
@@ -13,15 +16,14 @@ describe('<AttendanceCreate />', () => {
       fixture: 'attendances/create.json'
     }).as('attendanceCreate')
 
+    cy.login()
+
     cy.visit(`${baseUrl}/atendimentos/novo`)
   })
 
-  it('Should render new attendance page', () => {
-    cy.get('.text-h4').should('contain', 'Novo Atendimento')
-  })
-
-  it('Should show snackbar', () => {
+  it('Should redirect to /atendimentos', () => {
     cy.wait('@attendanceStatuses')
+    cy.wait('@attendances')
 
     cy.fillAttendanceForm({ ...createAttendance[0], statuses })
 
