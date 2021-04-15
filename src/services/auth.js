@@ -11,14 +11,15 @@ class Auth {
       .post('/api/token/', data)
       .then(resp => {
         const { access } = resp.data
-        return { access }
+        return access
       })
-      .catch(() =>
+      .catch(() => {
         modal.open({
           component: 'SnackBar',
           props: { type: 'error', text: 'Credenciais inválidas.' }
         })
-      )
+        return { access: null }
+      })
   }
 }
 
