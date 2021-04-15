@@ -11,7 +11,7 @@ class Auth {
       .post('/api/token/', data)
       .then(resp => {
         const { access } = resp.data
-        return access
+        return { access }
       })
       .catch(() => {
         modal.open({
