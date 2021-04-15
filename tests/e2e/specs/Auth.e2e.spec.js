@@ -4,6 +4,9 @@ describe('<AttendanceUpdate />', () => {
 
   it('Should redirect to /atendimentos after login', () => {
     cy.intercept('GET', `${apiServer}/attendances/`, {}).as('attendances')
+    cy.intercept('GET', `${apiServer}/attendance-statuses/`, {}).as(
+      'attendanceStatuses'
+    )
 
     cy.visit(`${baseUrl}/login`)
     cy.login()
@@ -16,6 +19,14 @@ describe('<AttendanceUpdate />', () => {
     cy.loginInvalid()
 
     cy.location('pathname').should('include', '/login')
+  })
+
+  it('Should show snackbar', () => {
+    cy.visit(`${baseUrl}/login`)
+    cy.loginInvalid()
+
+    cy.get('.v-snack__wrapper').should('be.visible')
+    cy.get('.v-snack__wrapper').should('contain', 'Credenciais inválidas.')
   })
 
   it('Should redirect to /login if is not logged in', () => {

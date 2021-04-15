@@ -50,7 +50,6 @@ import BaseHeading from '@/components/base/BaseHeading'
 import validations from '@/mixins/formValidations'
 import { required } from 'vuelidate/lib/validators'
 import services from '@/services'
-import router from '@/router'
 import { Auth } from '@/utils/auth'
 
 export default {
@@ -75,9 +74,8 @@ export default {
       if (this.formIsReady) {
         this.toggleLoading()
         const { access } = await services.auth.login(this.form)
+        Auth.login(access)
         this.toggleLoading()
-        if (access) Auth.setToken('token', access)
-        if (Auth.isLoggedIn()) await router.push('/')
       }
     }
   }

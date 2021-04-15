@@ -46,7 +46,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = Auth.isLoggedIn()
   if (to.name !== 'login' && !isLoggedIn) next({ name: 'login' })
-  else if (to.name === 'login' && isLoggedIn) next({ name: 'home' })
+  else if (to.name === 'login' && isLoggedIn) next('/')
   else next()
 })
 

@@ -7,9 +7,11 @@ import services from '@/services'
 import faker from 'faker'
 import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
+import { Auth } from '@/utils/auth'
 
 jest.mock('@/services')
 jest.mock('@/router')
+jest.mock('@/utils/auth')
 
 describe('<Login />', () => {
   Vue.use(Vuetify)
@@ -44,7 +46,7 @@ describe('<Login />', () => {
       ['username', 'Campo obrigatório'],
       ['password', 'Campo obrigatório']
     ])('%s field must be valid', async (field, msg) => {
-      await wrapper.find('#submit').trigger('click')
+      await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
 
       expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
     })
@@ -55,7 +57,7 @@ describe('<Login />', () => {
       const spy = jest.spyOn(services.auth, 'login')
 
       const data = await fillForm()
-      await wrapper.find('#submit').trigger('click')
+      await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
 
       expect(spy).toHaveBeenCalledTimes(1)
       expect(spy).toHaveBeenCalledWith(data)
@@ -64,17 +66,23 @@ describe('<Login />', () => {
     test('Should not call service if form is not valid', async () => {
       const spy = jest.spyOn(services.auth, 'login')
 
-      await wrapper.find('#submit').trigger('click')
+      await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
 
       expect(spy).not.toHaveBeenCalled()
     })
   })
 
   describe('Async behavior', () => {
+    const responseData = { access: faker.random.uuid() }
+
+    beforeEach(() => {
+      services.auth.login.mockResolvedValueOnce(responseData)
+    })
+
     test('Button must be loading during request', async () => {
       await fillForm()
 
-      await wrapper.find('#submit').trigger('click')
+      await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
 
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBe(true)
     })
@@ -82,10 +90,20 @@ describe('<Login />', () => {
     test('Button must not be loading after request', async () => {
       await fillForm()
 
-      await wrapper.find('#submit').trigger('click')
+      await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
       await flushPromises()
 
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBe(false)
+    })
+
+    test('Auth login method must be called after request', async () => {
+      const spy = jest.spyOn(Auth, 'login')
+      await fillForm()
+
+      await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
+      await flushPromises()
+
+      expect(spy).toHaveBeenCalledWith(responseData.access)
     })
   })
 
