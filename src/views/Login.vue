@@ -11,6 +11,7 @@
           <v-text-field
             id="username"
             ref="username"
+            label="Usuário"
             v-model="$v.form.username.$model"
             :error-messages="errorMessage('username')"
           />
@@ -21,6 +22,7 @@
           <v-text-field
             id="password"
             ref="password"
+            label="Senha"
             type="password"
             v-model="$v.form.password.$model"
             @keydown.enter="submit"

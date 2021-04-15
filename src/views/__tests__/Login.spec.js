@@ -53,6 +53,12 @@ describe('<Login />', () => {
   })
 
   describe('Submit', () => {
+    const responseData = { access: faker.random.uuid() }
+
+    beforeEach(() => {
+      services.auth.login.mockResolvedValueOnce(responseData)
+    })
+
     test('Should call service if form is valid', async () => {
       const spy = jest.spyOn(services.auth, 'login')
 
