@@ -9,11 +9,11 @@ describe('Upload Service', () => {
     service = new Upload(httpClient)
   })
 
-  test('Constructor', () => {
+  it('Constructor', () => {
     expect(service.http).toBe(httpClient)
   })
 
-  test('Should upload all files in parallel', () => {
+  it('Should upload all files in parallel', () => {
     const spy = jest.spyOn(httpClient, 'request')
     httpClient.request.mockResolvedValue({})
 

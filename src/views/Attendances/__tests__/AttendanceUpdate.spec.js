@@ -36,13 +36,13 @@ describe('<AttendanceUpdate />', () => {
       ...opts
     }))
 
-  test('Should get attendance data', () => {
+  it('Should get attendance data', () => {
     const spy = jest.spyOn(services.attendance, 'getAttendanceById')
 
     expect(spy).toHaveBeenCalledWith(1)
   })
 
-  test('Form component should be busy during request', () => {
+  it('Form component should be busy during request', () => {
     wrapper = factory()
 
     expect(
@@ -50,14 +50,14 @@ describe('<AttendanceUpdate />', () => {
     ).toBeTruthy()
   })
 
-  test('Form component should not be busy after request', async () => {
+  it('Form component should not be busy after request', async () => {
     wrapper = factory()
     await flushPromises()
 
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
 
-  test('Form component should receive attendance data', async () => {
+  it('Form component should receive attendance data', async () => {
     services.attendance.getAttendanceById.mockResolvedValueOnce({
       some: 'data'
     })
@@ -70,7 +70,7 @@ describe('<AttendanceUpdate />', () => {
     ).toStrictEqual({ some: 'data' })
   })
 
-  test('Should call update attendance service on receive emit', async () => {
+  it('Should call update attendance service on receive emit', async () => {
     const spy = jest.spyOn(services.attendance, 'updateAttendance')
 
     await wrapper
@@ -80,13 +80,13 @@ describe('<AttendanceUpdate />', () => {
     expect(spy).toHaveBeenCalledWith(1, {})
   })
 
-  test('Form component should receive update props true', () => {
+  it('Form component should receive update props true', () => {
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.update).toBe(
       true
     )
   })
 
-  test('Should be loading during request', async () => {
+  it('Should be loading during request', async () => {
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -96,7 +96,7 @@ describe('<AttendanceUpdate />', () => {
     ).toBeTruthy()
   })
 
-  test('Should not be loading after request', async () => {
+  it('Should not be loading after request', async () => {
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -105,7 +105,7 @@ describe('<AttendanceUpdate />', () => {
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
 
-  test('Should refresh form data from database after update', async () => {
+  it('Should refresh form data from database after update', async () => {
     services.attendance.updateAttendance.mockResolvedValueOnce({})
     services.attendance.getAttendanceById.mockResolvedValueOnce({ key: 'pair' })
 

@@ -28,7 +28,7 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    v-show="instanceOfFile(file)"
+                    v-show="isNotFile(file)"
                     :id="`download-${idx}`"
                     :href="file.file"
                     target="_blank"
@@ -90,7 +90,7 @@ export default {
       }
       this.internalFiles.splice(idx, 1)
     },
-    instanceOfFile(attachment) {
+    isNotFile(attachment) {
       return !(attachment instanceof File)
     }
   },

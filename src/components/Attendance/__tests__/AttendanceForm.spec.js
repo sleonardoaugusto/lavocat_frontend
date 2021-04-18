@@ -28,7 +28,7 @@ describe('<AttendanceForm />', () => {
 
   const factory = opts => mount(AttendanceForm, { Vue, vuetify, ...opts })
 
-  test('Previous button', () => {
+  it('Previous button', () => {
     expect(wrapper.findComponent({ ref: 'previousBtn' }).vm.$props.href).toBe(
       '/atendimentos'
     )
@@ -36,7 +36,7 @@ describe('<AttendanceForm />', () => {
 
   describe('Validations', () => {
     test.each([['customerName'], ['documentId'], ['statusesSelect']])(
-      '%s field validation state must be null',
+      '%s field validation state should be null',
       async field => {
         expect(
           wrapper.findComponent({ ref: field }).vm.errorMessages
@@ -54,7 +54,7 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
     })
 
-    test('#document-id field should be invalid if length', async () => {
+    it('#document-id field should be invalid if length', async () => {
       await wrapper.find('#document-id').setValue('9999999999')
 
       expect(
@@ -64,12 +64,12 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Promise behavior', () => {
-    test('Button and overlay should not be loading', async () => {
+    it('Button and overlay should not be loading', async () => {
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBeFalsy()
       expect(wrapper.findComponent({ ref: 'overlay' }).vm.value).toBeFalsy()
     })
 
-    test('Button and overlay should be loading', async () => {
+    it('Button and overlay should be loading', async () => {
       await wrapper.setProps({ busy: true })
 
       expect(
@@ -94,7 +94,7 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.emitted().submit).toBeFalsy()
     })
 
-    test('Should emit form data', async () => {
+    it('Should emit form data', async () => {
       const data = await fillForm()
       await wrapper.find('#submit').trigger('click')
 
@@ -120,7 +120,7 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.find('#submit').text()).toBe(label)
     })
 
-    test('Component should receive attendance statuses', async () => {
+    it('Component should receive attendance statuses', async () => {
       wrapper = factory()
       await flushPromises()
 
@@ -129,7 +129,7 @@ describe('<AttendanceForm />', () => {
       ).toStrictEqual([{ text: 'StatusName', value: 1 }])
     })
 
-    test('Component should emit passed props only once to avoid infinite loop', async () => {
+    it('Component should emit passed props only once to avoid infinite loop', async () => {
       await wrapper.setData({ form: { files: [{}] } })
 
       expect(
@@ -137,7 +137,7 @@ describe('<AttendanceForm />', () => {
       ).toHaveLength(1)
     })
 
-    test('Fields should receive props value', async () => {
+    it('Fields should receive props value', async () => {
       const data = generateData()
       await wrapper.setProps({ value: data })
 

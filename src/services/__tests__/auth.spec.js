@@ -17,7 +17,7 @@ describe('Auth Service', () => {
     jest.clearAllMocks()
   })
 
-  test('Constructor', () => {
+  it('Constructor', () => {
     expect(service.http).toBe(httpClient)
   })
 
@@ -29,7 +29,7 @@ describe('Auth Service', () => {
       httpClient.post.mockResolvedValueOnce({ data: responseData })
     })
 
-    test('Should call /api/token/ with data', () => {
+    it('Should call /api/token/ with data', () => {
       const spy = jest.spyOn(httpClient, 'post')
 
       const data = {
@@ -41,7 +41,7 @@ describe('Auth Service', () => {
       expect(spy).toHaveBeenCalledWith('/api/token/', data)
     })
 
-    test('Should return response data', async () => {
+    it('Should return response data', async () => {
       const resp = await service.login()
 
       expect(resp).toStrictEqual(responseData)

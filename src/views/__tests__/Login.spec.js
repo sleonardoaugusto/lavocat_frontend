@@ -34,7 +34,7 @@ describe('<Login />', () => {
 
   describe('Validations', () => {
     test.each([['username'], ['password']])(
-      '%s field validation state must be null',
+      '%s field validation state should be null',
       async field => {
         expect(
           wrapper.findComponent({ ref: field }).vm.errorMessages
@@ -45,7 +45,7 @@ describe('<Login />', () => {
     test.each([
       ['username', 'Campo obrigatório'],
       ['password', 'Campo obrigatório']
-    ])('%s field must be valid', async (field, msg) => {
+    ])('%s field should be valid', async (field, msg) => {
       await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
 
       expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
@@ -59,7 +59,7 @@ describe('<Login />', () => {
       services.auth.login.mockResolvedValueOnce(responseData)
     })
 
-    test('Should call service if form is valid', async () => {
+    it('Should call service if form is valid', async () => {
       const spy = jest.spyOn(services.auth, 'login')
 
       const data = await fillForm()
@@ -69,7 +69,7 @@ describe('<Login />', () => {
       expect(spy).toHaveBeenCalledWith(data)
     })
 
-    test('Should not call service if form is not valid', async () => {
+    it('Should not call service if form is not valid', async () => {
       const spy = jest.spyOn(services.auth, 'login')
 
       await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
@@ -85,7 +85,7 @@ describe('<Login />', () => {
       services.auth.login.mockResolvedValueOnce(responseData)
     })
 
-    test('Button must be loading during request', async () => {
+    it('Button should be loading during request', async () => {
       await fillForm()
 
       await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
@@ -93,7 +93,7 @@ describe('<Login />', () => {
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBe(true)
     })
 
-    test('Button must not be loading after request', async () => {
+    it('Button should not be loading after request', async () => {
       await fillForm()
 
       await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
@@ -102,7 +102,7 @@ describe('<Login />', () => {
       expect(wrapper.findComponent({ ref: 'submitBtn' }).vm.loading).toBe(false)
     })
 
-    test('Auth login method must be called after request', async () => {
+    it('Auth login method should be called after request', async () => {
       const spy = jest.spyOn(Auth, 'login')
       await fillForm()
 

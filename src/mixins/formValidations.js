@@ -19,7 +19,7 @@ export default {
     },
     $_validate() {
       if (!this.$v.form) {
-        throw new Error('You must declare fields inside a "form" attribute.')
+        throw new Error('You should declare fields inside a "form" attribute.')
       }
     },
     $_getErrorMessage(field, validationNames) {
@@ -52,7 +52,8 @@ export default {
         validation === Validations.MIN_VALUE
       ) {
         validationParam = prefix.min
-      } else if (validation === Validations.MAX_VALUE) validationParam = prefix.max
+      } else if (validation === Validations.MAX_VALUE)
+        validationParam = prefix.max
       return validationParam
     }
   },
