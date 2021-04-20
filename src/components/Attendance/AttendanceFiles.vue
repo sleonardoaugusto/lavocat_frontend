@@ -23,7 +23,7 @@
         </thead>
         <tbody>
           <tr v-for="(file, idx) in internalFiles" :key="idx">
-            <td>{{ file.name || file.filename }}</td>
+            <td>{{ file.name || file.filename | truncate }}</td>
             <td>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
@@ -70,6 +70,9 @@ import services from '@/services'
 
 export default {
   name: 'AttendanceFiles',
+  filters: {
+    truncate: val => val?.slice(0, 50)
+  },
   props: {
     value: {
       type: Array,
