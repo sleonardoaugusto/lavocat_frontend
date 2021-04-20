@@ -46,11 +46,13 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     :id="`remove-${idx}`"
+                    :ref="`remove-${idx}`"
                     @click="onDelete(file, idx)"
                     icon
                     small
                     v-bind="attrs"
                     v-on="on"
+                    :loading="isLoading"
                   >
                     <v-icon>mdi-trash-can-outline</v-icon>
                   </v-btn>
@@ -89,9 +91,17 @@ export default {
     async onDelete(file, idx) {
       if (!(file instanceof File)) {
         const { id } = file
-        await services.attendance.deleteAttendanceFile(id)
+        this.toggleLoading()
+        await services.attendance
+          .deleteAttendanceFile(id)
+          .then(() => {
+            this.internalFiles.splice(idx, 1)
+          })
+          .catch(() => {})
+        this.toggleLoading()
+      } else {
+        this.internalFiles.splice(idx, 1)
       }
-      this.internalFiles.splice(idx, 1)
     },
     isNotFile(attachment) {
       return !(attachment instanceof File)

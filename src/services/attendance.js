@@ -72,6 +72,7 @@ class Attendance {
           props: { type: 'success', text: 'Arquivo deletado.' }
         })
       })
+      .catch(() => {})
   }
 }
 

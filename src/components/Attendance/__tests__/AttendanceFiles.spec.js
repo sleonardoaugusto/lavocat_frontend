@@ -6,6 +6,7 @@ import busy from '@/mixins/busy'
 import { mount } from '@vue/test-utils'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
 import services from '@/services'
+import flushPromises from 'flush-promises'
 
 describe('<AttendanceFiles />', () => {
   Vue.use(Vuetify)
@@ -43,7 +44,6 @@ describe('<AttendanceFiles />', () => {
       .vm.$emit('change', files)
     await wrapper.find('#remove-2').trigger('click')
 
-    expect(wrapper.html()).not.toContain('fizzbuzz')
     expect(wrapper.findAll('tbody tr')).toHaveLength(2)
   })
 
@@ -76,6 +76,45 @@ describe('<AttendanceFiles />', () => {
     await wrapper.find('#remove-0').trigger('click')
 
     expect(spy).toHaveBeenCalledWith(1)
+  })
+
+  it('Should not remove attachment if promise is rejected', async () => {
+    services.attendance.deleteAttendanceFile.mockRejectedValueOnce()
+    await wrapper.setData({ internalFiles: [{ id: 1 }] })
+
+    await wrapper.find('#remove-0').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.findAll('tbody tr')).toHaveLength(1)
+  })
+
+  it('Should remove attachment if promise is resolved', async () => {
+    services.attendance.deleteAttendanceFile.mockResolvedValue()
+    await wrapper.setData({ internalFiles: [{ id: 1 }] })
+
+    await wrapper.find('#remove-0').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.findAll('tbody tr')).toHaveLength(0)
+  })
+
+  it('Button must be loading during delete file request promise', async () => {
+    await wrapper.setData({ internalFiles: [{ id: 1 }] })
+
+    await wrapper.find('#remove-0').trigger('click')
+
+    expect(wrapper.findAll('tbody tr')).toHaveLength(1)
+    expect(wrapper.findComponent({ ref: 'remove-0' }).vm.loading).toBeTruthy()
+  })
+
+  it('Button must not be loading after delete file request promise', async () => {
+    services.attendance.deleteAttendanceFile.mockRejectedValueOnce()
+    await wrapper.setData({ internalFiles: [{ id: 1 }] })
+
+    await wrapper.find('#remove-0').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.findComponent({ ref: 'remove-0' }).vm.loading).toBeFalsy()
   })
 
   it('Should add new files to existent files', async () => {
