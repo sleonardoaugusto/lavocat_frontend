@@ -25,7 +25,7 @@
             label="Senha"
             type="password"
             v-model="$v.form.password.$model"
-            @keydown.enter="submit"
+            @keydown.enter="onSubmit"
             :error-messages="errorMessage('password')"
           />
         </v-col>
@@ -36,7 +36,7 @@
             id="submit"
             ref="submitBtn"
             color="primary"
-            @click="submit"
+            @click="onSubmit"
             :loading="isLoading"
           >
             entrar
@@ -71,7 +71,7 @@ export default {
     }
   },
   methods: {
-    async submit() {
+    async onSubmit() {
       this.touch()
       if (this.formIsReady) {
         this.toggleLoading()

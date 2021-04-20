@@ -46,7 +46,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     :id="`remove-${idx}`"
-                    @click="remove(file, idx)"
+                    @click="onDelete(file, idx)"
                     icon
                     small
                     v-bind="attrs"
@@ -86,7 +86,7 @@ export default {
       files.forEach(f => this.internalFiles.push(f))
       this.$emit('changed', this.internalFiles)
     },
-    async remove(file, idx) {
+    async onDelete(file, idx) {
       if (!(file instanceof File)) {
         const { id } = file
         await services.attendance.deleteAttendanceFile(id)

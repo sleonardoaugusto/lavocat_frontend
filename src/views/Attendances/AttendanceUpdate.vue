@@ -3,7 +3,7 @@
     <BaseHeading text="Editar Atendimento" />
     <AttendanceForm
       ref="attendanceForm"
-      @submit="updateAttendance"
+      @submit="onSubmit"
       :update="true"
       :value="internalAttendance"
       :busy="isLoading"
@@ -40,7 +40,7 @@ export default {
       this.internalAttendance = await services.attendance.getAttendanceById(id)
       this.toggleLoading()
     },
-    async updateAttendance(data) {
+    async onSubmit(data) {
       this.toggleLoading()
       await services.attendance.updateAttendance(this.attendanceId, data)
       this.toggleLoading()

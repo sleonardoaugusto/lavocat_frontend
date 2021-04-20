@@ -1,11 +1,7 @@
 <template>
   <div>
     <BaseHeading text="Novo Atendimento" />
-    <AttendanceForm
-      ref="attendanceForm"
-      @submit="createAttendance"
-      :busy="isLoading"
-    />
+    <AttendanceForm ref="attendanceForm" @submit="onSubmit" :busy="isLoading" />
   </div>
 </template>
 
@@ -19,7 +15,7 @@ export default {
   name: 'AttendanceCreate',
   components: { BaseHeading, AttendanceForm },
   methods: {
-    async createAttendance(data) {
+    async onSubmit(data) {
       this.toggleLoading()
       await services.attendance.createAttendance(data)
       this.toggleLoading()

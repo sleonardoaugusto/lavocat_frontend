@@ -61,7 +61,7 @@
         <v-btn
           ref="submitBtn"
           id="submit"
-          @click="submit"
+          @click="onSubmit"
           :loading="busy"
           :color="colorStyle"
           class="white--text"
@@ -123,7 +123,7 @@ export default {
     this.statusesOptions = objToSelect(statuses)
   },
   methods: {
-    submit() {
+    onSubmit() {
       this.touch()
       if (this.formIsReady) {
         const data = this.parseForm()
