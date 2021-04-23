@@ -8,6 +8,8 @@ import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
 import services from '@/services'
 import flushPromises from 'flush-promises'
 
+jest.mock('@/services')
+
 describe('<AttendanceFiles />', () => {
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
@@ -70,6 +72,7 @@ describe('<AttendanceFiles />', () => {
   })
 
   it('Should call delete file service if is instance of File', async () => {
+    services.attendance.deleteAttendanceFile.mockResolvedValue()
     const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
     await wrapper.setData({ internalFiles: [{ id: 1 }] })
 
