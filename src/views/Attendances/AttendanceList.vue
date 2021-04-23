@@ -54,6 +54,10 @@
             class="elevation-1"
             :loading="isLoading"
             loading-text="Carregando atendimentos... Por favor aguarde"
+            :footer-props="{
+              itemsPerPageAllText: 'Todos',
+              itemsPerPageText: 'Qtd. por página'
+            }"
           >
             <template v-slot:item.status_label="{ item }">
               <v-badge dot inline left :color="statusColor(item.status)">
