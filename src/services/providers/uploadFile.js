@@ -1,14 +1,14 @@
-export default class Upload {
+export default class UploadFile {
   constructor(http) {
     this.http = http
   }
   uploadFiles(files, method, url) {
     return Promise.all(
-      files.map(f => {
+      files.map(file => {
         const requestData = {
           method: method,
           url: url,
-          data: f,
+          data: file,
           headers: {
             'Content-type': 'multipart/form-data'
           }

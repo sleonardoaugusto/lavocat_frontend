@@ -1,8 +1,8 @@
 import Attendance from '@/services/attendance'
-import Upload from '@/services/upload'
+import UploadFile from '@/services/providers/uploadFile'
 import flushPromises from 'flush-promises'
 
-jest.mock('@/services/upload')
+jest.mock('@/services/providers/uploadFile')
 
 describe('Attendance Service', () => {
   let service
@@ -83,7 +83,7 @@ describe('Attendance Service', () => {
     it('Should upload files', async () => {
       const files = [new File(['t'], 'teste.txt')]
       await service.uploadAttendanceFiles(1, files)
-      const mockUploadService = Upload.mock.instances[0]
+      const mockUploadService = UploadFile.mock.instances[0]
       const mockUploadFile = mockUploadService.uploadFiles
 
       await flushPromises()

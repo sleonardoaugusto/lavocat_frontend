@@ -1,4 +1,4 @@
-import Upload from '@/services/upload'
+import UploadFile from '@/services/providers/uploadFile'
 
 describe('Upload Service', () => {
   let service
@@ -6,7 +6,7 @@ describe('Upload Service', () => {
 
   beforeEach(() => {
     httpClient = { request: jest.fn() }
-    service = new Upload(httpClient)
+    service = new UploadFile(httpClient)
   })
 
   it('Constructor', () => {

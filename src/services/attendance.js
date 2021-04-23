@@ -1,5 +1,5 @@
 import useModal from '@/hooks/useModal'
-import Upload from '@/services/upload'
+import UploadFile from '@/services/providers/uploadFile'
 
 const modal = useModal()
 
@@ -46,7 +46,7 @@ class Attendance {
         }
       }
 
-      const uploadService = new Upload(this.http)
+      const uploadService = new UploadFile(this.http)
       await uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
     }
   }
