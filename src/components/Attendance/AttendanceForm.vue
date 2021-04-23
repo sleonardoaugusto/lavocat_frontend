@@ -114,7 +114,7 @@ export default {
   validations: {
     form: {
       customer_name: { required },
-      document_id: { required, cpfValidator },
+      document_id: { cpfValidator },
       status: { required }
     }
   },

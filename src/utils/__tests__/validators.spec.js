@@ -2,6 +2,7 @@ import { cpfValidator } from '@/utils/validators'
 
 describe('validators.js', () => {
   it.each([
+    ['', true],
     ['999.999.999-99', true],
     ['999.999.999-9', false],
     [9999999999, false],

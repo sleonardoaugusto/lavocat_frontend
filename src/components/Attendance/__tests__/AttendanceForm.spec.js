@@ -46,7 +46,7 @@ describe('<AttendanceForm />', () => {
 
     test.each([
       ['customerName', 'Campo obrigatório'],
-      ['documentId', 'Campo obrigatório'],
+      ['documentId', null],
       ['statusesSelect', 'Campo obrigatório']
     ])('%s field should be invalid', async (field, msg) => {
       await wrapper.find('#submit').trigger('click')
@@ -54,7 +54,7 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
     })
 
-    it('#document-id field should be invalid if length', async () => {
+    it('#document-id field should be invalid if length is not 11', async () => {
       await wrapper.find('#document-id').setValue('9999999999')
 
       expect(
@@ -81,12 +81,8 @@ describe('<AttendanceForm />', () => {
 
   describe('Form submit', () => {
     test.each([
-      [
-        'customer_name',
-        { customer_name: '', document_id: '99999999999', status: 1 }
-      ],
-      ['document_id', { customer_name: 'maria', document_id: '', status: 1 }],
-      ['status', { customer_name: 'maria', document_id: '', status: null }]
+      ['customer_name', { customer_name: '', status: 1 }],
+      ['status', { customer_name: 'maria', status: null }]
     ])('Should not emit form data if %s field is invalid', async (_, data) => {
       await fillForm(data)
       await wrapper.find('#submit').trigger('click')

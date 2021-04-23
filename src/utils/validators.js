@@ -1,3 +1,14 @@
-export const cpfValidator = value =>
-  value?.toString().replace('.', '')?.replace('.', '')?.replace('-', '')
-    .length === 11
+function removeSpecialCharacters(documentId) {
+  return documentId
+    ?.toString()
+    .replace('.', '')
+    ?.replace('.', '')
+    ?.replace('-', '')
+}
+
+export const cpfValidator = documentId => {
+  if (!documentId) return true
+  else {
+    return removeSpecialCharacters(documentId).length === 11
+  }
+}
