@@ -19,7 +19,7 @@ export default {
       this.toggleLoading()
       await services.attendance.createAttendance(data)
       this.toggleLoading()
-      router.push({ name: 'attendances-list' }).catch(() => {})
+      router.push({ name: 'attendances-list' })
     }
   }
 }

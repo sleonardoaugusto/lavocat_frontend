@@ -8,8 +8,10 @@ import { mount } from '@vue/test-utils'
 import AttendanceCreate from '@/views/Attendances/AttendanceCreate'
 import flushPromises from 'flush-promises'
 import VueRouter from 'vue-router'
+import router from '@/router'
 
 jest.mock('@/services')
+jest.mock('@/router')
 
 describe('<AttendanceCreate />', () => {
   Vue.use(Vuetify)
@@ -26,6 +28,10 @@ describe('<AttendanceCreate />', () => {
   beforeEach(() => {
     vuetify = new Vuetify()
     wrapper = factory()
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
   })
 
   const factory = opts =>
@@ -58,5 +64,17 @@ describe('<AttendanceCreate />', () => {
     await flushPromises()
 
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
+  })
+
+  it('Should redirect to attendances list after save', async () => {
+    const spy = jest.spyOn(router, 'push')
+
+    await wrapper
+      .findComponent({ ref: 'attendanceForm' })
+      .vm.$emit('submit', {})
+    await flushPromises()
+
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith({ name: 'attendances-list' })
   })
 })

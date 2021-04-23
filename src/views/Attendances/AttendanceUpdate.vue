@@ -15,6 +15,7 @@
 import BaseHeading from '@/components/base/BaseHeading'
 import AttendanceForm from '@/components/Attendance/AttendanceForm'
 import services from '@/services'
+import router from '@/router'
 
 export default {
   name: 'AttendanceUpdate',
@@ -44,7 +45,7 @@ export default {
       this.toggleLoading()
       await services.attendance.updateAttendance(this.attendanceId, data)
       this.toggleLoading()
-      await this.getAttendance(this.attendanceId)
+      router.push({ name: 'attendances-list' })
     }
   }
 }

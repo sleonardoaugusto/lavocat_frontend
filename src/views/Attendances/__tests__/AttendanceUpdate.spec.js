@@ -7,8 +7,10 @@ import Vuelidate from 'vuelidate'
 import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
+import router from '@/router'
 
 jest.mock('@/services')
+jest.mock('@/router')
 
 describe('<AttendanceUpdate />', () => {
   Vue.use(Vuetify)
@@ -25,6 +27,10 @@ describe('<AttendanceUpdate />', () => {
   beforeEach(() => {
     vuetify = new Vuetify()
     wrapper = factory()
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
   })
 
   const factory = opts =>
@@ -105,17 +111,18 @@ describe('<AttendanceUpdate />', () => {
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
 
-  it('Should refresh form data from database after update', async () => {
+  it('Should redirect to attendances list after update', async () => {
     services.attendance.updateAttendance.mockResolvedValueOnce({})
     services.attendance.getAttendanceById.mockResolvedValueOnce({ key: 'pair' })
+
+    const spy = jest.spyOn(router, 'push')
 
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
     await flushPromises()
 
-    expect(
-      wrapper.findComponent({ ref: 'attendanceForm' }).vm.value
-    ).toStrictEqual({ key: 'pair' })
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith({ name: 'attendances-list' })
   })
 })
