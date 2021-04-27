@@ -6,5 +6,6 @@ export const objToSelect = dict => {
     }))
 }
 
-export const clearDocumentId = value =>
-  value.replace('.', '').replace('.', '').replace('-', '')
+export const clearDocumentId = value => {
+  if (value) return value.replace('.', '').replace('.', '').replace('-', '')
+}

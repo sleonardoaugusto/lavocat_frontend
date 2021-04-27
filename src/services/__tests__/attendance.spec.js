@@ -77,6 +77,14 @@ describe('Attendance Service', () => {
 
       expect(resp).toEqual({})
     })
+
+    it('Should return response error', async () => {
+      httpClient.put.mockRejectedValueOnce({})
+
+      const resp = await service.updateAttendance(1, {})
+
+      expect(resp).toEqual({})
+    })
   })
 
   describe('Upload attendance files', () => {
