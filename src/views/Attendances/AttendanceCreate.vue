@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseHeading text="Novo Atendimento" />
+    <AppHeading text="Novo Atendimento" />
     <AttendanceForm ref="attendanceForm" @submit="onSubmit" :busy="isLoading" />
   </div>
 </template>
@@ -8,12 +8,12 @@
 <script>
 import AttendanceForm from '@/components/Attendance/AttendanceForm'
 import services from '@/services'
-import BaseHeading from '@/components/base/BaseHeading'
 import router from '@/router'
+import AppHeading from '@/components/ui/AppHeading'
 
 export default {
   name: 'AttendanceCreate',
-  components: { BaseHeading, AttendanceForm },
+  components: { AppHeading, AttendanceForm },
   methods: {
     async onSubmit(data) {
       this.toggleLoading()

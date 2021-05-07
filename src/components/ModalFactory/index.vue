@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SnackBar from '@/components/base/SnackBar'
+import SnackBar from '@/components/ui/SnackBar'
 import useModal from '@/hooks/useModal'
 
 const modal = useModal()

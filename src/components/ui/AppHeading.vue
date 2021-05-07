@@ -1,14 +1,14 @@
 <template>
   <v-row>
     <v-col>
-      <div v-bind="$attrs" :class="`text-${tag} ${typography}`" v-text="text"/>
+      <div v-bind="$attrs" :class="`text-${tag} ${typography}`" v-text="text" />
     </v-col>
   </v-row>
 </template>
 
 <script>
 export default {
-  name: 'BaseHeading',
+  name: 'AppHeading',
   props: {
     text: {
       type: String,

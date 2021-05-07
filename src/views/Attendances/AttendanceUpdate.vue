@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseHeading text="Editar Atendimento" />
+    <AppHeading text="Editar Atendimento" />
     <AttendanceForm
       ref="attendanceForm"
       @submit="onSubmit"
@@ -12,15 +12,15 @@
 </template>
 
 <script>
-import BaseHeading from '@/components/base/BaseHeading'
 import AttendanceForm from '@/components/Attendance/AttendanceForm'
 import services from '@/services'
 import router from '@/router'
+import AppHeading from '@/components/ui/AppHeading'
 
 export default {
   name: 'AttendanceUpdate',
   components: {
-    BaseHeading,
+    AppHeading,
     AttendanceForm
   },
   props: {

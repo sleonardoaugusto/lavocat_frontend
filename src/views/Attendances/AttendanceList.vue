@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseHeading text="Atendimentos" />
+    <AppHeading text="Atendimentos" />
     <v-row>
       <v-col class="text-right">
         <v-btn ref="newAttendance" href="/atendimentos/novo" color="primary">
@@ -90,12 +90,12 @@
 
 <script>
 import services from '@/services'
-import BaseHeading from '@/components/base/BaseHeading'
 import { objToSelect } from '@/utils/formatters'
+import AppHeading from '@/components/ui/AppHeading'
 
 export default {
   name: 'AttendanceList',
-  components: { BaseHeading },
+  components: { AppHeading },
   data: () => ({
     headers: [
       {

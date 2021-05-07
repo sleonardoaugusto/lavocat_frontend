@@ -2,7 +2,7 @@
   <div class="mt-auto">
     <v-row>
       <v-col cols="4" offset="4" class="text-center align-center">
-        <BaseHeading text="Entrar no L'avocat" tag="h6" />
+        <AppHeading text="Entrar no L'avocat" tag="h6" />
       </v-col>
     </v-row>
     <v-form>
@@ -48,15 +48,15 @@
 </template>
 
 <script>
-import BaseHeading from '@/components/base/BaseHeading'
 import validations from '@/mixins/formValidations'
 import { required } from 'vuelidate/lib/validators'
 import services from '@/services'
 import { Auth } from '@/utils/auth'
+import AppHeading from '@/components/ui/AppHeading'
 
 export default {
   name: 'Login',
-  components: { BaseHeading },
+  components: { AppHeading },
   mixins: [validations],
   data: () => ({
     form: {
