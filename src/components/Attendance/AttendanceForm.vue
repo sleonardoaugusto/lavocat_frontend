@@ -89,7 +89,7 @@ export default {
   mixins: [validations],
   props: {
     value: {
-      type: [Object],
+      type: Object,
       default: () => {}
     },
     update: {

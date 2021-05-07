@@ -42,23 +42,10 @@
                 </template>
                 <span>Baixar</span>
               </v-tooltip>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    :id="`remove-${idx}`"
-                    :ref="`remove-${idx}`"
-                    @click="onDelete(file, idx)"
-                    icon
-                    small
-                    v-bind="attrs"
-                    v-on="on"
-                    :loading="isLoading"
-                  >
-                    <v-icon>mdi-trash-can-outline</v-icon>
-                  </v-btn>
-                </template>
-                <span>Remover</span>
-              </v-tooltip>
+              <AttendanceDeleteIconFile
+                @delete="onFileDelete(idx)"
+                :file="file"
+              />
             </td>
           </tr>
         </tbody>
@@ -68,10 +55,11 @@
 </template>
 
 <script>
-import services from '@/services'
+import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteIconFile'
 
 export default {
   name: 'AttendanceFiles',
+  components: { AttendanceDeleteIconFile },
   filters: {
     truncate: val => val?.slice(0, 50)
   },
@@ -81,27 +69,18 @@ export default {
       default: () => []
     }
   },
-  data: () => ({ internalFiles: [], files: [] }),
+  data: () => ({
+    internalFiles: [],
+    files: []
+  }),
   methods: {
+    onFileDelete(idx) {
+      this.internalFiles.splice(idx, 1)
+    },
     setInternal(files) {
       this.files = []
       files.forEach(f => this.internalFiles.push(f))
       this.$emit('changed', this.internalFiles)
-    },
-    async onDelete(file, idx) {
-      if (!(file instanceof File)) {
-        const { id } = file
-        this.toggleLoading()
-        await services.attendance
-          .deleteAttendanceFile(id)
-          .then(() => {
-            this.internalFiles.splice(idx, 1)
-          })
-          .catch(() => {})
-        this.toggleLoading()
-      } else {
-        this.internalFiles.splice(idx, 1)
-      }
     },
     isNotFile(attachment) {
       return !(attachment instanceof File)

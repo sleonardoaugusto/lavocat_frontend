@@ -5,8 +5,7 @@ import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
 import { mount } from '@vue/test-utils'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
-import services from '@/services'
-import flushPromises from 'flush-promises'
+import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteIconFile'
 
 jest.mock('@/services')
 
@@ -40,84 +39,31 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.findAll('tbody tr')).toHaveLength(3)
   })
 
-  it('Should remove attachment', async () => {
-    await wrapper
-      .findComponent({ ref: 'attachments' })
-      .vm.$emit('change', files)
-    await wrapper.find('#remove-2').trigger('click')
-
-    expect(wrapper.findAll('tbody tr')).toHaveLength(2)
-  })
-
-  it('Should show if attachment is not a instance of File', async () => {
+  it('Should show download button if attachment is not a instance of File', async () => {
     await wrapper.setData({ internalFiles: [{ id: 1, file: 'link' }] })
 
     expect(wrapper.find('#download-0').isVisible()).toBeTruthy()
     expect(wrapper.find('#download-0').vm.href).toBe('link')
   })
 
-  it('Should not show if attachment is a instance of File', async () => {
+  it('Should not show download button if attachment is a instance of File', async () => {
     await wrapper.setData({ internalFiles: [files[0]] })
 
     expect(wrapper.find('#download-0').isVisible()).toBeFalsy()
   })
 
-  it('Should not call delete file service if is not instance of File', async () => {
-    const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
-    await wrapper.setData({ internalFiles: [files[0]] })
-
-    await wrapper.find('#remove-0').trigger('click')
-
-    expect(spy).not.toHaveBeenCalled()
+  it('Should pass files as props to child component', async () => {
+    await wrapper.setData({ internalFiles: [{ id: 1 }] })
+    expect(
+      wrapper.findComponent(AttendanceDeleteIconFile).vm.file
+    ).toStrictEqual({ id: 1 })
   })
 
-  it('Should call delete file service if is instance of File', async () => {
-    services.attendance.deleteAttendanceFile.mockResolvedValue()
-    const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
+  it('Should remove attachment on child component event emit', async () => {
     await wrapper.setData({ internalFiles: [{ id: 1 }] })
 
-    await wrapper.find('#remove-0').trigger('click')
-
-    expect(spy).toHaveBeenCalledWith(1)
-  })
-
-  it('Should not remove attachment if promise is rejected', async () => {
-    services.attendance.deleteAttendanceFile.mockRejectedValueOnce()
-    await wrapper.setData({ internalFiles: [{ id: 1 }] })
-
-    await wrapper.find('#remove-0').trigger('click')
-    await flushPromises()
-
-    expect(wrapper.findAll('tbody tr')).toHaveLength(1)
-  })
-
-  it('Should remove attachment if promise is resolved', async () => {
-    services.attendance.deleteAttendanceFile.mockResolvedValue()
-    await wrapper.setData({ internalFiles: [{ id: 1 }] })
-
-    await wrapper.find('#remove-0').trigger('click')
-    await flushPromises()
-
+    await wrapper.findComponent(AttendanceDeleteIconFile).vm.$emit('delete')
     expect(wrapper.findAll('tbody tr')).toHaveLength(0)
-  })
-
-  it('Button must be loading during delete file request promise', async () => {
-    await wrapper.setData({ internalFiles: [{ id: 1 }] })
-
-    await wrapper.find('#remove-0').trigger('click')
-
-    expect(wrapper.findAll('tbody tr')).toHaveLength(1)
-    expect(wrapper.findComponent({ ref: 'remove-0' }).vm.loading).toBeTruthy()
-  })
-
-  it('Button must not be loading after delete file request promise', async () => {
-    services.attendance.deleteAttendanceFile.mockRejectedValueOnce()
-    await wrapper.setData({ internalFiles: [{ id: 1 }] })
-
-    await wrapper.find('#remove-0').trigger('click')
-    await flushPromises()
-
-    expect(wrapper.findComponent({ ref: 'remove-0' }).vm.loading).toBeFalsy()
   })
 
   it('Should add new files to existent files', async () => {
