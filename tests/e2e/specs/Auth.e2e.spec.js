@@ -1,4 +1,4 @@
-describe('<AttendanceUpdate />', () => {
+describe('<Auth />', () => {
   const baseUrl = Cypress.env('host')
   const apiServer = Cypress.env('api_server')
 
