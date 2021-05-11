@@ -13,6 +13,8 @@
       >
         <v-icon>mdi-trash-can-outline</v-icon>
         <AppDialogConfirm
+          title="Deletar arquivo"
+          text="Tem certeza que deseja deletar arquivo?"
           :show-dialog="showDialog"
           @confirm="onConfirm"
           @cancel="showDialog = false"

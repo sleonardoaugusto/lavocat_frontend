@@ -6,8 +6,8 @@
       max-width="290"
     >
       <v-card>
-        <v-card-title class="headline"> Deletar arquivo </v-card-title>
-        <v-card-text> Tem certeza que deseja deletar arquivo? </v-card-text>
+        <v-card-title class="headline">{{ title }}</v-card-title>
+        <v-card-text>{{ text }}</v-card-text>
         <v-card-actions>
           <v-btn id="cancel" text @click="onCancel"> não </v-btn>
           <v-spacer></v-spacer>
@@ -27,6 +27,12 @@ export default {
     showDialog: {
       type: Boolean,
       required: false
+    },
+    title: {
+      type: String
+    },
+    text: {
+      type: String
     }
   },
   data: () => ({
