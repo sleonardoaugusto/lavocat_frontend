@@ -64,7 +64,7 @@
                 {{ item.status_label }}
               </v-badge>
             </template>
-            <template v-slot:item.attendanceLink="{ item }">
+            <template v-slot:item.actions="{ item }">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -80,6 +80,10 @@
                 </template>
                 <span>Editar</span>
               </v-tooltip>
+              <AttendanceDelete
+                :attendance-id="item.id"
+                @delete="onAttendanceDelete(item.id)"
+              />
             </template>
           </v-data-table>
         </v-card>
@@ -92,10 +96,11 @@
 import services from '@/services'
 import { objToSelect } from '@/utils/formatters'
 import AppHeading from '@/components/ui/AppHeading'
+import AttendanceDelete from '@/components/Attendance/AttendanceDelete'
 
 export default {
   name: 'AttendanceList',
-  components: { AppHeading },
+  components: { AttendanceDelete, AppHeading },
   data: () => ({
     headers: [
       {
@@ -111,12 +116,13 @@ export default {
         value: 'status_label'
       },
       {
-        text: 'Ação',
-        value: 'attendanceLink'
+        text: 'Ações',
+        value: 'actions'
       }
     ],
     statusOptions: [],
     attendances: [],
+    deletingAttendance: false,
     filters: {
       customer_name: '',
       document_id: '',
@@ -162,6 +168,11 @@ export default {
       }
 
       this.filters = { ...this.filters, ...params }
+    },
+    onAttendanceDelete(attendanceId) {
+      this.attendances = this.attendances.filter(
+        attendance => attendance.id !== attendanceId
+      )
     }
   }
 }

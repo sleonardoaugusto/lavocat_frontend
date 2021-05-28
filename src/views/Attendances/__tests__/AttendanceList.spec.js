@@ -7,6 +7,7 @@ import busy from '@/mixins/busy'
 import AttendanceList from '@/views/Attendances/AttendanceList'
 import services from '@/services'
 import flushPromises from 'flush-promises'
+import AttendanceDelete from '@/components/Attendance/AttendanceDelete'
 
 jest.mock('@/services')
 
@@ -42,14 +43,14 @@ describe('<AttendanceList />', () => {
   })
 
   it('Table should receive attendances', async () => {
-    services.attendance.getAttendances.mockResolvedValueOnce([{}])
+    services.attendance.getAttendances.mockResolvedValueOnce([{ id: 1 }])
 
     wrapper = factory()
     await flushPromises()
 
     expect(
       wrapper.findComponent({ ref: 'attendancesList' }).vm.items
-    ).toStrictEqual([{}])
+    ).toStrictEqual([{ id: 1 }])
   })
 
   it('Table should receive headers', () => {
@@ -67,8 +68,8 @@ describe('<AttendanceList />', () => {
         value: 'status_label'
       },
       {
-        text: 'Ação',
-        value: 'attendanceLink'
+        text: 'Ações',
+        value: 'actions'
       }
     ]
 
@@ -153,5 +154,14 @@ describe('<AttendanceList />', () => {
       document_id: '',
       status: [0, 1]
     })
+  })
+
+  it('Should remove attendance on child component event emit', async () => {
+    services.attendance.getAttendances.mockResolvedValueOnce([{ id: 1 }])
+    wrapper = factory()
+    await flushPromises()
+
+    await wrapper.findComponent(AttendanceDelete).vm.$emit('delete')
+    expect(wrapper.find('tbody tr').text()).toBe('No data available')
   })
 })
