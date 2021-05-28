@@ -118,6 +118,20 @@ describe('Attendance Service', () => {
     })
   })
 
+  describe('Delete attendance', () => {
+    beforeEach(() => {
+      httpClient.delete.mockResolvedValueOnce({})
+    })
+
+    it('Should delete attendance', () => {
+      const spy = jest.spyOn(httpClient, 'delete')
+
+      service.deleteAttendance(1)
+
+      expect(spy).toHaveBeenCalledWith(`/attendances/1/`)
+    })
+  })
+
   describe('Get attendances', () => {
     beforeEach(() => {
       httpClient.get.mockResolvedValueOnce({ data: [] })

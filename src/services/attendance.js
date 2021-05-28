@@ -72,7 +72,22 @@ class Attendance {
           props: { type: 'success', text: 'Arquivo deletado.' }
         })
       })
-      .catch(() => {})
+      .catch(e => {
+        console.log(`Ocorreu um erro ${e}`)
+      })
+  }
+  async deleteAttendance(attendanceId) {
+    return await this.http
+      .delete(`/attendances/${attendanceId}/`)
+      .then(() => {
+        modal.open({
+          component: 'SnackBar',
+          props: { type: 'success', text: 'Atendimento deletado.' }
+        })
+      })
+      .catch(e => {
+        console.log(`Ocorreu um erro ${e}`)
+      })
   }
 }
 
