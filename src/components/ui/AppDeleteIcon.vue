@@ -9,12 +9,12 @@
         small
         v-bind="attrs"
         v-on="on"
-        :loading="isLoading"
+        :loading="loading"
       >
         <v-icon>mdi-trash-can-outline</v-icon>
         <AppDialogConfirm
-          title="Deletar arquivo"
-          text="Tem certeza que deseja deletar arquivo?"
+          :title="dialogTitle"
+          :text="dialogText"
           :show-dialog="showDialog"
           @confirm="onConfirm"
           @cancel="showDialog = false"
@@ -27,14 +27,20 @@
 
 <script>
 import AppDialogConfirm from '@/components/ui/AppDialogConfirm'
-import services from '@/services'
 
 export default {
-  name: 'AttendanceDeleteIconFile',
+  name: 'AppDeleteIcon',
   components: { AppDialogConfirm },
   props: {
-    file: {
-      type: [Object, File],
+    loading: {
+      type: Boolean
+    },
+    dialogTitle: {
+      type: String,
+      required: true
+    },
+    dialogText: {
+      type: String,
       required: true
     }
   },
@@ -47,17 +53,7 @@ export default {
     },
     async onConfirm() {
       this.showDialog = false
-      if (!(this.file instanceof File)) {
-        this.toggleLoading()
-        const { id } = this.file
-        await services.attendance
-          .deleteAttendanceFile(id)
-          .then(() => this.$emit('delete'))
-          .catch(() => {})
-        this.toggleLoading()
-      } else {
-        this.$emit('delete')
-      }
+      this.$emit('delete')
     }
   }
 }

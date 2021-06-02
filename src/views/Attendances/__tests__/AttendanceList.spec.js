@@ -19,13 +19,16 @@ describe('<AttendanceList />', () => {
 
   let wrapper
   let vuetify
+  let stubs
 
   beforeEach(() => {
+    stubs = { AttendanceDelete: true }
     vuetify = new Vuetify()
     wrapper = factory()
   })
 
-  const factory = opts => mount(AttendanceList, { Vue, vuetify, ...opts })
+  const factory = opts =>
+    mount(AttendanceList, { Vue, vuetify, stubs, ...opts })
 
   it('New attendance btn', () => {
     expect(wrapper.findComponent({ ref: 'newAttendance' }).vm.$props.href).toBe(

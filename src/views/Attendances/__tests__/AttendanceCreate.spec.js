@@ -22,10 +22,10 @@ describe('<AttendanceCreate />', () => {
 
   let wrapper
   let vuetify
-
-  const stubs = { AttendanceForm: true }
+  let stubs
 
   beforeEach(() => {
+    stubs = { AttendanceForm: true }
     vuetify = new Vuetify()
     wrapper = factory()
   })

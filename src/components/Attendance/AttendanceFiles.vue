@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteIconFile'
+import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteFile'
 
 export default {
   name: 'AttendanceFiles',

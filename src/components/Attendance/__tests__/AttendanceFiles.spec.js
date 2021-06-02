@@ -5,7 +5,7 @@ import VueTheMask from 'vue-the-mask'
 import busy from '@/mixins/busy'
 import { mount } from '@vue/test-utils'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
-import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteIconFile'
+import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteFile'
 
 jest.mock('@/services')
 
@@ -17,13 +17,16 @@ describe('<AttendanceFiles />', () => {
 
   let wrapper
   let vuetify
+  let stubs
 
   beforeEach(() => {
+    stubs = { AttendanceDeleteIconFile: true }
     vuetify = new Vuetify()
     wrapper = factory()
   })
 
-  const factory = opts => mount(AttendanceFiles, { Vue, vuetify, ...opts })
+  const factory = opts =>
+    mount(AttendanceFiles, { Vue, vuetify, stubs, ...opts })
 
   const files = [
     new File(['fizz'], 'fizz.txt'),

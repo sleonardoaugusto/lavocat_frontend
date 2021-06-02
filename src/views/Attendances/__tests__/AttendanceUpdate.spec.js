@@ -20,11 +20,12 @@ describe('<AttendanceUpdate />', () => {
 
   let wrapper
   let vuetify
-
-  const stubs = { AttendanceForm: true }
-  const propsData = { attendanceId: 1 }
+  let stubs
+  let propsData
 
   beforeEach(() => {
+    stubs = { AttendanceForm: true }
+    propsData = { attendanceId: 1 }
     vuetify = new Vuetify()
     wrapper = factory()
   })
