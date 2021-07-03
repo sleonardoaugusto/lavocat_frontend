@@ -25,7 +25,13 @@ httpClient.interceptors.response.use(
   }
 )
 
+const keepAlive = () => {
+  const NINE_MINUTES = 9 * 60000
+  setInterval(() => httpClient.get('/'), NINE_MINUTES)
+}
+
 export default {
   attendance: AttendanceService(httpClient),
-  auth: AuthService(httpClient)
+  auth: AuthService(httpClient),
+  keepAlive
 }
