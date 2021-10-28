@@ -71,6 +71,7 @@
                     :id="`attendance-${item.id}`"
                     :ref="`attendance${item.id}`"
                     :href="`/atendimentos/${item.id}/editar`"
+                    target="_blank"
                     icon
                     v-bind="attrs"
                     v-on="on"
