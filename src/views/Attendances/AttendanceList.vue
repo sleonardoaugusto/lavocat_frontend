@@ -109,8 +109,8 @@ export default {
         value: 'customer_name'
       },
       {
-        text: 'Documento',
-        value: 'document_id'
+        text: 'Resumo de Status',
+        value: 'status_resume'
       },
       {
         text: 'Status',

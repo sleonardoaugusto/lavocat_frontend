@@ -101,7 +101,8 @@ describe('<AttendanceForm />', () => {
         document_id: data.document_id,
         status: data.status,
         files: data.files,
-        resume: data.resume
+        resume: data.resume,
+        status_resume: data.status_resume
       })
     })
   })
@@ -141,7 +142,7 @@ describe('<AttendanceForm />', () => {
         data.customer_name
       )
       expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
-        data._document_id_formatted
+        data.document_id_formatted
       )
       expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
         data.status
@@ -152,16 +153,20 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.findComponent({ ref: 'resume' }).vm.value).toBe(
         data.resume
       )
+      expect(wrapper.findComponent({ ref: 'statusResume' }).vm.value).toBe(
+        data.status_resume
+      )
     })
   })
 
   const generateData = opts => ({
     customer_name: faker.random.word(),
     document_id: '99999999999',
-    _document_id_formatted: '999.999.999-99',
+    document_id_formatted: '999.999.999-99',
     status: 1,
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),
+    status_resume: faker.random.word(),
     ...opts
   })
 
@@ -175,6 +180,7 @@ describe('<AttendanceForm />', () => {
       .findComponent({ ref: 'attachments' })
       .vm.$emit('changed', data.files)
     await wrapper.find('#resume').setValue(data.resume)
+    await wrapper.find('#status-resume').setValue(data.status_resume)
 
     return data
   }

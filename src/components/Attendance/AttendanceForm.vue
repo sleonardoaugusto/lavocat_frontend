@@ -54,6 +54,17 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col cols="12">
+        <v-textarea
+          id="status-resume"
+          ref="statusResume"
+          label="Resumo de Status"
+          v-model="form.status_resume"
+          rows="10"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col class="d-flex justify-space-between">
         <v-btn ref="previousBtn" id="previousBtn" href="/atendimentos">
           Voltar
@@ -107,7 +118,8 @@ export default {
       document_id: null,
       status: null,
       files: [],
-      resume: null
+      resume: null,
+      status_resume: null
     },
     statusesOptions: []
   }),
