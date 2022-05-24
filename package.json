@@ -2,6 +2,9 @@
   "name": "lavocat_frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "^14.19.1"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
