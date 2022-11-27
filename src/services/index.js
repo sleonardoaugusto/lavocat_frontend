@@ -3,6 +3,9 @@ import AttendanceService from './attendance'
 import AuthService from './auth'
 import Qs from 'qs'
 import { Auth } from '@/utils/auth'
+import useModal from '@/hooks/useModal'
+
+const modal = useModal()
 
 const token = localStorage.getItem('token') || undefined
 
@@ -20,7 +23,14 @@ httpClient.interceptors.response.use(
     return response
   },
   function (error) {
-    Auth.logout(error)
+    if (error.response.status === 401) {
+      Auth.logout(error)
+    } else if (error.response.status === 400) {
+      modal.open({
+        component: 'SnackBar',
+        props: { type: 'error', text: 'Erro no servidor' }
+      })
+    }
     return Promise.reject(error)
   }
 )

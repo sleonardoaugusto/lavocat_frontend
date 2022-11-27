@@ -17,9 +17,15 @@ export default {
   methods: {
     async onSubmit(data) {
       this.toggleLoading()
-      await services.attendance.createAttendance(data)
-      this.toggleLoading()
-      router.push({ name: 'attendances-list' })
+      await services.attendance
+        .createAttendance(data)
+        .then(() => {
+          this.toggleLoading()
+          router.push({ name: 'attendances-list' })
+        })
+        .catch(() => {
+          this.toggleLoading()
+        })
     }
   }
 }

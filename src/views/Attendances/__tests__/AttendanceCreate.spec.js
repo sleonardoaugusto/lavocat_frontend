@@ -48,6 +48,8 @@ describe('<AttendanceCreate />', () => {
   })
 
   it('Should be loading during request', async () => {
+    services.attendance.createAttendance.mockResolvedValueOnce({})
+
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -57,7 +59,20 @@ describe('<AttendanceCreate />', () => {
     ).toBeTruthy()
   })
 
-  it('Should not be loading after request', async () => {
+  it('Should not be loading after promise resolve', async () => {
+    services.attendance.createAttendance.mockResolvedValueOnce({})
+
+    await wrapper
+      .findComponent({ ref: 'attendanceForm' })
+      .vm.$emit('submit', {})
+    await flushPromises()
+
+    expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
+  })
+
+  it('Should not be loading after promise reject', async () => {
+    services.attendance.createAttendance.mockRejectedValueOnce({})
+
     await wrapper
       .findComponent({ ref: 'attendanceForm' })
       .vm.$emit('submit', {})
@@ -67,6 +82,8 @@ describe('<AttendanceCreate />', () => {
   })
 
   it('Should redirect to attendances list after save', async () => {
+    services.attendance.createAttendance.mockResolvedValueOnce({})
+
     const spy = jest.spyOn(router, 'push')
 
     await wrapper
