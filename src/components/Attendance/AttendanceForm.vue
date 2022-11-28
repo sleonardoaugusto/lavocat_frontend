@@ -93,11 +93,12 @@ import services from '@/services'
 import { cpfValidator } from '@/utils/validators'
 import { clearDocumentId, objToSelect } from '@/utils/formatters'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
+import cache from '@/mixins/cache'
 
 export default {
   name: 'AttendanceForm',
   components: { AttendanceFiles },
-  mixins: [validations],
+  mixins: [validations, cache],
   props: {
     value: {
       type: Object,
@@ -121,7 +122,14 @@ export default {
       resume: null,
       status_resume: null
     },
-    statusesOptions: []
+    statusesOptions: [],
+    cacheKeys: [
+      'customer_name',
+      'document_id',
+      'status',
+      'resume',
+      'status_resume'
+    ]
   }),
   validations: {
     form: {
