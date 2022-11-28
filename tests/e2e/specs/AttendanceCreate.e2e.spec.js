@@ -23,7 +23,6 @@ describe('<AttendanceCreate />', () => {
 
   it('Should redirect to /atendimentos', () => {
     cy.wait('@attendanceStatuses')
-    cy.wait('@attendances')
 
     cy.fillAttendanceForm({ ...createAttendance[0], statuses })
 

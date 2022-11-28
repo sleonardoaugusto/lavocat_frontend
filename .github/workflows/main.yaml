@@ -8,6 +8,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14.19.1
 
       - name: Install dependencies
         run: yarn
@@ -16,9 +19,13 @@ jobs:
         run: yarn jest
 
       - name: Run e2e tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         env:
           CYPRESS_api_server: https://lavocat-backend.herokuapp.com/api/v1
+          CYPRESS_RECORD_KEY: 82f6b674-01e7-452b-89ae-e82b77df8eb4
         with:
           build: yarn build
           start: yarn run start
+          browser: chrome
+          headed: true
+          record: true
