@@ -1,9 +1,9 @@
-name: Tests
+name: E2E tests
 
 on: [ push ]
 
 jobs:
-  test-run:
+  e2e-test-run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,16 +15,13 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Run unit tests
-        run: yarn jest
-
       - name: Run e2e tests
         uses: cypress-io/github-action@v4
         env:
-          CYPRESS_api_server: https://lavocat-backend.herokuapp.com/api/v1
-          CYPRESS_RECORD_KEY: 82f6b674-01e7-452b-89ae-e82b77df8eb4
+          CYPRESS_api_server: http://localhost:8000/api/v1
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
-          build: yarn build
+          build: yarn build --mode development
           start: yarn run start
           browser: chrome
           headed: true
