@@ -45,8 +45,6 @@ Cypress.Commands.add('login', () => {
   cy.get('#username').type('admin')
   cy.get('#password').type('admin')
   cy.get('#submit').click()
-
-  cy.wait('@login')
 })
 
 Cypress.Commands.add('loginInvalid', () => {
@@ -58,6 +56,4 @@ Cypress.Commands.add('loginInvalid', () => {
   cy.get('#username').type('admin')
   cy.get('#password').type('admin')
   cy.get('#submit').click()
-
-  cy.wait('@login')
 })

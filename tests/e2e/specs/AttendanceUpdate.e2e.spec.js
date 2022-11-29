@@ -23,10 +23,7 @@ describe('<AttendanceUpdate />', () => {
   })
 
   it('Should fill fields with response content', () => {
-    cy.visit(`${baseUrl}/atendimentos/1/editar`)
-
-    cy.wait('@attendanceStatuses')
-    cy.wait('@attendanceGetById')
+    cy.get('#attendance-1').click()
 
     cy.get('#customer-name').should('have.value', 'Maria da Sorte')
     cy.get('#document-id').should('have.value', '999.999.999-99')
@@ -37,9 +34,6 @@ describe('<AttendanceUpdate />', () => {
 
   it('Should show snackbar', () => {
     cy.visit(`${baseUrl}/atendimentos/1/editar`)
-
-    cy.wait('@attendanceStatuses')
-    cy.wait('@attendanceGetById')
 
     cy.get('#submit').click()
 

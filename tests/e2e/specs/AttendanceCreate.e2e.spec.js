@@ -2,7 +2,6 @@ import createAttendance from '../fixtures/attendances/create.json'
 import statuses from '../fixtures/attendances/statuses.json'
 
 describe('<AttendanceCreate />', () => {
-  const baseUrl = Cypress.env('host')
   const apiServer = Cypress.env('api_server')
 
   beforeEach(() => {
@@ -18,16 +17,13 @@ describe('<AttendanceCreate />', () => {
 
     cy.login()
 
-    cy.visit(`${baseUrl}/atendimentos/novo`)
+    cy.get('#new-attendance').click()
   })
 
   it('Should redirect to /atendimentos', () => {
-    cy.wait('@attendanceStatuses')
-
     cy.fillAttendanceForm({ ...createAttendance[0], statuses })
 
     cy.get('#submit').click()
-    cy.wait('@attendanceCreate')
 
     cy.get('.v-snack__wrapper').should('be.visible')
     cy.get('.v-snack__wrapper').should('contain', 'Atendimento cadastrado!')

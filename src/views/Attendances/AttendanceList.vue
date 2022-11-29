@@ -3,7 +3,12 @@
     <AppHeading text="Atendimentos" />
     <v-row>
       <v-col class="text-right">
-        <v-btn ref="newAttendance" href="/atendimentos/novo" color="primary">
+        <v-btn
+          id="new-attendance"
+          ref="newAttendance"
+          href="/atendimentos/novo"
+          color="primary"
+        >
           Novo
         </v-btn>
       </v-col>
@@ -71,7 +76,6 @@
                     :id="`attendance-${item.id}`"
                     :ref="`attendance${item.id}`"
                     :href="`/atendimentos/${item.id}/editar`"
-                    target="_blank"
                     icon
                     v-bind="attrs"
                     v-on="on"

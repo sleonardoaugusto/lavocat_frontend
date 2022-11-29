@@ -1,5 +1,4 @@
 describe('<AttendanceList />', () => {
-  const baseUrl = Cypress.env('host')
   const apiServer = Cypress.env('api_server')
 
   beforeEach(() => {
@@ -14,8 +13,6 @@ describe('<AttendanceList />', () => {
   })
 
   it('Should render attendance list page', () => {
-    cy.visit(`${baseUrl}/atendimentos`)
-
     cy.get('.text-h4').should('contain', 'Atendimentos')
   })
 })
