@@ -1,43 +1,48 @@
-# lavocat_frontend
+# Lavocat
 
-[![Tests](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/main.yaml/badge.svg)](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/main.yaml)
+[![Unit tests](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/tests-unit.yaml/badge.svg)](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/tests-unit.yaml)
+[![E2E tests](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/tests-e2e.yaml/badge.svg)](https://github.com/sleonardoaugusto/lavocat_frontend/actions/workflows/tests-e2e.yaml)
 
-## Project setup
-
+## Setup
+Install dependencies
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-
-```
-yarn serve
+$ yarn
 ```
 
-### Compiles and minifies for production
-
+### Development mode
+1. Run server
 ```
-yarn build
-```
-
-### Run your unit tests
-
-```
-yarn test:unit
+$ yarn serve
 ```
 
-### Run your end-to-end tests
-
+### Production mode
+1. Compiles and minifies for production
+2. Run server
 ```
-yarn test:e2e
-```
-
-### Lints and fixes files
-
-```
-yarn lint
+$ yarn build
+$ yarn run start
 ```
 
-### Customize configuration
+### Unit tests
+#### Run once
+```
+$ yarn jest
+```
+#### Watch mode
+```
+$ yarn jest --watch
+```
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### E2E tests
+(_The project must be running_)
+
+#### With browser
+```
+$ cypress open
+```
+
+#### Run once (headless)
+```
+$ cypress run
+```
