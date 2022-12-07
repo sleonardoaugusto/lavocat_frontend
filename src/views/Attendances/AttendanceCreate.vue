@@ -22,6 +22,7 @@ export default {
         .then(() => {
           this.toggleLoading()
           router.push({ name: 'attendances-list' })
+          localStorage.removeItem('atttendance-form-cache')
         })
         .catch(() => {
           this.toggleLoading()

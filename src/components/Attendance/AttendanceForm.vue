@@ -133,6 +133,11 @@ export default {
   async created() {
     const statuses = await services.attendance.getStatuses()
     this.statusesOptions = objToSelect(statuses)
+    if (!this.update) {
+      const cache = JSON.parse(localStorage.getItem('atttendance-form-cache'))
+      if (Object.keys(cache)) this.form = { ...cache }
+    }
+    console.log(this)
   },
   methods: {
     onSubmit() {
@@ -161,7 +166,17 @@ export default {
     value: {
       deep: true,
       handler(val) {
-        this.form = { ...this.form, ...val }
+        if (this.update) this.form = { ...this.form, ...val }
+      }
+    },
+    form: {
+      deep: true,
+      handler(val) {
+        if (!this.update) {
+          const cache = { ...val }
+          delete cache['files']
+          localStorage.setItem('atttendance-form-cache', JSON.stringify(cache))
+        }
       }
     }
   }
