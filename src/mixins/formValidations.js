@@ -19,7 +19,7 @@ export default {
     },
     $_validate() {
       if (!this.$v.form) {
-        throw new Error('You should declare fields inside a "form" attribute.')
+        console.error('You should declare fields inside a "form" attribute.')
       }
     },
     $_getErrorMessage(field, validationNames) {
