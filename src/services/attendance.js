@@ -73,7 +73,7 @@ class Attendance {
         })
       })
       .catch(e => {
-        console.log(`Ocorreu um erro ${e}`)
+        console.error(`Ocorreu um erro ${e}`)
       })
   }
   async deleteAttendance(attendanceId) {
@@ -86,7 +86,7 @@ class Attendance {
         })
       })
       .catch(e => {
-        console.log(`Ocorreu um erro ${e}`)
+        console.error(`Ocorreu um erro ${e}`)
       })
   }
 }

@@ -135,9 +135,8 @@ export default {
     this.statusesOptions = objToSelect(statuses)
     if (!this.update) {
       const cache = JSON.parse(localStorage.getItem('atttendance-form-cache'))
-      if (Object.keys(cache)) this.form = { ...cache }
+      if (cache && Object.keys(cache)) this.form = { ...cache }
     }
-    console.log(this)
   },
   methods: {
     onSubmit() {

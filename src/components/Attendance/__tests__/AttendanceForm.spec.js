@@ -136,6 +136,7 @@ describe('<AttendanceForm />', () => {
 
     it('Fields should receive props value', async () => {
       const data = generateData()
+      wrapper = factory({ propsData: { update: true } })
       await wrapper.setProps({ value: data })
 
       expect(wrapper.findComponent({ ref: 'customerName' }).vm.value).toBe(
