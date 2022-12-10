@@ -38,6 +38,7 @@ describe('<AttendanceCreate />', () => {
     mount(AttendanceCreate, { Vue, vuetify, stubs, ...opts })
 
   it('Should call create attendance service on receive emit', async () => {
+    services.attendance.createAttendance.mockResolvedValueOnce({})
     const spy = jest.spyOn(services.attendance, 'createAttendance')
 
     await wrapper
@@ -83,7 +84,6 @@ describe('<AttendanceCreate />', () => {
 
   it('Should redirect to attendances list after save', async () => {
     services.attendance.createAttendance.mockResolvedValueOnce({})
-
     const spy = jest.spyOn(router, 'push')
 
     await wrapper
