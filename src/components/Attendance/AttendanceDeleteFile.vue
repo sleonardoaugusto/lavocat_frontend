@@ -5,30 +5,6 @@
     :loading="isLoading"
     @delete="onDelete"
   />
-  <!--  <v-tooltip bottom>-->
-  <!--    <template v-slot:activator="{ on, attrs }">-->
-  <!--      <v-btn-->
-  <!--        id="delete-icon"-->
-  <!--        ref="deleteIcon"-->
-  <!--        @click="onClick"-->
-  <!--        icon-->
-  <!--        small-->
-  <!--        v-bind="attrs"-->
-  <!--        v-on="on"-->
-  <!--        :loading="isLoading"-->
-  <!--      >-->
-  <!--        <v-icon>mdi-trash-can-outline</v-icon>-->
-  <!--        <AppDialogConfirm-->
-  <!--          title="Deletar arquivo"-->
-  <!--          text="Tem certeza que deseja deletar arquivo?"-->
-  <!--          :show-dialog="showDialog"-->
-  <!--          @confirm="onDelete"-->
-  <!--          @cancel="showDialog = false"-->
-  <!--        />-->
-  <!--      </v-btn>-->
-  <!--    </template>-->
-  <!--    <span>Remover</span>-->
-  <!--  </v-tooltip>-->
 </template>
 
 <script>
