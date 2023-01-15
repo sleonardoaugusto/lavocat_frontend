@@ -24,13 +24,13 @@
         <tbody>
           <tr v-for="(file, idx) in internalFiles" :key="idx">
             <td>{{ file.name || file.filename | truncate }}</td>
-            <td>
+            <td class="d-inline-flex align-center">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     v-show="isNotFile(file)"
                     :id="`download-${idx}`"
-                    :href="file.file"
+                    @click="downloadFile(file)"
                     target="_blank"
                     icon
                     small
@@ -42,6 +42,7 @@
                 </template>
                 <span>Baixar</span>
               </v-tooltip>
+              <AttendanceFileRename :file="file" />
               <AttendanceDeleteIconFile
                 @delete="onFileDelete(idx)"
                 :file="file"
@@ -56,10 +57,13 @@
 
 <script>
 import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteFile'
+import axios from 'axios'
+import { saveAs } from 'file-saver'
+import AttendanceFileRename from '@/components/Attendance/AttendanceFileRename'
 
 export default {
   name: 'AttendanceFiles',
-  components: { AttendanceDeleteIconFile },
+  components: { AttendanceFileRename, AttendanceDeleteIconFile },
   filters: {
     truncate: val => val?.slice(0, 50)
   },
@@ -84,6 +88,15 @@ export default {
     },
     isNotFile(attachment) {
       return !(attachment instanceof File)
+    },
+    async downloadFile(file) {
+      const { data } = await axios.get(file.file, {
+        responseType: 'blob'
+      })
+      const newFile = new File([data], file.filename, {
+        type: 'application/octet-stream'
+      })
+      saveAs(newFile)
     }
   },
   watch: {

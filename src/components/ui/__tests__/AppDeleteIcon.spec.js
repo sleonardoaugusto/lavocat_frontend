@@ -5,7 +5,7 @@ import AppDeleteIcon from '@/components/ui/AppDeleteIcon'
 import services from '@/services'
 import faker from 'faker'
 import busy from '@/mixins/busy'
-import AppDialogConfirm from '@/components/ui/AppDialogConfirm'
+import AppDialog from '@/components/ui/AppDialog'
 
 jest.mock('@/services')
 
@@ -38,15 +38,13 @@ describe('<AppDeleteIcon />', () => {
   })
 
   it('Dialog text prop should be passed to dialog component', async () => {
-    expect(wrapper.findComponent(AppDialogConfirm).vm.title).toBe(
+    expect(wrapper.findComponent(AppDialog).vm.title).toBe(
       propsData.dialogTitle
     )
   })
 
   it('Dialog text prop should be passed to dialog component', async () => {
-    expect(wrapper.findComponent(AppDialogConfirm).vm.text).toBe(
-      propsData.dialogText
-    )
+    expect(wrapper.findComponent(AppDialog).vm.text).toBe(propsData.dialogText)
   })
 
   it('Icon click should show dialog component', async () => {
@@ -58,16 +56,16 @@ describe('<AppDeleteIcon />', () => {
     services.attendance.deleteAttendance.mockResolvedValue()
     await wrapper.setData({ showDialog: true })
 
-    await wrapper.findComponent(AppDialogConfirm).vm.$emit('confirm')
-    expect(wrapper.findComponent(AppDialogConfirm).vm.showDialog).toBe(false)
+    await wrapper.findComponent(AppDialog).vm.$emit('confirm')
+    expect(wrapper.findComponent(AppDialog).vm.showDialog).toBe(false)
     expect(wrapper.emitted().delete).toHaveLength(1)
   })
 
   it('Cancel modal component event should close dialog and not emit event', async () => {
     await wrapper.setData({ showDialog: true })
 
-    await wrapper.findComponent(AppDialogConfirm).vm.$emit('cancel')
-    expect(wrapper.findComponent(AppDialogConfirm).vm.showDialog).toBe(false)
+    await wrapper.findComponent(AppDialog).vm.$emit('cancel')
+    expect(wrapper.findComponent(AppDialog).vm.showDialog).toBe(false)
     expect(wrapper.emitted().delete).toBeFalsy()
   })
 

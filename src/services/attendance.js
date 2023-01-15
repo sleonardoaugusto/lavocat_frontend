@@ -42,6 +42,7 @@ class Attendance {
           const fd = new FormData()
           fd.append('attendance', attendanceId)
           fd.append('file', files[i])
+          fd.append('filename', files[i].name)
           filesParsed.push(fd)
         }
       }
@@ -49,6 +50,12 @@ class Attendance {
       const uploadService = new UploadFile(this.http)
       await uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
     }
+  }
+  async updateAttendanceFile(attendanceFileId, filename) {
+    const data = { filename: filename }
+    return await this.http
+      .patch(`/attendance-files/${attendanceFileId}/`, data)
+      .then(resp => resp.data)
   }
   async getAttendances(params = {}) {
     return await this.http

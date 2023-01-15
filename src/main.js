@@ -6,11 +6,13 @@ import Vuelidate from 'vuelidate'
 import busy from '@/mixins/busy'
 import VueTheMask from 'vue-the-mask'
 import services from '@/services'
+import Vuetify from 'vuetify'
 
 Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(VueTheMask)
 Vue.mixin(busy)
+Vue.use(Vuetify)
 
 new Vue({
   router,

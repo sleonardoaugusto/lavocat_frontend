@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils'
-import AppDialogConfirm from '@/components/ui/AppDialogConfirm'
+import AppDialog from '@/components/ui/AppDialog'
 import faker from 'faker'
 
-describe('<AppDialogConfirm />', () => {
+describe('<AppDialog />', () => {
   Vue.use(Vuetify)
 
   let wrapper
@@ -20,8 +20,7 @@ describe('<AppDialogConfirm />', () => {
     wrapper = factory()
   })
 
-  const factory = opts =>
-    mount(AppDialogConfirm, { Vue, vuetify, propsData, ...opts })
+  const factory = opts => mount(AppDialog, { Vue, vuetify, propsData, ...opts })
 
   it('Component should be defined', () => {
     expect(wrapper.vm).toBeDefined()

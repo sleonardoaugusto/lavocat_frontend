@@ -12,7 +12,7 @@
         :loading="loading"
       >
         <v-icon>mdi-trash-can-outline</v-icon>
-        <AppDialogConfirm
+        <AppDialog
           :title="dialogTitle"
           :text="dialogText"
           :show-dialog="showDialog"
@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import AppDialogConfirm from '@/components/ui/AppDialogConfirm'
+import AppDialog from '@/components/ui/AppDialog'
 
 export default {
   name: 'AppDeleteIcon',
-  components: { AppDialogConfirm },
+  components: { AppDialog },
   props: {
     loading: {
       type: Boolean

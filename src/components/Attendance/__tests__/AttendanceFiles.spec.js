@@ -46,7 +46,6 @@ describe('<AttendanceFiles />', () => {
     await wrapper.setData({ internalFiles: [{ id: 1, file: 'link' }] })
 
     expect(wrapper.find('#download-0').isVisible()).toBeTruthy()
-    expect(wrapper.find('#download-0').vm.href).toBe('link')
   })
 
   it('Should not show download button if attachment is a instance of File', async () => {
