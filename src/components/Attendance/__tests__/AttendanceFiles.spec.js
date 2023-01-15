@@ -6,6 +6,7 @@ import busy from '@/mixins/busy'
 import { mount } from '@vue/test-utils'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
 import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteFile'
+import helpers from '@/mixins/helpers'
 
 jest.mock('@/services')
 
@@ -14,6 +15,7 @@ describe('<AttendanceFiles />', () => {
   Vue.use(Vuelidate)
   Vue.use(VueTheMask)
   Vue.mixin(busy)
+  Vue.mixin(helpers)
 
   let wrapper
   let vuetify

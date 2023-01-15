@@ -8,6 +8,7 @@ import services from '@/services'
 import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
 import VueTheMask from 'vue-the-mask'
+import helpers from '@/mixins/helpers'
 
 jest.mock('@/services')
 
@@ -16,6 +17,7 @@ describe('<AttendanceForm />', () => {
   Vue.use(Vuelidate)
   Vue.use(VueTheMask)
   Vue.mixin(busy)
+  Vue.mixin(helpers)
 
   let wrapper
   let vuetify

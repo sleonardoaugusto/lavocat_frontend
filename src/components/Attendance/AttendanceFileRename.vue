@@ -42,7 +42,13 @@ import services from '@/services'
 export default {
   name: 'AttendanceFileRename',
   components: { AppDialog },
-  props: ['file'],
+  props: {
+    file: {
+      type: Object,
+      required: true,
+      default: null
+    }
+  },
   data: () => ({
     showDialog: false
   }),
@@ -58,7 +64,7 @@ export default {
   },
   computed: {
     filename() {
-      return this.file?.filename?.split('.')[0] || null
+      return this.file.filename?.split('.')[0] || null
     }
   }
 }

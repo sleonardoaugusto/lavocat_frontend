@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async onDelete() {
-      if (!(this.file instanceof File)) {
+      if (!this.isFile(this.file)) {
         this.toggleLoading()
         const { id } = this.file
         await services.attendance

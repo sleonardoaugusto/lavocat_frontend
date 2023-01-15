@@ -2,6 +2,7 @@
   <v-dialog
     v-model="internalShowDialog"
     @keydown.esc="onCancel"
+    @click:outside="onCancel"
     max-width="25rem"
   >
     <v-card>
@@ -11,6 +12,7 @@
         <template v-for="(field, idx) in fields">
           <component
             :key="idx"
+            :ref="`field-${idx}`"
             :is="field.component"
             v-bind="field.attrs"
             v-model="form[field.model]"
@@ -18,9 +20,11 @@
         </template>
       </v-card-text>
       <v-card-actions>
-        <v-btn id="cancel" text @click="onCancel"> não </v-btn>
+        <v-btn id="cancel" text @click="onCancel"> {{ btnCancelTxt }} </v-btn>
         <v-spacer />
-        <v-btn id="confirm" color="error" text @click="onConfirm"> sim </v-btn>
+        <v-btn id="confirm" color="error" text @click="onConfirm">
+          {{ btnConfirmTxt }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -39,6 +43,16 @@ export default {
     },
     text: {
       type: String
+    },
+    btnCancelTxt: {
+      type: String,
+      default: 'cancelar',
+      required: false
+    },
+    btnConfirmTxt: {
+      type: String,
+      default: 'confirmar',
+      required: false
     },
     fields: {
       type: Array,

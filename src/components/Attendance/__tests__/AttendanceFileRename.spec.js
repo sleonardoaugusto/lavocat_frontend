@@ -61,7 +61,7 @@ describe('<AttendanceFileRename />', () => {
     expect(wrapper.findComponent({ ref: 'dialog' }).vm.showDialog).toBeFalsy()
   })
 
-  it('Should update filename on dialog confirm event emit and close dialog', async () => {
+  it('Should update filename and close dialog on dialog confirm event emit', async () => {
     services.attendance.updateAttendanceFile.mockResolvedValueOnce({})
     const spy = jest.spyOn(services.attendance, 'updateAttendanceFile')
     await wrapper.setData({ showDialog: true })

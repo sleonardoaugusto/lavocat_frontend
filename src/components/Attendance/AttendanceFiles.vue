@@ -28,7 +28,7 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    v-show="isNotFile(file)"
+                    v-show="!isFile(file)"
                     :id="`download-${idx}`"
                     @click="downloadFile(file)"
                     target="_blank"
@@ -42,7 +42,9 @@
                 </template>
                 <span>Baixar</span>
               </v-tooltip>
-              <AttendanceFileRename :file="file" />
+              <template v-if="!isFile(file)">
+                <AttendanceFileRename :file="file" />
+              </template>
               <AttendanceDeleteIconFile
                 @delete="onFileDelete(idx)"
                 :file="file"
@@ -85,9 +87,6 @@ export default {
       this.files = []
       files.forEach(f => this.internalFiles.push(f))
       this.$emit('changed', this.internalFiles)
-    },
-    isNotFile(attachment) {
-      return !(attachment instanceof File)
     },
     async downloadFile(file) {
       const { data } = await axios.get(file.file, {

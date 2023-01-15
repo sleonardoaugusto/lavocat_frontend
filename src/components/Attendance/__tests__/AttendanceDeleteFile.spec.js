@@ -7,12 +7,14 @@ import faker from 'faker'
 import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
 import AppDeleteIcon from '@/components/ui/AppDeleteIcon'
+import helpers from '@/mixins/helpers'
 
 jest.mock('@/services')
 
 describe('<AttendanceDeleteFile />', () => {
   Vue.use(Vuetify)
   Vue.mixin(busy)
+  Vue.mixin(helpers)
 
   let wrapper
   let vuetify
