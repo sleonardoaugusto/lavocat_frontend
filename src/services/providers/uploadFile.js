@@ -1,3 +1,7 @@
+import useModal from '@/hooks/useModal'
+
+const modal = useModal()
+
 export default class UploadFile {
   constructor(http) {
     this.http = http
@@ -13,7 +17,18 @@ export default class UploadFile {
             'Content-type': 'multipart/form-data'
           }
         }
-        return this.http.request(requestData).then(resp => resp)
+        return this.http
+          .request(requestData)
+          .then(resp => resp)
+          .catch(() =>
+            modal.open({
+              component: 'SnackBar',
+              props: {
+                type: 'error',
+                text: `Falha ao subir arquivo ${file.filename}`
+              }
+            })
+          )
       })
     ).then(resp => resp)
   }

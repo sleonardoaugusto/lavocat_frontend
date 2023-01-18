@@ -56,9 +56,10 @@ export default {
     async renameFile(payload) {
       const fileExtension = this.file.filename.split('.').slice(-1)
       const filename = `${payload.text}.${fileExtension}`
-      await services.attendance
+      await services.attendanceFile
         .updateAttendanceFile(this.file.id, filename)
-        .then(() => {})
+        .then(() => this.$emit('update'))
+        .catch(() => {})
       this.showDialog = false
     }
   },

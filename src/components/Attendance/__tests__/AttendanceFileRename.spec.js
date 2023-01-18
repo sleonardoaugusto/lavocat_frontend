@@ -61,9 +61,9 @@ describe('<AttendanceFileRename />', () => {
     expect(wrapper.findComponent({ ref: 'dialog' }).vm.showDialog).toBeFalsy()
   })
 
-  it('Should update filename and close dialog on dialog confirm event emit', async () => {
-    services.attendance.updateAttendanceFile.mockResolvedValueOnce({})
-    const spy = jest.spyOn(services.attendance, 'updateAttendanceFile')
+  it('Should update filename and close dialog and emit event on dialog confirm event emit', async () => {
+    services.attendanceFile.updateAttendanceFile.mockResolvedValueOnce({})
+    const spy = jest.spyOn(services.attendanceFile, 'updateAttendanceFile')
     await wrapper.setData({ showDialog: true })
 
     await wrapper
@@ -76,5 +76,24 @@ describe('<AttendanceFileRename />', () => {
     expect(
       await wrapper.findComponent({ ref: 'dialog' }).vm.showDialog
     ).toBeFalsy()
+    expect(wrapper.emitted().update).toBeTruthy()
+  })
+
+  it('Should not update filename and close dialog and not emit event on dialog confirm event emit', async () => {
+    services.attendanceFile.updateAttendanceFile.mockRejectedValueOnce({})
+    const spy = jest.spyOn(services.attendanceFile, 'updateAttendanceFile')
+    await wrapper.setData({ showDialog: true })
+
+    await wrapper
+      .findComponent({ ref: 'dialog' })
+      .vm.$emit('confirm', { text: 'new-name' })
+
+    await flushPromises()
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith(propsData.file.id, 'new-name.txt')
+    expect(
+      await wrapper.findComponent({ ref: 'dialog' }).vm.showDialog
+    ).toBeFalsy()
+    expect(wrapper.emitted().update).toBeFalsy()
   })
 })

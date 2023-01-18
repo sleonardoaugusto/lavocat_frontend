@@ -43,7 +43,7 @@
                 <span>Baixar</span>
               </v-tooltip>
               <template v-if="!isFile(file)">
-                <AttendanceFileRename :file="file" />
+                <AttendanceFileRename :file="file" @update="reloadFiles" />
               </template>
               <AttendanceDeleteIconFile
                 @delete="onFileDelete(idx)"
@@ -62,6 +62,7 @@ import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteFi
 import axios from 'axios'
 import { saveAs } from 'file-saver'
 import AttendanceFileRename from '@/components/Attendance/AttendanceFileRename'
+import services from '@/services'
 
 export default {
   name: 'AttendanceFiles',
@@ -80,6 +81,14 @@ export default {
     files: []
   }),
   methods: {
+    reloadFiles() {
+      services.attendanceFile
+        .getFilesByAttendanceId(this.$route.params.attendanceId)
+        .then(resp => {
+          this.internalFiles = []
+          this.setInternal(resp)
+        })
+    },
     onFileDelete(idx) {
       this.internalFiles.splice(idx, 1)
     },

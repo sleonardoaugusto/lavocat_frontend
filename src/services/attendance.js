@@ -1,17 +1,18 @@
 import useModal from '@/hooks/useModal'
-import UploadFile from '@/services/providers/uploadFile'
+import AttendanceFileService from '@/services/attendance-file'
 
 const modal = useModal()
 
 class Attendance {
   constructor(http) {
     this.http = http
+    this.attendanceFileService = AttendanceFileService(http)
   }
   async createAttendance(data) {
     const { files } = data
 
     const resp = await this.http.post('/attendances/', data)
-    await this.uploadAttendanceFiles(resp.data.id, files)
+    await this.attendanceFileService.uploadAttendanceFiles(resp.data.id, files)
 
     modal.open({
       component: 'SnackBar',
@@ -24,7 +25,7 @@ class Attendance {
     const { files } = data
 
     const resp = await this.http.put(`/attendances/${attendanceId}/`, data)
-    await this.uploadAttendanceFiles(attendanceId, files)
+    await this.attendanceFileService.uploadAttendanceFiles(attendanceId, files)
 
     modal.open({
       component: 'SnackBar',
@@ -32,30 +33,6 @@ class Attendance {
     })
 
     return resp.data
-  }
-  async uploadAttendanceFiles(attendanceId, files) {
-    if (files && files.length) {
-      const filesParsed = []
-
-      for (let i = 0; i < files.length; i++) {
-        if (files[i] instanceof File) {
-          const fd = new FormData()
-          fd.append('attendance', attendanceId)
-          fd.append('file', files[i])
-          fd.append('filename', files[i].name)
-          filesParsed.push(fd)
-        }
-      }
-
-      const uploadService = new UploadFile(this.http)
-      await uploadService.uploadFiles(filesParsed, 'post', '/attendance-files/')
-    }
-  }
-  async updateAttendanceFile(attendanceFileId, filename) {
-    const data = { filename: filename }
-    return await this.http
-      .patch(`/attendance-files/${attendanceFileId}/`, data)
-      .then(resp => resp.data)
   }
   async getAttendances(params = {}) {
     return await this.http
@@ -69,19 +46,6 @@ class Attendance {
     return await this.http
       .get(`/attendances/${attendanceId}/`)
       .then(resp => resp.data)
-  }
-  async deleteAttendanceFile(attendanceFileId) {
-    return await this.http
-      .delete(`/attendance-files/${attendanceFileId}/`)
-      .then(() => {
-        modal.open({
-          component: 'SnackBar',
-          props: { type: 'success', text: 'Arquivo deletado.' }
-        })
-      })
-      .catch(e => {
-        console.error(`Ocorreu um erro ${e}`)
-      })
   }
   async deleteAttendance(attendanceId) {
     return await this.http

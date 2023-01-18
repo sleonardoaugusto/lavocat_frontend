@@ -2,6 +2,7 @@
   <v-dialog
     v-model="internalShowDialog"
     @keydown.esc="onCancel"
+    @keydown.enter="onConfirm"
     @click:outside="onCancel"
     max-width="25rem"
   >

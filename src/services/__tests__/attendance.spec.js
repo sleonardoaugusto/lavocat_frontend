@@ -1,6 +1,4 @@
 import Attendance from '@/services/attendance'
-import UploadFile from '@/services/providers/uploadFile'
-import flushPromises from 'flush-promises'
 
 jest.mock('@/services/providers/uploadFile')
 
@@ -37,7 +35,10 @@ describe('Attendance Service', () => {
     })
 
     it('Should call uploadAttendanceFiles method passing files and attendance id', async () => {
-      const spy = jest.spyOn(service, 'uploadAttendanceFiles')
+      const spy = jest.spyOn(
+        service.attendanceFileService,
+        'uploadAttendanceFiles'
+      )
 
       await service.createAttendance({ files: [{}] })
 
@@ -65,7 +66,10 @@ describe('Attendance Service', () => {
     })
 
     it('Should call uploadAttendanceFiles method passing files and attendance id', async () => {
-      const spy = jest.spyOn(service, 'uploadAttendanceFiles')
+      const spy = jest.spyOn(
+        service.attendanceFileService,
+        'uploadAttendanceFiles'
+      )
 
       await service.updateAttendance(1, { files: [{}] })
 
@@ -84,37 +88,6 @@ describe('Attendance Service', () => {
       const resp = await service.updateAttendance(1, {})
 
       expect(resp).toEqual({})
-    })
-  })
-
-  describe('Upload attendance files', () => {
-    it('Should upload files', async () => {
-      const files = [new File(['t'], 'teste.txt')]
-      await service.uploadAttendanceFiles(1, files)
-      const mockUploadService = UploadFile.mock.instances[0]
-      const mockUploadFile = mockUploadService.uploadFiles
-
-      await flushPromises()
-
-      expect(mockUploadFile).toHaveBeenCalledTimes(1)
-      expect(mockUploadFile.mock.calls[0][0]).toHaveLength(1)
-      expect(mockUploadFile.mock.calls[0][0][0]).toBeInstanceOf(FormData)
-      expect(mockUploadFile.mock.calls[0][1]).toBe('post')
-      expect(mockUploadFile.mock.calls[0][2]).toBe('/attendance-files/')
-    })
-  })
-
-  describe('Delete attendance file', () => {
-    beforeEach(() => {
-      httpClient.delete.mockResolvedValueOnce({})
-    })
-
-    it('Should delete file', () => {
-      const spy = jest.spyOn(httpClient, 'delete')
-
-      service.deleteAttendanceFile(1)
-
-      expect(spy).toHaveBeenCalledWith(`/attendance-files/1/`)
     })
   })
 

@@ -38,14 +38,14 @@ describe('<AttendanceDeleteFile />', () => {
   })
 
   it('Component should be loading during attendance delete request', async () => {
-    services.attendance.deleteAttendanceFile.mockResolvedValue()
+    services.attendanceFile.deleteAttendanceFile.mockResolvedValue()
 
     await wrapper.findComponent(AppDeleteIcon).vm.$emit('delete')
     expect(wrapper.findComponent(AppDeleteIcon).vm.loading).toBe(true)
   })
 
   it('Component should not be loading after service attendance delete request', async () => {
-    services.attendance.deleteAttendanceFile.mockResolvedValue()
+    services.attendanceFile.deleteAttendanceFile.mockResolvedValue()
 
     await wrapper.findComponent(AppDeleteIcon).vm.$emit('delete')
     await flushPromises()
@@ -54,8 +54,8 @@ describe('<AttendanceDeleteFile />', () => {
   })
 
   it('Confirm modal component event emit should call service file delete if props is not a file instance', async () => {
-    services.attendance.deleteAttendanceFile.mockResolvedValue()
-    const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
+    services.attendanceFile.deleteAttendanceFile.mockResolvedValue()
+    const spy = jest.spyOn(services.attendanceFile, 'deleteAttendanceFile')
 
     await wrapper.findComponent(AppDeleteIcon).vm.$emit('delete')
     expect(spy).toHaveBeenCalledWith(propsData.file.id)
@@ -63,7 +63,7 @@ describe('<AttendanceDeleteFile />', () => {
   })
 
   it('Component event emit should not call service file delete if props is a file instance', async () => {
-    const spy = jest.spyOn(services.attendance, 'deleteAttendanceFile')
+    const spy = jest.spyOn(services.attendanceFile, 'deleteAttendanceFile')
     await wrapper.setProps({ file: new File(['buzzfizz'], 'buzzfizz.txt') })
 
     await wrapper.findComponent(AppDeleteIcon).vm.$emit('delete')
@@ -72,7 +72,7 @@ describe('<AttendanceDeleteFile />', () => {
   })
 
   it('Should not emit delete event if promise is rejected', async () => {
-    services.attendance.deleteAttendanceFile.mockRejectedValueOnce()
+    services.attendanceFile.deleteAttendanceFile.mockRejectedValueOnce()
 
     await wrapper.findComponent(AppDeleteIcon).vm.$emit('delete')
     expect(wrapper.emitted().delete).toBeFalsy()

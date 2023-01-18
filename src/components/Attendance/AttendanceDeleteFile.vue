@@ -25,7 +25,7 @@ export default {
       if (!this.isFile(this.file)) {
         this.toggleLoading()
         const { id } = this.file
-        await services.attendance
+        await services.attendanceFile
           .deleteAttendanceFile(id)
           .then(() => this.$emit('delete'))
           .catch(() => {})

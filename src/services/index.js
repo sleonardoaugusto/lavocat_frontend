@@ -1,5 +1,6 @@
 import axios from 'axios'
 import AttendanceService from './attendance'
+import AttendanceFileService from './attendance-file'
 import AuthService from './auth'
 import Qs from 'qs'
 import { Auth } from '@/utils/auth'
@@ -42,6 +43,7 @@ const keepAlive = () => {
 
 export default {
   attendance: AttendanceService(httpClient),
+  attendanceFile: AttendanceFileService(httpClient),
   auth: AuthService(httpClient),
   keepAlive
 }
