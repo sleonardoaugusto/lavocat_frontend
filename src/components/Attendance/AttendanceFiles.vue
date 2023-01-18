@@ -29,6 +29,23 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     v-show="!isFile(file)"
+                    :id="`view-${idx}`"
+                    :href="file.file"
+                    target="_blank"
+                    icon
+                    small
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-eye-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span>Ver</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-show="!isFile(file)"
                     :id="`download-${idx}`"
                     @click="downloadFile(file)"
                     target="_blank"

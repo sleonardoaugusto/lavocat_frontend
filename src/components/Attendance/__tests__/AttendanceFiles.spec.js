@@ -50,6 +50,13 @@ describe('<AttendanceFiles />', () => {
     expect(wrapper.find('#download-0').isVisible()).toBeTruthy()
   })
 
+  it('Should show view button if attachment is not a instance of File', async () => {
+    await wrapper.setData({ internalFiles: [{ id: 1, file: 'link' }] })
+
+    expect(wrapper.find('#view-0').isVisible()).toBeTruthy()
+    expect(wrapper.find('#view-0').vm.href).toBe('link')
+  })
+
   it('Should not show download button if attachment is a instance of File', async () => {
     await wrapper.setData({ internalFiles: [files[0]] })
 
