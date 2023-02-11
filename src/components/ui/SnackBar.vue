@@ -49,7 +49,7 @@ export default {
   },
   data: () => ({
     showInternal: true,
-    timeout: 2500
+    timeout: 5000
   }),
   methods: {
     close() {

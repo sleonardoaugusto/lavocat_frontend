@@ -8,18 +8,26 @@ class Attendance {
     this.http = http
     this.attendanceFileService = AttendanceFileService(http)
   }
-  async createAttendance(data) {
+  createAttendance(data) {
     const { files } = data
 
-    const resp = await this.http.post('/attendances/', data)
-    await this.attendanceFileService.uploadAttendanceFiles(resp.data.id, files)
-
-    modal.open({
-      component: 'SnackBar',
-      props: { type: 'success', text: 'Atendimento cadastrado!' }
-    })
-
-    return resp.data
+    return this.http
+      .post('/attendances/', data)
+      .then(resp => {
+        modal.open({
+          component: 'SnackBar',
+          props: { type: 'success', text: 'Atendimento cadastrado!' }
+        })
+        this.attendanceFileService.uploadAttendanceFiles(resp.data.id, files)
+        return resp.data
+      })
+      .catch(err => {
+        modal.open({
+          component: 'SnackBar',
+          props: { type: 'error', text: 'Erro ao criar atendimento' }
+        })
+        throw new Error(err)
+      })
   }
   async updateAttendance(attendanceId, data) {
     const { files } = data

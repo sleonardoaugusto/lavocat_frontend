@@ -20,15 +20,15 @@ export default class UploadFile {
         return this.http
           .request(requestData)
           .then(resp => resp)
-          .catch(() =>
+          .catch(() => {
             modal.open({
               component: 'SnackBar',
               props: {
                 type: 'error',
-                text: `Falha ao subir arquivo ${file.filename}`
+                text: `Falha ao subir arquivo ${file.get('filename')}`
               }
             })
-          )
+          })
       })
     ).then(resp => resp)
   }

@@ -15,18 +15,19 @@ export default {
   name: 'AttendanceCreate',
   components: { AppHeading, AttendanceForm },
   methods: {
-    async onSubmit(data) {
+    onSubmit(data) {
       this.toggleLoading()
-      await services.attendance
+      services.attendance
         .createAttendance(data)
-        .then(() => {
+        .then(resp => {
           this.toggleLoading()
-          router.push({ name: 'attendances-list' })
           localStorage.removeItem('atttendance-form-cache')
+          router.push({
+            name: 'attendances-update',
+            params: { attendanceId: resp.id }
+          })
         })
-        .catch(() => {
-          this.toggleLoading()
-        })
+        .catch(() => this.toggleLoading())
     }
   }
 }

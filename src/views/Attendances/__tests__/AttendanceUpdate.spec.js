@@ -111,19 +111,4 @@ describe('<AttendanceUpdate />', () => {
 
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy).toBeFalsy()
   })
-
-  it('Should redirect to attendances list after update', async () => {
-    services.attendance.updateAttendance.mockResolvedValueOnce({})
-    services.attendance.getAttendanceById.mockResolvedValueOnce({ key: 'pair' })
-
-    const spy = jest.spyOn(router, 'push')
-
-    await wrapper
-      .findComponent({ ref: 'attendanceForm' })
-      .vm.$emit('submit', {})
-    await flushPromises()
-
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith({ name: 'attendances-list' })
-  })
 })

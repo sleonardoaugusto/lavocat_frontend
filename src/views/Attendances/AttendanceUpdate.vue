@@ -45,7 +45,6 @@ export default {
       this.toggleLoading()
       await services.attendance.updateAttendance(this.attendanceId, data)
       this.toggleLoading()
-      router.push({ name: 'attendances-list' })
     }
   }
 }

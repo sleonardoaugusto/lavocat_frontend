@@ -83,7 +83,7 @@ describe('<AttendanceCreate />', () => {
   })
 
   it('Should redirect to attendances list after save', async () => {
-    services.attendance.createAttendance.mockResolvedValueOnce({})
+    services.attendance.createAttendance.mockResolvedValueOnce({ id: 1 })
     const spy = jest.spyOn(router, 'push')
 
     await wrapper
@@ -92,6 +92,9 @@ describe('<AttendanceCreate />', () => {
     await flushPromises()
 
     expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith({ name: 'attendances-list' })
+    expect(spy).toHaveBeenCalledWith({
+      name: 'attendances-update',
+      params: { attendanceId: 1 }
+    })
   })
 })
