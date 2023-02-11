@@ -20,14 +20,14 @@ describe('<AttendanceCreate />', () => {
     cy.get('#new-attendance').click()
   })
 
-  it('Should redirect to /atendimentos', () => {
-    cy.fillAttendanceForm({ ...createAttendance[0], statuses })
+  it('Should redirect to /atendimentos/:id', () => {
+    cy.fillAttendanceForm({ ...createAttendance, statuses })
 
     cy.get('#submit').click()
 
     cy.get('.v-snack__wrapper').should('be.visible')
     cy.get('.v-snack__wrapper').should('contain', 'Atendimento cadastrado!')
 
-    cy.url().should('include', '/atendimentos')
+    cy.url().should('include', '/atendimentos/14/editar')
   })
 })

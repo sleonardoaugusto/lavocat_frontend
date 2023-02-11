@@ -22,6 +22,7 @@ export default {
         .then(resp => {
           this.toggleLoading()
           localStorage.removeItem('atttendance-form-cache')
+          console.log(resp, '###')
           router.push({
             name: 'attendances-update',
             params: { attendanceId: resp.id }
