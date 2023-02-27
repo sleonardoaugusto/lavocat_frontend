@@ -24,7 +24,7 @@
       :fields="[
         {
           component: 'v-text-field',
-          attrs: { label: 'Nome do arquivo' },
+          props: { label: 'Nome do arquivo' },
           model: 'text',
           value: filename
         }
@@ -36,12 +36,10 @@
 </template>
 
 <script>
-import AppDialog from '@/components/ui/AppDialog'
 import services from '@/services'
 
 export default {
   name: 'AttendanceFileRename',
-  components: { AppDialog },
   props: {
     file: {
       type: Object,

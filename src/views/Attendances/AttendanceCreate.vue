@@ -9,11 +9,10 @@
 import AttendanceForm from '@/components/Attendance/AttendanceForm'
 import services from '@/services'
 import router from '@/router'
-import AppHeading from '@/components/ui/AppHeading'
 
 export default {
   name: 'AttendanceCreate',
-  components: { AppHeading, AttendanceForm },
+  components: { AttendanceForm },
   methods: {
     onSubmit(data) {
       this.toggleLoading()
@@ -22,7 +21,6 @@ export default {
         .then(resp => {
           this.toggleLoading()
           localStorage.removeItem('atttendance-form-cache')
-          console.log(resp, '###')
           router.push({
             name: 'attendances-update',
             params: { attendanceId: resp.id }

@@ -52,11 +52,9 @@ import validations from '@/mixins/formValidations'
 import { required } from 'vuelidate/lib/validators'
 import services from '@/services'
 import { Auth } from '@/utils/auth'
-import AppHeading from '@/components/ui/AppHeading'
 
 export default {
   name: 'Login',
-  components: { AppHeading },
   mixins: [validations],
   data: () => ({
     form: {

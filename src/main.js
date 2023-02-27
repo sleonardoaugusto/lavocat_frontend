@@ -8,6 +8,7 @@ import VueTheMask from 'vue-the-mask'
 import services from '@/services'
 import Vuetify from 'vuetify'
 import helpers from '@/mixins/helpers'
+import { globalComponents, registerGlobalComponents } from '@/components/global'
 
 Vue.config.productionTip = false
 Vue.use(Vuelidate)
@@ -15,6 +16,8 @@ Vue.use(VueTheMask)
 Vue.mixin(busy)
 Vue.mixin(helpers)
 Vue.use(Vuetify)
+
+registerGlobalComponents(Vue)
 
 new Vue({
   router,

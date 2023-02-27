@@ -8,12 +8,14 @@ import faker from 'faker'
 import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
 import { Auth } from '@/utils/auth'
+import { registerGlobalComponents, globalComponents } from '@/components/global'
 
 jest.mock('@/services')
 jest.mock('@/router')
 jest.mock('@/utils/auth')
 
 describe('<Login />', () => {
+  registerGlobalComponents(Vue)
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
   Vue.mixin(busy)

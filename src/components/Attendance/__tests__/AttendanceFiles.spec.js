@@ -7,10 +7,12 @@ import { mount } from '@vue/test-utils'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
 import AttendanceDeleteIconFile from '@/components/Attendance/AttendanceDeleteFile'
 import helpers from '@/mixins/helpers'
+import { registerGlobalComponents } from '@/components/global'
 
 jest.mock('@/services')
 
 describe('<AttendanceFiles />', () => {
+  registerGlobalComponents(Vue)
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
   Vue.use(VueTheMask)
@@ -22,7 +24,6 @@ describe('<AttendanceFiles />', () => {
   let stubs
 
   beforeEach(() => {
-    stubs = { AttendanceDeleteIconFile: true }
     vuetify = new Vuetify()
     wrapper = factory()
   })

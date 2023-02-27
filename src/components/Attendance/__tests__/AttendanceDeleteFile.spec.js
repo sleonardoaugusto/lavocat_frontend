@@ -8,10 +8,12 @@ import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
 import AppDeleteIcon from '@/components/ui/AppDeleteIcon'
 import helpers from '@/mixins/helpers'
+import { registerGlobalComponents, globalComponents } from '@/components/global'
 
 jest.mock('@/services')
 
 describe('<AttendanceDeleteFile />', () => {
+  registerGlobalComponents(Vue)
   Vue.use(Vuetify)
   Vue.mixin(busy)
   Vue.mixin(helpers)

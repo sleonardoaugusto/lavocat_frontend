@@ -26,11 +26,8 @@
 </template>
 
 <script>
-import AppDialog from '@/components/ui/AppDialog'
-
 export default {
   name: 'AppDeleteIcon',
-  components: { AppDialog },
   props: {
     loading: {
       type: Boolean

@@ -15,7 +15,7 @@
             :key="idx"
             :ref="`field-${idx}`"
             :is="field.component"
-            v-bind="field.attrs"
+            v-bind="field.props"
             v-model="form[field.model]"
           />
         </template>
@@ -36,8 +36,7 @@ export default {
   name: 'AppDialog',
   props: {
     showDialog: {
-      type: Boolean,
-      required: false
+      type: Boolean
     },
     title: {
       type: String
@@ -47,17 +46,14 @@ export default {
     },
     btnCancelTxt: {
       type: String,
-      default: 'cancelar',
-      required: false
+      default: 'cancelar'
     },
     btnConfirmTxt: {
       type: String,
-      default: 'confirmar',
-      required: false
+      default: 'confirmar'
     },
     fields: {
       type: Array,
-      required: false,
       default: () => []
     }
   },

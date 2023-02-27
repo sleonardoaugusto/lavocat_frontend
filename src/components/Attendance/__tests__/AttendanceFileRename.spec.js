@@ -6,10 +6,12 @@ import services from '@/services'
 import faker from 'faker'
 import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
+import { registerGlobalComponents, globalComponents } from '@/components/global'
 
 jest.mock('@/services')
 
 describe('<AttendanceFileRename />', () => {
+  registerGlobalComponents(Vue)
   Vue.use(Vuetify)
   Vue.mixin(busy)
 

@@ -9,10 +9,12 @@ import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
 import VueTheMask from 'vue-the-mask'
 import helpers from '@/mixins/helpers'
+import { registerGlobalComponents, globalComponents } from '@/components/global'
 
 jest.mock('@/services')
 
 describe('<AttendanceForm />', () => {
+  registerGlobalComponents(Vue)
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
   Vue.use(VueTheMask)

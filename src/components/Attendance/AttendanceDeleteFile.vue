@@ -1,5 +1,6 @@
 <template>
   <AppDeleteIcon
+    ref="deleteIcon"
     dialog-title="Deletar arquivo"
     dialog-text="Tem certeza que deseja deletar arquivo?"
     :loading="isLoading"
@@ -8,12 +9,10 @@
 </template>
 
 <script>
-import AppDeleteIcon from '@/components/ui/AppDeleteIcon'
 import services from '@/services'
 
 export default {
   name: 'AttendanceDeleteFile',
-  components: { AppDeleteIcon },
   props: {
     file: {
       type: [Object, File],

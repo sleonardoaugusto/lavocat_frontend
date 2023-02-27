@@ -9,11 +9,13 @@ import AttendanceCreate from '@/views/Attendances/AttendanceCreate'
 import flushPromises from 'flush-promises'
 import VueRouter from 'vue-router'
 import router from '@/router'
+import { registerGlobalComponents, globalComponents } from '@/components/global'
 
 jest.mock('@/services')
 jest.mock('@/router')
 
 describe('<AttendanceCreate />', () => {
+  registerGlobalComponents(Vue)
   Vue.use(Vuetify)
   Vue.use(Vuelidate)
   Vue.use(VueTheMask)

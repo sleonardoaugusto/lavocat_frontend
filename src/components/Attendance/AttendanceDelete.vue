@@ -1,5 +1,6 @@
 <template>
   <AppDeleteIcon
+    ref="deleteIcon"
     dialog-title="Remover atendimento"
     dialog-text="Tem certeza que deseja remover atendimento?"
     :loading="isLoading"
@@ -9,11 +10,9 @@
 
 <script>
 import services from '@/services'
-import AppDeleteIcon from '@/components/ui/AppDeleteIcon'
 
 export default {
   name: 'AttendanceDelete',
-  components: { AppDeleteIcon },
   props: {
     attendanceId: {
       type: [String, Number],

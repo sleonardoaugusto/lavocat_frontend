@@ -6,11 +6,13 @@ import services from '@/services'
 import faker from 'faker'
 import busy from '@/mixins/busy'
 import AppDialog from '@/components/ui/AppDialog'
+import { registerGlobalComponents, globalComponents } from '@/components/global'
 
 jest.mock('@/services')
 
 describe('<AppDeleteIcon />', () => {
   Vue.use(Vuetify)
+  registerGlobalComponents(Vue)
   Vue.mixin(busy)
 
   let wrapper
