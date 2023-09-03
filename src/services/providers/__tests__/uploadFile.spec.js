@@ -35,7 +35,7 @@ describe('Upload Service', () => {
     url: url,
     data: file,
     headers: {
-      'Content-type': 'multipart/form-data'
-    }
+      'Content-type': 'multipart/form-data',
+    },
   })
 })

@@ -85,17 +85,17 @@ export default {
   name: 'AttendanceFiles',
   components: { AttendanceFileRename, AttendanceDeleteIconFile },
   filters: {
-    truncate: val => val?.slice(0, 50)
+    truncate: val => val?.slice(0, 50),
   },
   props: {
     value: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data: () => ({
     internalFiles: [],
-    files: []
+    files: [],
   }),
   methods: {
     reloadFiles() {
@@ -116,13 +116,13 @@ export default {
     },
     async downloadFile(file) {
       const { data } = await axios.get(file.file, {
-        responseType: 'blob'
+        responseType: 'blob',
       })
       const newFile = new File([data], file.filename, {
-        type: 'application/octet-stream'
+        type: 'application/octet-stream',
       })
       saveAs(newFile)
-    }
+    },
   },
   watch: {
     value: {
@@ -137,9 +137,9 @@ export default {
           this.internalFiles = []
           this.setInternal(files)
         }
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

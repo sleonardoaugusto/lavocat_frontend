@@ -35,6 +35,11 @@
         />
       </v-col>
       <v-col cols="12" md="6">
+        <ServicesOptions
+          @changed="options => (form.services_provided = options)"
+        />
+      </v-col>
+      <v-col cols="12" md="6">
         <AttendanceFiles
           ref="attachments"
           @changed="files => (form.files = files)"
@@ -93,24 +98,25 @@ import services from '@/services'
 import { cpfValidator } from '@/utils/validators'
 import { clearDocumentId, objToSelect } from '@/utils/formatters'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
+import ServicesOptions from '@/components/Attendance/ServicesOptions'
 
 export default {
   name: 'AttendanceForm',
-  components: { AttendanceFiles },
+  components: { ServicesOptions, AttendanceFiles },
   mixins: [validations],
   props: {
     value: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     update: {
       type: Boolean,
-      default: false
+      default: false,
     },
     busy: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data: () => ({
     form: {
@@ -119,16 +125,16 @@ export default {
       status: null,
       files: [],
       resume: null,
-      status_resume: null
+      status_resume: null,
     },
-    statusesOptions: []
+    statusesOptions: [],
   }),
   validations: {
     form: {
       customer_name: { required },
       document_id: { cpfValidator },
-      status: { required }
-    }
+      status: { required },
+    },
   },
   async created() {
     const statuses = await services.attendance.getStatuses()
@@ -149,9 +155,9 @@ export default {
     parseForm() {
       return {
         ...this.form,
-        document_id: clearDocumentId(this.form.document_id)
+        document_id: clearDocumentId(this.form.document_id),
       }
-    }
+    },
   },
   computed: {
     submitBtnLabel() {
@@ -159,14 +165,14 @@ export default {
     },
     colorStyle() {
       return this.update ? 'primary' : 'green'
-    }
+    },
   },
   watch: {
     value: {
       deep: true,
       handler(val) {
         if (this.update) this.form = { ...this.form, ...val }
-      }
+      },
     },
     form: {
       deep: true,
@@ -176,9 +182,9 @@ export default {
           delete cache['files']
           localStorage.setItem('atttendance-form-cache', JSON.stringify(cache))
         }
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

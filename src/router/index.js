@@ -13,34 +13,34 @@ export const routes = [
   {
     path: '/atendimentos',
     name: 'attendances-list',
-    component: () => AttendanceList
+    component: () => AttendanceList,
   },
   {
     path: '/atendimentos/novo',
     name: 'attendances-new',
-    component: () => AttendanceCreate
+    component: () => AttendanceCreate,
   },
   {
     path: '/atendimentos/:attendanceId/editar',
     name: 'attendances-update',
     component: () => AttendanceUpdate,
-    props: true
+    props: true,
   },
   {
     path: '/login/',
     name: 'login',
-    component: () => Login
+    component: () => Login,
   },
   {
     path: '*',
-    redirect: '/atendimentos'
-  }
+    redirect: '/atendimentos',
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 router.beforeEach((to, from, next) => {

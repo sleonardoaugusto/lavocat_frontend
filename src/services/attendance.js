@@ -16,7 +16,7 @@ class Attendance {
       .then(resp => {
         modal.open({
           component: 'SnackBar',
-          props: { type: 'success', text: 'Atendimento cadastrado!' }
+          props: { type: 'success', text: 'Atendimento cadastrado!' },
         })
         this.attendanceFileService.uploadAttendanceFiles(resp.data.id, files)
         return resp.data
@@ -24,7 +24,7 @@ class Attendance {
       .catch(err => {
         modal.open({
           component: 'SnackBar',
-          props: { type: 'error', text: 'Erro ao criar atendimento' }
+          props: { type: 'error', text: 'Erro ao criar atendimento' },
         })
         throw new Error(err)
       })
@@ -37,7 +37,7 @@ class Attendance {
 
     modal.open({
       component: 'SnackBar',
-      props: { type: 'success', text: 'Atendimento salvo!' }
+      props: { type: 'success', text: 'Atendimento salvo!' },
     })
 
     return resp.data
@@ -61,7 +61,7 @@ class Attendance {
       .then(() => {
         modal.open({
           component: 'SnackBar',
-          props: { type: 'success', text: 'Atendimento deletado.' }
+          props: { type: 'success', text: 'Atendimento deletado.' },
         })
       })
       .catch(e => {

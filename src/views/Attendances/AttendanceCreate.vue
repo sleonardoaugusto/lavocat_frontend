@@ -23,12 +23,12 @@ export default {
           localStorage.removeItem('atttendance-form-cache')
           router.push({
             name: 'attendances-update',
-            params: { attendanceId: resp.id }
+            params: { attendanceId: resp.id },
           })
         })
         .catch(() => this.toggleLoading())
-    }
-  }
+    },
+  },
 }
 </script>
 

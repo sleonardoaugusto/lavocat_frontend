@@ -16,8 +16,8 @@ export default {
   props: {
     attendanceId: {
       type: [String, Number],
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     async onDelete() {
@@ -27,8 +27,8 @@ export default {
         .then(() => this.$emit('delete'))
         .catch(() => {})
       this.toggleLoading()
-    }
-  }
+    },
+  },
 }
 </script>
 

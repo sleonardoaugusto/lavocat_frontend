@@ -11,7 +11,7 @@ describe('Attendance Service', () => {
       post: jest.fn(),
       put: jest.fn(),
       get: jest.fn(),
-      delete: jest.fn()
+      delete: jest.fn(),
     }
     service = Attendance(httpClient)
     jest.clearAllMocks()
@@ -37,7 +37,7 @@ describe('Attendance Service', () => {
     it('Should call uploadAttendanceFiles method passing files and attendance id', async () => {
       const spy = jest.spyOn(
         service.attendanceFileService,
-        'uploadAttendanceFiles'
+        'uploadAttendanceFiles',
       )
 
       await service.createAttendance({ files: [{}] })
@@ -68,7 +68,7 @@ describe('Attendance Service', () => {
     it('Should call uploadAttendanceFiles method passing files and attendance id', async () => {
       const spy = jest.spyOn(
         service.attendanceFileService,
-        'uploadAttendanceFiles'
+        'uploadAttendanceFiles',
       )
 
       await service.updateAttendance(1, { files: [{}] })
@@ -124,11 +124,11 @@ describe('Attendance Service', () => {
       service.getAttendances({
         customer_name: '',
         document_id: '',
-        status: [0, 1]
+        status: [0, 1],
       })
 
       expect(spy).toHaveBeenCalledWith('/attendances/', {
-        params: { customer_name: '', document_id: '', status: [0, 1] }
+        params: { customer_name: '', document_id: '', status: [0, 1] },
       })
     })
 

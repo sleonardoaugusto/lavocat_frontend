@@ -11,7 +11,7 @@ describe('Auth Service', () => {
 
   beforeEach(() => {
     httpClient = {
-      post: jest.fn()
+      post: jest.fn(),
     }
     service = Auth(httpClient)
     jest.clearAllMocks()
@@ -34,7 +34,7 @@ describe('Auth Service', () => {
 
       const data = {
         username: faker.random.word(),
-        password: faker.random.word()
+        password: faker.random.word(),
       }
       service.login(data)
 

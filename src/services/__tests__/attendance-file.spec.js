@@ -14,7 +14,7 @@ describe('AttendanceFile Service', () => {
       put: jest.fn(),
       get: jest.fn(),
       patch: jest.fn(),
-      delete: jest.fn()
+      delete: jest.fn(),
     }
     service = AttendanceFileService(httpClient)
     jest.clearAllMocks()
@@ -44,7 +44,7 @@ describe('AttendanceFile Service', () => {
       const resp = await service.updateAttendanceFile(1, 'new-name.txt')
 
       expect(spy).toHaveBeenCalledWith('/attendance-files/1/', {
-        filename: 'new-name.txt'
+        filename: 'new-name.txt',
       })
       expect(resp).toStrictEqual([{}])
     })

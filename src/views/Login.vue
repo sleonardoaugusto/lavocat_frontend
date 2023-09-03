@@ -59,14 +59,14 @@ export default {
   data: () => ({
     form: {
       username: null,
-      password: null
-    }
+      password: null,
+    },
   }),
   validations: {
     form: {
       username: { required },
-      password: { required }
-    }
+      password: { required },
+    },
   },
   methods: {
     async onSubmit() {
@@ -77,8 +77,8 @@ export default {
         Auth.login(access)
         this.toggleLoading()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

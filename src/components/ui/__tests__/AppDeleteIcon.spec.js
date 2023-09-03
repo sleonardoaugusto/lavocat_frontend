@@ -22,7 +22,7 @@ describe('<AppDeleteIcon />', () => {
   beforeEach(() => {
     propsData = {
       dialogTitle: faker.random.word(),
-      dialogText: faker.random.word()
+      dialogText: faker.random.word(),
     }
     vuetify = new Vuetify()
     wrapper = factory()
@@ -41,7 +41,7 @@ describe('<AppDeleteIcon />', () => {
 
   it('Dialog text prop should be passed to dialog component', async () => {
     expect(wrapper.findComponent(AppDialog).vm.title).toBe(
-      propsData.dialogTitle
+      propsData.dialogTitle,
     )
   })
 

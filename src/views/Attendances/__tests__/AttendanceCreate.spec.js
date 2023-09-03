@@ -58,7 +58,7 @@ describe('<AttendanceCreate />', () => {
       .vm.$emit('submit', {})
 
     expect(
-      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy,
     ).toBeTruthy()
   })
 
@@ -96,7 +96,7 @@ describe('<AttendanceCreate />', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith({
       name: 'attendances-update',
-      params: { attendanceId: 1 }
+      params: { attendanceId: 1 },
     })
   })
 })

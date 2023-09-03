@@ -36,30 +36,30 @@ export default {
   name: 'AppDialog',
   props: {
     showDialog: {
-      type: Boolean
+      type: Boolean,
     },
     title: {
-      type: String
+      type: String,
     },
     text: {
-      type: String
+      type: String,
     },
     btnCancelTxt: {
       type: String,
-      default: 'cancelar'
+      default: 'cancelar',
     },
     btnConfirmTxt: {
       type: String,
-      default: 'confirmar'
+      default: 'confirmar',
     },
     fields: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data: () => ({
     internalShowDialog: false,
-    form: {}
+    form: {},
   }),
   methods: {
     onConfirm() {
@@ -67,7 +67,7 @@ export default {
     },
     onCancel() {
       this.$emit('cancel')
-    }
+    },
   },
   watch: {
     showDialog(val) {
@@ -77,8 +77,8 @@ export default {
       const fields = {}
       val.forEach(field => (fields[field.model] = field.value))
       this.form = { ...fields }
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -32,7 +32,7 @@ describe('<AttendanceList />', () => {
 
   it('New attendance btn', () => {
     expect(wrapper.findComponent({ ref: 'newAttendance' }).vm.$props.href).toBe(
-      '/atendimentos/novo'
+      '/atendimentos/novo',
     )
   })
 
@@ -52,7 +52,7 @@ describe('<AttendanceList />', () => {
     await flushPromises()
 
     expect(
-      wrapper.findComponent({ ref: 'attendancesList' }).vm.items
+      wrapper.findComponent({ ref: 'attendancesList' }).vm.items,
     ).toStrictEqual([{ id: 1 }])
   })
 
@@ -60,24 +60,24 @@ describe('<AttendanceList />', () => {
     const headers = [
       {
         text: 'Nome do Cliente',
-        value: 'customer_name'
+        value: 'customer_name',
       },
       {
         text: 'Resumo de Status',
-        value: 'status_resume'
+        value: 'status_resume',
       },
       {
         text: 'Status',
-        value: 'status_label'
+        value: 'status_label',
       },
       {
         text: 'Ações',
-        value: 'actions'
-      }
+        value: 'actions',
+      },
     ]
 
     expect(
-      wrapper.findComponent({ ref: 'attendancesList' }).vm.headers
+      wrapper.findComponent({ ref: 'attendancesList' }).vm.headers,
     ).toStrictEqual(headers)
   })
 
@@ -85,13 +85,13 @@ describe('<AttendanceList />', () => {
     wrapper = factory()
 
     expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
-      true
+      true,
     )
   })
 
   it('Table should not be loading after response', () => {
     expect(wrapper.findComponent({ ref: 'attendancesList' }).vm.loading).toBe(
-      false
+      false,
     )
   })
 
@@ -102,7 +102,7 @@ describe('<AttendanceList />', () => {
     await flushPromises()
 
     expect(wrapper.findComponent({ ref: 'attendance1' }).vm.href).toBe(
-      '/atendimentos/1/editar'
+      '/atendimentos/1/editar',
     )
   })
 
@@ -117,7 +117,7 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: 'Anonymous999',
       document_id: '',
-      status: []
+      status: [],
     })
   })
 
@@ -132,14 +132,14 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: '',
       document_id: '999',
-      status: []
+      status: [],
     })
   })
 
   it('Should get attendances on status filter', async () => {
     services.attendance.getStatuses.mockResolvedValueOnce({
       OtherStatus: 0,
-      SomeStatus: 1
+      SomeStatus: 1,
     })
     const spy = jest.spyOn(services.attendance, 'getAttendances')
 
@@ -155,7 +155,7 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: '',
       document_id: '',
-      status: [0, 1]
+      status: [0, 1],
     })
   })
 

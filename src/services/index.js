@@ -15,8 +15,8 @@ const httpClient = axios.create({
   baseURL: BASE_URL,
   paramsSerializer: params => Qs.stringify(params, { arrayFormat: 'repeat' }),
   headers: {
-    Authorization: `Bearer ${token}`
-  }
+    Authorization: `Bearer ${token}`,
+  },
 })
 
 httpClient.interceptors.response.use(
@@ -29,11 +29,11 @@ httpClient.interceptors.response.use(
     } else if (error.response.status === 400) {
       modal.open({
         component: 'SnackBar',
-        props: { type: 'error', text: 'Erro no servidor' }
+        props: { type: 'error', text: 'Erro no servidor' },
       })
     }
     return Promise.reject(error)
-  }
+  },
 )
 
 const keepAlive = () => {
@@ -45,5 +45,5 @@ export default {
   attendance: AttendanceService(httpClient),
   attendanceFile: AttendanceFileService(httpClient),
   auth: AuthService(httpClient),
-  keepAlive
+  keepAlive,
 }

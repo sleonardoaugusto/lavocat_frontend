@@ -14,7 +14,7 @@ describe('<AppDialog />', () => {
   beforeEach(() => {
     propsData = {
       title: faker.lorem.words(),
-      text: faker.lorem.words()
+      text: faker.lorem.words(),
     }
     vuetify = new Vuetify()
     wrapper = factory()
@@ -38,7 +38,7 @@ describe('<AppDialog />', () => {
 
   it.each([
     ['cancelar', {}],
-    ['não', { btnCancelTxt: 'não' }]
+    ['não', { btnCancelTxt: 'não' }],
   ])('Cancel button text should be %s', async (text, props) => {
     await wrapper.setProps(props)
     await showDialog()
@@ -47,7 +47,7 @@ describe('<AppDialog />', () => {
 
   it.each([
     ['confirmar', {}],
-    ['sim', { btnConfirmTxt: 'sim' }]
+    ['sim', { btnConfirmTxt: 'sim' }],
   ])('Confirm button text should be %s', async (text, props) => {
     await wrapper.setProps(props)
     await showDialog()
@@ -94,9 +94,9 @@ describe('<AppDialog />', () => {
           component: 'v-text-field',
           attrs: { label: 'Nome do arquivo' },
           model: 'text',
-          value: 'hi'
-        }
-      ]
+          value: 'hi',
+        },
+      ],
     })
     await showDialog()
     expect(wrapper.findComponent({ ref: 'field-0' }).vm).toBeDefined()

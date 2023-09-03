@@ -30,19 +30,19 @@ export default {
   name: 'AppDeleteIcon',
   props: {
     loading: {
-      type: Boolean
+      type: Boolean,
     },
     dialogTitle: {
       type: String,
-      required: true
+      required: true,
     },
     dialogText: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data: () => ({
-    showDialog: false
+    showDialog: false,
   }),
   methods: {
     onClick() {
@@ -51,8 +51,8 @@ export default {
     async onConfirm() {
       this.showDialog = false
       this.$emit('delete')
-    }
-  }
+    },
+  },
 }
 </script>
 

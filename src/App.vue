@@ -2,10 +2,10 @@
   <v-app>
     <v-main>
       <v-container>
-        <router-view/>
+        <router-view />
       </v-container>
     </v-main>
-    <ModalFactory/>
+    <ModalFactory />
   </v-app>
 </template>
 
@@ -15,7 +15,7 @@ import ModalFactory from '@/components/ModalFactory/index'
 export default {
   name: 'App',
   components: {
-    ModalFactory
-  }
+    ModalFactory,
+  },
 }
 </script>

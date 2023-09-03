@@ -13,17 +13,17 @@ export default {
     text: {
       type: String,
       required: true,
-      default: 'Title Example'
+      default: 'Title Example',
     },
     tag: {
       type: String,
-      default: 'h4'
+      default: 'h4',
     },
     typography: {
       type: String,
-      default: 'grey--text text--darken-3 font-weight-regular'
-    }
-  }
+      default: 'grey--text text--darken-3 font-weight-regular',
+    },
+  },
 }
 </script>
 

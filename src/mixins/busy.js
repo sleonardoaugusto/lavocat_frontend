@@ -1,12 +1,12 @@
 export default {
   data() {
     return {
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
     toggleLoading() {
       this.isLoading = !this.isLoading
-    }
-  }
+    },
+  },
 }

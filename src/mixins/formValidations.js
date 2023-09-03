@@ -3,7 +3,7 @@ const Validations = {
   MIN_LENGTH: 'minLength',
   MIN_VALUE: 'minValue',
   MAX_VALUE: 'maxValue',
-  CPF_VALIDATOR: 'cpfValidator'
+  CPF_VALIDATOR: 'cpfValidator',
 }
 
 export default {
@@ -39,7 +39,7 @@ export default {
         [`${Validations.MIN_LENGTH}`]: `Campo deve conter no mínimo ${validationParam} caracteres`,
         [`${Validations.MIN_VALUE}`]: `O valor deve ser no mínimo ${validationParam}`,
         [`${Validations.MAX_VALUE}`]: `O valor deve ser menor que ${validationParam}`,
-        [`${Validations.CPF_VALIDATOR}`]: 'Campo deve conter 11 dígitos'
+        [`${Validations.CPF_VALIDATOR}`]: 'Campo deve conter 11 dígitos',
       }
       return Messages?.[validationName] ?? 'Campo inválido'
     },
@@ -55,11 +55,11 @@ export default {
       } else if (validation === Validations.MAX_VALUE)
         validationParam = prefix.max
       return validationParam
-    }
+    },
   },
   computed: {
     formIsReady() {
       return !this.$v.$invalid
-    }
-  }
+    },
+  },
 }

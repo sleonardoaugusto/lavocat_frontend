@@ -61,7 +61,7 @@
             loading-text="Carregando atendimentos... Por favor aguarde"
             :footer-props="{
               itemsPerPageAllText: 'Todos',
-              itemsPerPageText: 'Qtd. por página'
+              itemsPerPageText: 'Qtd. por página',
             }"
           >
             <template v-slot:item.status_label="{ item }">
@@ -110,20 +110,20 @@ export default {
     headers: [
       {
         text: 'Nome do Cliente',
-        value: 'customer_name'
+        value: 'customer_name',
       },
       {
         text: 'Resumo de Status',
-        value: 'status_resume'
+        value: 'status_resume',
       },
       {
         text: 'Status',
-        value: 'status_label'
+        value: 'status_label',
       },
       {
         text: 'Ações',
-        value: 'actions'
-      }
+        value: 'actions',
+      },
     ],
     statusOptions: [],
     attendances: [],
@@ -131,8 +131,8 @@ export default {
     filters: {
       customer_name: '',
       document_id: '',
-      status: []
-    }
+      status: [],
+    },
   }),
   created() {
     this.getAttendances()
@@ -159,7 +159,7 @@ export default {
         1: 'red',
         2: 'blue',
         3: 'orange',
-        4: 'green'
+        4: 'green',
       }
       return colors[status]
     },
@@ -176,10 +176,10 @@ export default {
     },
     onAttendanceDelete(attendanceId) {
       this.attendances = this.attendances.filter(
-        attendance => attendance.id !== attendanceId
+        attendance => attendance.id !== attendanceId,
       )
-    }
-  }
+    },
+  },
 }
 </script>
 

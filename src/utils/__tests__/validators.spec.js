@@ -8,7 +8,7 @@ describe('validators.js', () => {
     [9999999999, false],
     [99999999999, true],
     ['9999999999', false],
-    ['99999999999', true]
+    ['99999999999', true],
   ])('%s value should return %s', (value, bool) => {
     expect(cpfValidator(value)).toBe(bool)
   })

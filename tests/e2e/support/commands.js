@@ -39,7 +39,7 @@ Cypress.Commands.add('login', () => {
   cy.visit(`${baseUrl}/`)
 
   cy.intercept('POST', `${apiServer}/api/token/`, {
-    fixture: 'auth/login.json'
+    fixture: 'auth/login.json',
   }).as('login')
 
   cy.get('#username').type('admin')
@@ -50,7 +50,7 @@ Cypress.Commands.add('login', () => {
 Cypress.Commands.add('loginInvalid', () => {
   const apiServer = Cypress.env('api_server')
   cy.intercept('POST', `${apiServer}/api/token/`, {
-    statusCode: 401
+    statusCode: 401,
   }).as('login')
 
   cy.get('#username').type('admin')

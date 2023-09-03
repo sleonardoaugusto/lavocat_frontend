@@ -8,7 +8,7 @@ import VueTheMask from 'vue-the-mask'
 import services from '@/services'
 import Vuetify from 'vuetify'
 import helpers from '@/mixins/helpers'
-import { globalComponents, registerGlobalComponents } from '@/components/global'
+import { registerGlobalComponents } from '@/components/global'
 
 Vue.config.productionTip = false
 Vue.use(Vuelidate)
@@ -25,5 +25,5 @@ new Vue({
   render: h => h(App),
   created() {
     services.keepAlive()
-  }
+  },
 }).$mount('#app')

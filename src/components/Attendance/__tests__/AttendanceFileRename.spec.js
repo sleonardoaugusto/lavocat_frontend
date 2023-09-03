@@ -25,8 +25,8 @@ describe('<AttendanceFileRename />', () => {
         id: faker.random.uuid(),
         file: faker.random.word(),
         filename: 'filename.txt',
-        attendance: faker.random.uuid()
-      }
+        attendance: faker.random.uuid(),
+      },
     }
 
     vuetify = new Vuetify()
@@ -76,7 +76,7 @@ describe('<AttendanceFileRename />', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith(propsData.file.id, 'new-name.txt')
     expect(
-      await wrapper.findComponent({ ref: 'dialog' }).vm.showDialog
+      await wrapper.findComponent({ ref: 'dialog' }).vm.showDialog,
     ).toBeFalsy()
     expect(wrapper.emitted().update).toBeTruthy()
   })
@@ -94,7 +94,7 @@ describe('<AttendanceFileRename />', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith(propsData.file.id, 'new-name.txt')
     expect(
-      await wrapper.findComponent({ ref: 'dialog' }).vm.showDialog
+      await wrapper.findComponent({ ref: 'dialog' }).vm.showDialog,
     ).toBeFalsy()
     expect(wrapper.emitted().update).toBeFalsy()
   })

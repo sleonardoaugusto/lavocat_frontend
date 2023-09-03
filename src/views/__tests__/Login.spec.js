@@ -39,14 +39,14 @@ describe('<Login />', () => {
       '%s field validation state should be null',
       async field => {
         expect(
-          wrapper.findComponent({ ref: field }).vm.errorMessages
+          wrapper.findComponent({ ref: field }).vm.errorMessages,
         ).toBeNull()
-      }
+      },
     )
 
     test.each([
       ['username', 'Campo obrigatório'],
-      ['password', 'Campo obrigatório']
+      ['password', 'Campo obrigatório'],
     ])('%s field should be valid', async (field, msg) => {
       await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
 
@@ -118,7 +118,7 @@ describe('<Login />', () => {
   const fillForm = async () => {
     const data = {
       username: faker.random.word(),
-      password: faker.random.word()
+      password: faker.random.word(),
     }
     await wrapper
       .findComponent({ ref: 'username' })

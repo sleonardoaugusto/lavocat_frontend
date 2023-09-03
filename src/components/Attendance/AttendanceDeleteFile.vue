@@ -16,8 +16,8 @@ export default {
   props: {
     file: {
       type: [Object, File],
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     async onDelete() {
@@ -32,8 +32,8 @@ export default {
       } else {
         this.$emit('delete')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

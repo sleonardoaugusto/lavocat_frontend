@@ -16,7 +16,7 @@ class Auth {
       .catch(() => {
         modal.open({
           component: 'SnackBar',
-          props: { type: 'error', text: 'Credenciais inválidas.' }
+          props: { type: 'error', text: 'Credenciais inválidas.' },
         })
         return { access: null }
       })

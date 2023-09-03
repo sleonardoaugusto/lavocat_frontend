@@ -5,7 +5,7 @@ describe('<Auth />', () => {
   it('Should redirect to /atendimentos after login', () => {
     cy.intercept('GET', `${apiServer}/attendances/`, {}).as('attendances')
     cy.intercept('GET', `${apiServer}/attendance-statuses/`, {}).as(
-      'attendanceStatuses'
+      'attendanceStatuses',
     )
 
     cy.visit(`${baseUrl}/login`)
@@ -37,7 +37,7 @@ describe('<Auth />', () => {
 
   it('Should logout if status code is 401', () => {
     cy.intercept('GET', `${apiServer}/attendances/`, {
-      statusCode: 401
+      statusCode: 401,
     }).as('attendances')
 
     cy.visit(`${baseUrl}/login`)

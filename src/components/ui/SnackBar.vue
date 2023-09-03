@@ -34,40 +34,40 @@ export default {
   props: {
     showCloseBtn: {
       type: Boolean,
-      default: true
+      default: true,
     },
     show: {
       type: Boolean,
-      required: true
+      required: true,
     },
     text: {
-      type: String
+      type: String,
     },
     type: {
-      type: String
-    }
+      type: String,
+    },
   },
   data: () => ({
     showInternal: true,
-    timeout: 5000
+    timeout: 5000,
   }),
   methods: {
     close() {
       modal.close({ type: this.type })
-    }
+    },
   },
   computed: {
     success() {
       return this.type === 'success'
-    }
+    },
   },
   watch: {
     show: {
       handler(val) {
         this.showInternal = val
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

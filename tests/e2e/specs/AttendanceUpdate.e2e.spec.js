@@ -7,16 +7,16 @@ describe('<AttendanceUpdate />', () => {
 
   beforeEach(() => {
     cy.intercept('GET', `${apiServer}/attendance-statuses/`, {
-      fixture: 'attendances/statuses.json'
+      fixture: 'attendances/statuses.json',
     }).as('attendanceStatuses')
     cy.intercept('GET', `${apiServer}/attendances/1/`, attendanceResp).as(
-      'attendanceGetById'
+      'attendanceGetById',
     )
     cy.intercept('GET', `${apiServer}/attendances/`, {
-      fixture: 'attendances/attendances.json'
+      fixture: 'attendances/attendances.json',
     }).as('attendances')
     cy.intercept('PUT', `${apiServer}/attendances/1/`, {}).as(
-      'attendanceUpdate'
+      'attendanceUpdate',
     )
 
     cy.login()

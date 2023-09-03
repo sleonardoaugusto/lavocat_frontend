@@ -21,16 +21,16 @@ export default {
   name: 'AttendanceUpdate',
   components: {
     AppHeading,
-    AttendanceForm
+    AttendanceForm,
   },
   props: {
     attendanceId: {
       type: [String, Number],
-      required: true
-    }
+      required: true,
+    },
   },
   data: () => ({
-    internalAttendance: {}
+    internalAttendance: {},
   }),
   created() {
     this.getAttendance(this.attendanceId)
@@ -45,8 +45,8 @@ export default {
       this.toggleLoading()
       await services.attendance.updateAttendance(this.attendanceId, data)
       this.toggleLoading()
-    }
-  }
+    },
+  },
 }
 </script>
 

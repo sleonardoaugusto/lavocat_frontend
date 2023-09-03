@@ -34,7 +34,7 @@ describe('<AttendanceForm />', () => {
 
   it('Previous button', () => {
     expect(wrapper.findComponent({ ref: 'previousBtn' }).vm.$props.href).toBe(
-      '/atendimentos'
+      '/atendimentos',
     )
   })
 
@@ -43,15 +43,15 @@ describe('<AttendanceForm />', () => {
       '%s field validation state should be null',
       async field => {
         expect(
-          wrapper.findComponent({ ref: field }).vm.errorMessages
+          wrapper.findComponent({ ref: field }).vm.errorMessages,
         ).toBeNull()
-      }
+      },
     )
 
     test.each([
       ['customerName', 'Campo obrigatório'],
       ['documentId', null],
-      ['statusesSelect', 'Campo obrigatório']
+      ['statusesSelect', 'Campo obrigatório'],
     ])('%s field should be invalid', async (field, msg) => {
       await wrapper.find('#submit').trigger('click')
 
@@ -62,7 +62,7 @@ describe('<AttendanceForm />', () => {
       await wrapper.find('#document-id').setValue('9999999999')
 
       expect(
-        wrapper.findComponent({ ref: 'documentId' }).vm.errorMessages
+        wrapper.findComponent({ ref: 'documentId' }).vm.errorMessages,
       ).toBe('Campo deve conter 11 dígitos')
     })
   })
@@ -77,7 +77,7 @@ describe('<AttendanceForm />', () => {
       await wrapper.setProps({ busy: true })
 
       expect(
-        wrapper.findComponent({ ref: 'submitBtn' }).vm.loading
+        wrapper.findComponent({ ref: 'submitBtn' }).vm.loading,
       ).toBeTruthy()
       expect(wrapper.findComponent({ ref: 'overlay' }).vm.value).toBeTruthy()
     })
@@ -86,7 +86,7 @@ describe('<AttendanceForm />', () => {
   describe('Form submit', () => {
     test.each([
       ['customer_name', { customer_name: '', status: 1 }],
-      ['status', { customer_name: 'maria', status: null }]
+      ['status', { customer_name: 'maria', status: null }],
     ])('Should not emit form data if %s field is invalid', async (_, data) => {
       await fillForm(data)
       await wrapper.find('#submit').trigger('click')
@@ -106,7 +106,7 @@ describe('<AttendanceForm />', () => {
         status: data.status,
         files: data.files,
         resume: data.resume,
-        status_resume: data.status_resume
+        status_resume: data.status_resume,
       })
     })
   })
@@ -114,7 +114,7 @@ describe('<AttendanceForm />', () => {
   describe('Update behavior', () => {
     test.each([
       ['Salvar', true],
-      ['Cadastrar', false]
+      ['Cadastrar', false],
     ])('Button label should be %s if update is %s', (label, flag) => {
       wrapper = factory({ propsData: { update: flag } })
 
@@ -126,7 +126,7 @@ describe('<AttendanceForm />', () => {
       await flushPromises()
 
       expect(
-        wrapper.findComponent({ ref: 'statusesSelect' }).vm.items
+        wrapper.findComponent({ ref: 'statusesSelect' }).vm.items,
       ).toStrictEqual([{ text: 'StatusName', value: 1 }])
     })
 
@@ -134,7 +134,7 @@ describe('<AttendanceForm />', () => {
       await wrapper.setData({ form: { files: [{}] } })
 
       expect(
-        wrapper.findComponent({ ref: 'attachments' }).emitted().changed[0]
+        wrapper.findComponent({ ref: 'attachments' }).emitted().changed[0],
       ).toHaveLength(1)
     })
 
@@ -144,22 +144,22 @@ describe('<AttendanceForm />', () => {
       await wrapper.setProps({ value: data })
 
       expect(wrapper.findComponent({ ref: 'customerName' }).vm.value).toBe(
-        data.customer_name
+        data.customer_name,
       )
       expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
-        data.document_id_formatted
+        data.document_id_formatted,
       )
       expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
-        data.status
+        data.status,
       )
       expect(
-        wrapper.findComponent({ ref: 'attachments' }).vm.value
+        wrapper.findComponent({ ref: 'attachments' }).vm.value,
       ).toStrictEqual(data.files)
       expect(wrapper.findComponent({ ref: 'resume' }).vm.value).toBe(
-        data.resume
+        data.resume,
       )
       expect(wrapper.findComponent({ ref: 'statusResume' }).vm.value).toBe(
-        data.status_resume
+        data.status_resume,
       )
     })
   })
@@ -172,7 +172,7 @@ describe('<AttendanceForm />', () => {
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),
     status_resume: faker.random.word(),
-    ...opts
+    ...opts,
   })
 
   const fillForm = async params => {

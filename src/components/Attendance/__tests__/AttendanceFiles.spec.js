@@ -34,7 +34,7 @@ describe('<AttendanceFiles />', () => {
   const files = [
     new File(['fizz'], 'fizz.txt'),
     new File(['buzz'], 'buzz.txt'),
-    new File(['fizzbuzz'], 'fizzbuzz.txt')
+    new File(['fizzbuzz'], 'fizzbuzz.txt'),
   ]
 
   it('Table should list attachments', async () => {
@@ -67,7 +67,7 @@ describe('<AttendanceFiles />', () => {
   it('Should pass files as props to child component', async () => {
     await wrapper.setData({ internalFiles: [{ id: 1 }] })
     expect(
-      wrapper.findComponent(AttendanceDeleteIconFile).vm.file
+      wrapper.findComponent(AttendanceDeleteIconFile).vm.file,
     ).toStrictEqual({ id: 1 })
   })
 
@@ -119,13 +119,13 @@ describe('<AttendanceFiles />', () => {
     await wrapper.setData({ internalFiles: files })
 
     expect(
-      wrapper.findComponent({ ref: 'attachmentsTable' }).isVisible()
+      wrapper.findComponent({ ref: 'attachmentsTable' }).isVisible(),
     ).toBeTruthy()
   })
 
   it('Table should be hidden if do not have files to show', () => {
     expect(
-      wrapper.findComponent({ ref: 'attachmentsTable' }).isVisible()
+      wrapper.findComponent({ ref: 'attachmentsTable' }).isVisible(),
     ).toBeFalsy()
   })
 })

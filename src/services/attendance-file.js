@@ -15,8 +15,8 @@ class AttendanceFile {
         .catch(() =>
           modal.open({
             component: 'SnackBar',
-            props: { type: 'error', text: 'Erro ao carregar arquivos.' }
-          })
+            props: { type: 'error', text: 'Erro ao carregar arquivos.' },
+          }),
         )
     }
   }
@@ -45,15 +45,15 @@ class AttendanceFile {
       .then(resp => {
         modal.open({
           component: 'SnackBar',
-          props: { type: 'success', text: 'Arquivo renomeado.' }
+          props: { type: 'success', text: 'Arquivo renomeado.' },
         })
         return resp.data
       })
       .catch(() =>
         modal.open({
           component: 'SnackBar',
-          props: { type: 'error', text: 'Erro ao renomear arquivo.' }
-        })
+          props: { type: 'error', text: 'Erro ao renomear arquivo.' },
+        }),
       )
   }
   async deleteAttendanceFile(attendanceFileId) {
@@ -62,14 +62,14 @@ class AttendanceFile {
       .then(() => {
         modal.open({
           component: 'SnackBar',
-          props: { type: 'success', text: 'Arquivo deletado.' }
+          props: { type: 'success', text: 'Arquivo deletado.' },
         })
       })
       .catch(e => {
         console.error(`Ocorreu um erro ${e}`)
         modal.open({
           component: 'SnackBar',
-          props: { type: 'error', text: `Ocorreu um erro ${e}` }
+          props: { type: 'error', text: `Ocorreu um erro ${e}` },
         })
       })
   }

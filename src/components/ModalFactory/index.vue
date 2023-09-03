@@ -11,11 +11,11 @@ const modal = useModal()
 export default {
   name: 'ModalFactory',
   components: {
-    SnackBar
+    SnackBar,
   },
   data: () => ({
     component: null,
-    componentProps: {}
+    componentProps: {},
   }),
   mounted() {
     modal.listen(this.modalToggle)
@@ -27,8 +27,8 @@ export default {
         this.component = component
       }
       this.componentProps = props
-    }
-  }
+    },
+  },
 }
 </script>
 

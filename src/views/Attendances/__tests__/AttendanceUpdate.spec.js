@@ -40,7 +40,7 @@ describe('<AttendanceUpdate />', () => {
       vuetify,
       propsData,
       stubs,
-      ...opts
+      ...opts,
     }))
 
   it('Should get attendance data', () => {
@@ -53,7 +53,7 @@ describe('<AttendanceUpdate />', () => {
     wrapper = factory()
 
     expect(
-      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy,
     ).toBeTruthy()
   })
 
@@ -66,14 +66,14 @@ describe('<AttendanceUpdate />', () => {
 
   it('Form component should receive attendance data', async () => {
     services.attendance.getAttendanceById.mockResolvedValueOnce({
-      some: 'data'
+      some: 'data',
     })
 
     wrapper = factory()
     await flushPromises()
 
     expect(
-      wrapper.findComponent({ ref: 'attendanceForm' }).vm.value
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.value,
     ).toStrictEqual({ some: 'data' })
   })
 
@@ -89,7 +89,7 @@ describe('<AttendanceUpdate />', () => {
 
   it('Form component should receive update props true', () => {
     expect(wrapper.findComponent({ ref: 'attendanceForm' }).vm.update).toBe(
-      true
+      true,
     )
   })
 
@@ -99,7 +99,7 @@ describe('<AttendanceUpdate />', () => {
       .vm.$emit('submit', {})
 
     expect(
-      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.busy,
     ).toBeTruthy()
   })
 

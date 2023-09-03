@@ -14,8 +14,8 @@ export default class UploadFile {
           url: url,
           data: file,
           headers: {
-            'Content-type': 'multipart/form-data'
-          }
+            'Content-type': 'multipart/form-data',
+          },
         }
         return this.http
           .request(requestData)
@@ -25,11 +25,11 @@ export default class UploadFile {
               component: 'SnackBar',
               props: {
                 type: 'error',
-                text: `Falha ao subir arquivo ${file.get('filename')}`
-              }
+                text: `Falha ao subir arquivo ${file.get('filename')}`,
+              },
             })
           })
-      })
+      }),
     ).then(resp => resp)
   }
 }

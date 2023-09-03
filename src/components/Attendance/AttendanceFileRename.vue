@@ -26,8 +26,8 @@
           component: 'v-text-field',
           props: { label: 'Nome do arquivo' },
           model: 'text',
-          value: filename
-        }
+          value: filename,
+        },
       ]"
       @confirm="renameFile"
       @cancel="showDialog = false"
@@ -44,11 +44,11 @@ export default {
     file: {
       type: Object,
       required: true,
-      default: null
-    }
+      default: null,
+    },
   },
   data: () => ({
-    showDialog: false
+    showDialog: false,
   }),
   methods: {
     async renameFile(payload) {
@@ -59,13 +59,13 @@ export default {
         .then(() => this.$emit('update'))
         .catch(() => {})
       this.showDialog = false
-    }
+    },
   },
   computed: {
     filename() {
       return this.file.filename?.split('.')[0] || null
-    }
-  }
+    },
+  },
 }
 </script>
 
