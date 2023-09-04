@@ -27,8 +27,8 @@
       <v-col cols="12" md="6">
         <ServicesOptions
           ref="servicesOptions"
-          @changed="options => (form.services_provided = options)"
-          :selected="form.services_provided"
+          @changed="options => (form.services_types = options)"
+          :selected="form.services_types"
         />
       </v-col>
       <v-col cols="12" md="6">
@@ -117,7 +117,7 @@ export default {
       files: [],
       resume: null,
       status_resume: null,
-      services_provided: [],
+      services_types: [],
     },
   }),
   validations: {

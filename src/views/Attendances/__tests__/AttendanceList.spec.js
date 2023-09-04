@@ -113,7 +113,7 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: 'Anonymous999',
       document_id: '',
-      services_provided: [],
+      services_types: [],
     })
   })
 
@@ -128,7 +128,7 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: '',
       document_id: '999',
-      services_provided: [],
+      services_types: [],
     })
   })
 

@@ -122,7 +122,7 @@ export default {
     filters: {
       customer_name: '',
       document_id: '',
-      services_provided: [],
+      services_types: [],
     },
   }),
   created() {
@@ -132,7 +132,7 @@ export default {
     attendanceTypeFilter(selected) {
       const statuses = []
       selected.map(idx => statuses.push(this.attendanceTypeOptions[idx].value))
-      this.filters.services_provided = statuses
+      this.filters.services_types = statuses
       this.getAttendances(this.filters)
     },
     async getAttendances(filters) {

@@ -124,14 +124,14 @@ describe('Attendance Service', () => {
       service.getAttendances({
         customer_name: '',
         document_id: '',
-        services_provided: ['A', 'B'],
+        services_types: ['A', 'B'],
       })
 
       expect(spy).toHaveBeenCalledWith('/attendances/', {
         params: {
           customer_name: '',
           document_id: '',
-          services_provided: ['A', 'B'],
+          services_types: ['A', 'B'],
         },
       })
     })

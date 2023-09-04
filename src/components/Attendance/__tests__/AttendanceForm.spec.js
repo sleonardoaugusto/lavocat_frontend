@@ -101,7 +101,7 @@ describe('<AttendanceForm />', () => {
         files: data.files,
         resume: data.resume,
         status_resume: data.status_resume,
-        services_provided: ['DPVAT'],
+        services_types: ['DPVAT'],
       })
     })
   })
@@ -137,7 +137,7 @@ describe('<AttendanceForm />', () => {
       )
       expect(
         wrapper.findComponent({ ref: 'servicesOptions' }).vm.selected,
-      ).toStrictEqual(data.services_provided)
+      ).toStrictEqual(data.services_types)
       expect(
         wrapper.findComponent({ ref: 'attachments' }).vm.value,
       ).toStrictEqual(data.files)
@@ -154,7 +154,7 @@ describe('<AttendanceForm />', () => {
     customer_name: faker.random.word(),
     document_id: '99999999999',
     document_id_formatted: '999.999.999-99',
-    services_provided: ['DPVAT'],
+    services_types: ['DPVAT'],
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),
     status_resume: faker.random.word(),
@@ -168,7 +168,7 @@ describe('<AttendanceForm />', () => {
     await wrapper.find('#document-id').setValue(data.document_id)
     await wrapper
       .findComponent({ ref: 'servicesOptions' })
-      .vm.$emit('changed', data.services_provided)
+      .vm.$emit('changed', data.services_types)
     await wrapper
       .findComponent({ ref: 'attachments' })
       .vm.$emit('changed', data.files)
