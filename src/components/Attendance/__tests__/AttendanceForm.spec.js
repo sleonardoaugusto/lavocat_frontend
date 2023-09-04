@@ -107,6 +107,7 @@ describe('<AttendanceForm />', () => {
         files: data.files,
         resume: data.resume,
         status_resume: data.status_resume,
+        services_provided: [],
       })
     })
   })

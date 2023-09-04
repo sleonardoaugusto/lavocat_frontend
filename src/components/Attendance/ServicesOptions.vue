@@ -1,5 +1,6 @@
 <template>
   <v-combobox
+    ref="servicesOptions"
     v-model="select"
     :items="items"
     label="Serviços prestados"
@@ -13,6 +14,12 @@
 <script>
 export default {
   name: 'ServicesOptions',
+  props: {
+    selected: {
+      type: Array,
+      required: true,
+    },
+  },
   data: () => ({
     select: [],
     items: [
@@ -36,6 +43,16 @@ export default {
     select() {
       const values = this.select.map(option => option.value)
       this.$emit('changed', values)
+    },
+    selected: {
+      handler(values) {
+        if (
+          values.length &&
+          JSON.stringify(values) !==
+            JSON.stringify(this.select.map(option => option.value))
+        )
+          this.select = this.items.filter(item => values.includes(item.value))
+      },
     },
   },
 }
