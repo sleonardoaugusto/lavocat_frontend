@@ -33,19 +33,19 @@
               </v-col>
               <v-col cols="12" md="7" class="d-flex align-center">
                 <v-chip-group
-                  ref="statusFilter"
+                  ref="attendanceTypeFilter"
                   multiple
                   column
-                  @change="statusFilter"
+                  @change="attendanceTypeFilter"
                 >
                   <v-chip
-                    v-for="status in statusOptions"
-                    :key="status.value"
+                    v-for="attendanceType in attendanceTypeOptions"
+                    :key="attendanceType.value"
                     outlined
                     filter
                     color="primary"
                   >
-                    {{ status.text }}
+                    {{ attendanceType.text }}
                   </v-chip>
                 </v-chip-group>
               </v-col>
@@ -64,11 +64,6 @@
               itemsPerPageText: 'Qtd. por página',
             }"
           >
-            <template v-slot:item.status_label="{ item }">
-              <v-badge dot inline left :color="statusColor(item.status)">
-                {{ item.status_label }}
-              </v-badge>
-            </template>
             <template v-slot:item.actions="{ item }">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
@@ -99,9 +94,9 @@
 
 <script>
 import services from '@/services'
-import { objToSelect } from '@/utils/formatters'
 import AppHeading from '@/components/ui/AppHeading'
 import AttendanceDelete from '@/components/Attendance/AttendanceDelete'
+import { attendanceTypeOptions as attendanceOptions } from '@/constants'
 
 export default {
   name: 'AttendanceList',
@@ -117,51 +112,33 @@ export default {
         value: 'status_resume',
       },
       {
-        text: 'Status',
-        value: 'status_label',
-      },
-      {
         text: 'Ações',
         value: 'actions',
       },
     ],
-    statusOptions: [],
+    attendanceTypeOptions: attendanceOptions,
     attendances: [],
     deletingAttendance: false,
     filters: {
       customer_name: '',
       document_id: '',
-      status: [],
+      services_provided: [],
     },
   }),
   created() {
     this.getAttendances()
-    this.getStatuses()
   },
   methods: {
-    statusFilter(selected) {
+    attendanceTypeFilter(selected) {
       const statuses = []
-      selected.map(idx => statuses.push(this.statusOptions[idx].value))
-      this.filters.status = statuses
+      selected.map(idx => statuses.push(this.attendanceTypeOptions[idx].value))
+      this.filters.services_provided = statuses
       this.getAttendances(this.filters)
     },
     async getAttendances(filters) {
       this.toggleLoading()
       this.attendances = await services.attendance.getAttendances(filters)
       this.toggleLoading()
-    },
-    async getStatuses() {
-      const data = await services.attendance.getStatuses()
-      this.statusOptions = objToSelect(data)
-    },
-    statusColor(status) {
-      const colors = {
-        1: 'red',
-        2: 'blue',
-        3: 'orange',
-        4: 'green',
-      }
-      return colors[status]
     },
     setFilters(value) {
       let params

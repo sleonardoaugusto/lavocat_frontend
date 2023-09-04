@@ -124,11 +124,15 @@ describe('Attendance Service', () => {
       service.getAttendances({
         customer_name: '',
         document_id: '',
-        status: [0, 1],
+        services_provided: ['A', 'B'],
       })
 
       expect(spy).toHaveBeenCalledWith('/attendances/', {
-        params: { customer_name: '', document_id: '', status: [0, 1] },
+        params: {
+          customer_name: '',
+          document_id: '',
+          services_provided: ['A', 'B'],
+        },
       })
     })
 
@@ -154,26 +158,6 @@ describe('Attendance Service', () => {
 
     it('Should return response data', async () => {
       const resp = await service.getAttendanceById(1)
-
-      expect(resp).toEqual({})
-    })
-  })
-
-  describe('Attendance statuses', () => {
-    beforeEach(() => {
-      httpClient.get.mockResolvedValueOnce({ data: {} })
-    })
-
-    it('Should get attendance statuses', () => {
-      const spy = jest.spyOn(httpClient, 'get')
-
-      service.getStatuses()
-
-      expect(spy).toHaveBeenCalledWith('/attendance-statuses/')
-    })
-
-    it('Should return response data', async () => {
-      const resp = await service.getStatuses()
 
       expect(resp).toEqual({})
     })

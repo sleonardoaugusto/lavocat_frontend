@@ -9,7 +9,7 @@ import busy from '@/mixins/busy'
 import flushPromises from 'flush-promises'
 import VueTheMask from 'vue-the-mask'
 import helpers from '@/mixins/helpers'
-import { registerGlobalComponents, globalComponents } from '@/components/global'
+import { registerGlobalComponents } from '@/components/global'
 
 jest.mock('@/services')
 
@@ -25,7 +25,6 @@ describe('<AttendanceForm />', () => {
   let vuetify
 
   beforeEach(() => {
-    services.attendance.getStatuses.mockResolvedValue({ StatusName: 1 })
     vuetify = new Vuetify()
     wrapper = factory()
   })
@@ -39,7 +38,7 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Validations', () => {
-    test.each([['customerName'], ['documentId'], ['statusesSelect']])(
+    test.each([['customerName'], ['documentId']])(
       '%s field validation state should be null',
       async field => {
         expect(
@@ -51,7 +50,6 @@ describe('<AttendanceForm />', () => {
     test.each([
       ['customerName', 'Campo obrigatório'],
       ['documentId', null],
-      ['statusesSelect', 'Campo obrigatório'],
     ])('%s field should be invalid', async (field, msg) => {
       await wrapper.find('#submit').trigger('click')
 
@@ -84,11 +82,8 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Form submit', () => {
-    test.each([
-      ['customer_name', { customer_name: '', status: 1 }],
-      ['status', { customer_name: 'maria', status: null }],
-    ])('Should not emit form data if %s field is invalid', async (_, data) => {
-      await fillForm(data)
+    it('Should not emit form data if customer_name field is invalid', async () => {
+      await fillForm({ customer_name: '' })
       await wrapper.find('#submit').trigger('click')
 
       expect(wrapper.emitted().submit).toBeFalsy()
@@ -103,11 +98,10 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.emitted().submit[0][0]).toStrictEqual({
         customer_name: data.customer_name,
         document_id: data.document_id,
-        status: data.status,
         files: data.files,
         resume: data.resume,
         status_resume: data.status_resume,
-        services_provided: [],
+        services_provided: ['DPVAT'],
       })
     })
   })
@@ -120,15 +114,6 @@ describe('<AttendanceForm />', () => {
       wrapper = factory({ propsData: { update: flag } })
 
       expect(wrapper.find('#submit').text()).toBe(label)
-    })
-
-    it('Component should receive attendance statuses', async () => {
-      wrapper = factory()
-      await flushPromises()
-
-      expect(
-        wrapper.findComponent({ ref: 'statusesSelect' }).vm.items,
-      ).toStrictEqual([{ text: 'StatusName', value: 1 }])
     })
 
     it('Component should emit passed props only once to avoid infinite loop', async () => {
@@ -150,9 +135,9 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.findComponent({ ref: 'documentId' }).vm.value).toBe(
         data.document_id_formatted,
       )
-      expect(wrapper.findComponent({ ref: 'statusesSelect' }).vm.value).toBe(
-        data.status,
-      )
+      expect(
+        wrapper.findComponent({ ref: 'servicesOptions' }).vm.selected,
+      ).toStrictEqual(data.services_provided)
       expect(
         wrapper.findComponent({ ref: 'attachments' }).vm.value,
       ).toStrictEqual(data.files)
@@ -169,7 +154,7 @@ describe('<AttendanceForm />', () => {
     customer_name: faker.random.word(),
     document_id: '99999999999',
     document_id_formatted: '999.999.999-99',
-    status: 1,
+    services_provided: ['DPVAT'],
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),
     status_resume: faker.random.word(),
@@ -181,7 +166,9 @@ describe('<AttendanceForm />', () => {
 
     await wrapper.find('#customer-name').setValue(data.customer_name)
     await wrapper.find('#document-id').setValue(data.document_id)
-    await wrapper.find('#status').setValue(data.status)
+    await wrapper
+      .findComponent({ ref: 'servicesOptions' })
+      .vm.$emit('changed', data.services_provided)
     await wrapper
       .findComponent({ ref: 'attachments' })
       .vm.$emit('changed', data.files)

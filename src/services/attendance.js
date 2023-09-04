@@ -47,9 +47,6 @@ class Attendance {
       .get('/attendances/', { params })
       .then(resp => resp.data)
   }
-  async getStatuses() {
-    return await this.http.get('/attendance-statuses/').then(resp => resp.data)
-  }
   async getAttendanceById(attendanceId) {
     return await this.http
       .get(`/attendances/${attendanceId}/`)

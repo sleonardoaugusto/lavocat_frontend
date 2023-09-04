@@ -67,10 +67,6 @@ describe('<AttendanceList />', () => {
         value: 'status_resume',
       },
       {
-        text: 'Status',
-        value: 'status_label',
-      },
-      {
         text: 'Ações',
         value: 'actions',
       },
@@ -117,7 +113,7 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: 'Anonymous999',
       document_id: '',
-      status: [],
+      services_provided: [],
     })
   })
 
@@ -132,30 +128,7 @@ describe('<AttendanceList />', () => {
     expect(spy).toHaveBeenCalledWith({
       customer_name: '',
       document_id: '999',
-      status: [],
-    })
-  })
-
-  it('Should get attendances on status filter', async () => {
-    services.attendance.getStatuses.mockResolvedValueOnce({
-      OtherStatus: 0,
-      SomeStatus: 1,
-    })
-    const spy = jest.spyOn(services.attendance, 'getAttendances')
-
-    wrapper = factory()
-    spy.mockClear()
-    await flushPromises()
-
-    await wrapper
-      .findComponent({ ref: 'statusFilter' })
-      .vm.$emit('change', [0, 1])
-
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith({
-      customer_name: '',
-      document_id: '',
-      status: [0, 1],
+      services_provided: [],
     })
   })
 

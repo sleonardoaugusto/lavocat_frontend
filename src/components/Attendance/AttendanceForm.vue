@@ -25,17 +25,8 @@
         />
       </v-col>
       <v-col cols="12" md="6">
-        <v-select
-          id="status"
-          ref="statusesSelect"
-          label="Status"
-          v-model.number="$v.form.status.$model"
-          :items="statusesOptions"
-          :error-messages="errorMessage('status')"
-        />
-      </v-col>
-      <v-col cols="12" md="6">
         <ServicesOptions
+          ref="servicesOptions"
           @changed="options => (form.services_provided = options)"
           :selected="form.services_provided"
         />
@@ -123,24 +114,19 @@ export default {
     form: {
       customer_name: null,
       document_id: null,
-      status: null,
       files: [],
       resume: null,
       status_resume: null,
       services_provided: [],
     },
-    statusesOptions: [],
   }),
   validations: {
     form: {
       customer_name: { required },
       document_id: { cpfValidator },
-      status: { required },
     },
   },
   async created() {
-    const statuses = await services.attendance.getStatuses()
-    this.statusesOptions = objToSelect(statuses)
     if (!this.update) {
       const cache = JSON.parse(localStorage.getItem('atttendance-form-cache'))
       if (cache && Object.keys(cache)) this.form = { ...cache }
