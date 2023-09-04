@@ -29,7 +29,6 @@ Cypress.Commands.add('fillAttendanceForm', data => {
 
   cy.get('#customer-name').type(customer_name)
   cy.get('#document-id').type(customer_id)
-  cy.get('#status').type(statuses.key, { force: true })
 })
 
 Cypress.Commands.add('login', () => {

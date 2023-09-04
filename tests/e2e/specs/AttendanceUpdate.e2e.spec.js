@@ -27,7 +27,6 @@ describe('<AttendanceUpdate />', () => {
 
     cy.get('#customer-name').should('have.value', 'Maria da Sorte')
     cy.get('#document-id').should('have.value', '999.999.999-99')
-    cy.get('#status').siblings().should('contain', 'key')
     cy.get('#files').siblings('.v-file-input__text').should('have.length', 1)
     cy.get('#resume').should('have.value', 'Some text')
   })
