@@ -13,4 +13,8 @@ export const attendanceTypeOptions = [
     value: 'SEGURO_DE_VIDA_EMPRESARIAL',
     text: 'Seguro de Vida Empresarial',
   },
+  {
+    value: 'PENSAO_POR_MORTE',
+    text: 'Pensão por Morte',
+  },
 ]
