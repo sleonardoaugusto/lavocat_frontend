@@ -38,13 +38,15 @@ export default {
   methods: {
     async getAttendance(id) {
       this.toggleLoading()
-      this.internalAttendance = await services.attendance.getAttendanceById(id)
-      this.toggleLoading()
+      services.attendance
+        .getAttendanceById(id)
+        .finally(() => this.toggleLoading())
     },
     async onSubmit(data) {
       this.toggleLoading()
-      await services.attendance.updateAttendance(this.attendanceId, data)
-      this.toggleLoading()
+      services.attendance
+        .updateAttendance(this.attendanceId, data)
+        .finally(() => this.toggleLoading())
     },
   },
 }
