@@ -23,6 +23,13 @@ describe('<AttendanceUpdate />', () => {
   let stubs
   let propsData
 
+  services.attendance = {
+    getAttendanceById: jest
+      .fn()
+      .mockImplementation(() => Promise.resolve({ some: 'data' })),
+    updateAttendance: jest.fn().mockImplementation(() => Promise.resolve()),
+  }
+
   beforeEach(() => {
     stubs = { AttendanceForm: true }
     propsData = { attendanceId: 1 }

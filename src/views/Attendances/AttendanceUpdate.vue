@@ -40,6 +40,7 @@ export default {
       this.toggleLoading()
       services.attendance
         .getAttendanceById(id)
+        .then(data => (this.internalAttendance = data))
         .finally(() => this.toggleLoading())
     },
     async onSubmit(data) {
