@@ -32,6 +32,15 @@
         />
       </v-col>
       <v-col cols="12" md="6">
+        <v-text-field
+          id="source"
+          ref="source"
+          label="Origem"
+          v-model="$v.form.source.$model"
+          :error-messages="errorMessage('source')"
+        />
+      </v-col>
+      <v-col cols="12" md="6">
         <AttendanceFiles
           ref="attachments"
           @changed="files => (form.files = files)"
@@ -86,9 +95,8 @@
 <script>
 import { required } from 'vuelidate/lib/validators'
 import validations from '@/mixins/formValidations'
-import services from '@/services'
 import { cpfValidator } from '@/utils/validators'
-import { clearDocumentId, objToSelect } from '@/utils/formatters'
+import { clearDocumentId } from '@/utils/formatters'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
 import ServicesOptions from '@/components/Attendance/ServicesOptions'
 
@@ -114,6 +122,7 @@ export default {
     form: {
       customer_name: null,
       document_id: null,
+      source: null,
       files: [],
       resume: null,
       status_resume: null,
@@ -124,6 +133,7 @@ export default {
     form: {
       customer_name: { required },
       document_id: { cpfValidator },
+      source: { required },
     },
   },
   async created() {

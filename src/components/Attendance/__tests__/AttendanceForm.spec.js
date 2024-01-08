@@ -38,7 +38,7 @@ describe('<AttendanceForm />', () => {
   })
 
   describe('Validations', () => {
-    test.each([['customerName'], ['documentId']])(
+    test.each([['customerName'], ['documentId'], ['source']])(
       '%s field validation state should be null',
       async field => {
         expect(
@@ -50,7 +50,8 @@ describe('<AttendanceForm />', () => {
     test.each([
       ['customerName', 'Campo obrigatório'],
       ['documentId', null],
-    ])('%s field should be invalid', async (field, msg) => {
+      ['source', 'Campo obrigatório'],
+    ])('%s field should be %s', async (field, msg) => {
       await wrapper.find('#submit').trigger('click')
 
       expect(wrapper.findComponent({ ref: field }).vm.errorMessages).toBe(msg)
@@ -98,6 +99,7 @@ describe('<AttendanceForm />', () => {
       expect(wrapper.emitted().submit[0][0]).toStrictEqual({
         customer_name: data.customer_name,
         document_id: data.document_id,
+        source: data.source,
         files: data.files,
         resume: data.resume,
         status_resume: data.status_resume,
@@ -155,6 +157,7 @@ describe('<AttendanceForm />', () => {
     document_id: '99999999999',
     document_id_formatted: '999.999.999-99',
     services_types: ['DPVAT'],
+    source: faker.random.word(),
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),
     status_resume: faker.random.word(),
@@ -169,6 +172,7 @@ describe('<AttendanceForm />', () => {
     await wrapper
       .findComponent({ ref: 'servicesOptions' })
       .vm.$emit('changed', data.services_types)
+    await wrapper.find('#source').setValue(data.source)
     await wrapper
       .findComponent({ ref: 'attachments' })
       .vm.$emit('changed', data.files)
