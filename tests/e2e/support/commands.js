@@ -25,10 +25,11 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('fillAttendanceForm', data => {
-  const { customer_name, customer_id, statuses } = data
+  const { customer_name, customer_id, source } = data
 
   cy.get('#customer-name').type(customer_name)
   cy.get('#document-id').type(customer_id)
+  cy.get('#source').type(source)
 })
 
 Cypress.Commands.add('login', () => {
