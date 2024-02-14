@@ -11,7 +11,7 @@ class Notes {
       .get(`/attendances/${attendanceId}/notes/`)
       .then(resp => resp.data)
   }
-  async updateNote(attendanceId, noteId, data) {
+  async patchNote(attendanceId, noteId, data) {
     return await this.http
       .patch(`/attendances/${attendanceId}/notes/${noteId}/`, data)
       .then(resp => {

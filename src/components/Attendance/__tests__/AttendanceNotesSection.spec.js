@@ -12,10 +12,8 @@ describe('<AttendanceNotesSection />', () => {
 
   let wrapper
   let vuetify
-  let propsData
 
   beforeEach(() => {
-    propsData = { attendanceId: null }
     vuetify = new Vuetify()
     wrapper = factory()
   })
@@ -23,14 +21,21 @@ describe('<AttendanceNotesSection />', () => {
   const factory = opts =>
     mount(AttendanceNotesSection, { Vue, vuetify, ...opts })
 
-  describe('Component mounted with attendanceId', () => {
+  describe('Component mounted with attendanceId route props', () => {
     const attendanceId = 1
+    const mockedRoute = {
+      $route: {
+        params: {
+          attendanceId,
+        },
+      },
+    }
     const firstNote = { id: 1, header: 'Title 1', content: 'Text' }
     const secondNote = { id: 2, header: 'Title 2', content: 'Text 2' }
 
     beforeEach(async () => {
       services.notes.getNotes.mockResolvedValueOnce([firstNote, secondNote])
-      wrapper = await factory({ propsData: { attendanceId } })
+      wrapper = await factory({ mocks: mockedRoute })
       await flushPromises()
       jest.clearAllMocks()
     })
@@ -38,7 +43,7 @@ describe('<AttendanceNotesSection />', () => {
     it('Service should be called with attendaceId', () => {
       const spy = jest.spyOn(services.notes, 'getNotes')
 
-      wrapper = factory({ propsData: { attendanceId } })
+      wrapper = factory({ mocks: mockedRoute })
 
       expect(spy).toHaveBeenCalledTimes(1)
       expect(spy).toHaveBeenCalledWith(attendanceId)
@@ -54,14 +59,16 @@ describe('<AttendanceNotesSection />', () => {
     })
 
     it('Note should be updated on blur', () => {
-      const spy = jest.spyOn(services.notes, 'updateNote')
+      const spy = jest.spyOn(services.notes, 'patchNote')
 
       wrapper
         .findComponent({ ref: `panelContent-${firstNote.id}` })
-        .vm.$emit('blur', 'New text')
+        .vm.$emit('blur')
 
       expect(spy).toHaveBeenCalledTimes(1)
-      expect(spy).toHaveBeenCalledWith(attendanceId, firstNote.id, 'New text')
+      expect(spy).toHaveBeenCalledWith(attendanceId, firstNote.id, {
+        content: 'Text',
+      })
     })
   })
 })

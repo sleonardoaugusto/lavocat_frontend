@@ -13,7 +13,7 @@
           name="input-7-4"
           label="Digite aqui"
           v-model="note.content"
-          @blur="onBlur(note.id, $event)"
+          @blur="onBlur(note.id, note.content)"
         />
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -25,23 +25,22 @@ import services from '@/services'
 
 export default {
   name: 'AttendanceNotesSection',
-  props: {
-    attendanceId: {
-      type: Number,
-      required: false,
-    },
-  },
   data: () => ({
-    notes: [{ id: 1, header: 'Title 1', content: 'Text' }],
+    notes: [],
+    attendanceId: null,
   }),
   async created() {
+    this.attendanceId = this.$route?.params?.attendanceId
     if (this.attendanceId) {
       this.notes = await services.notes.getNotes(this.attendanceId)
     }
   },
   methods: {
-    onBlur(noteId, data) {
-      services.notes.updateNote(this.attendanceId, noteId, data)
+    onBlur(noteId, text) {
+      if (this.attendanceId) {
+        const data = { content: text }
+        services.notes.patchNote(this.attendanceId, noteId, data)
+      }
     },
   },
 }
