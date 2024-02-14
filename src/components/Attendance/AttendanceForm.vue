@@ -49,6 +49,11 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col>
+        <AttendanceNotesSection />
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col cols="12">
         <v-textarea
           id="resume"
@@ -99,10 +104,11 @@ import { cpfValidator } from '@/utils/validators'
 import { clearDocumentId } from '@/utils/formatters'
 import AttendanceFiles from '@/components/Attendance/AttendanceFiles'
 import ServicesOptions from '@/components/Attendance/ServicesOptions'
+import AttendanceNotesSection from '@/components/Attendance/AttendanceNotesSection'
 
 export default {
   name: 'AttendanceForm',
-  components: { ServicesOptions, AttendanceFiles },
+  components: { AttendanceNotesSection, ServicesOptions, AttendanceFiles },
   mixins: [validations],
   props: {
     value: {
