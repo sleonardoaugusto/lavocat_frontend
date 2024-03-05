@@ -50,7 +50,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <AttendanceNotesSection />
+        <AttendanceNotesSection :key="Math.random()" />
       </v-col>
     </v-row>
     <v-row>
