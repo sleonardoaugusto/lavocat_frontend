@@ -4,6 +4,14 @@
       <v-progress-circular indeterminate size="64" />
     </v-overlay>
     <v-row>
+      <v-col cols="12" md="12">
+        <v-checkbox
+          id="is-client"
+          ref="isClient"
+          label="Captado"
+          v-model="form.is_client"
+        />
+      </v-col>
       <v-col cols="12" md="6">
         <v-text-field
           id="customer-name"
@@ -133,6 +141,7 @@ export default {
       resume: null,
       status_resume: null,
       services_types: [],
+      is_client: true,
     },
   }),
   validations: {

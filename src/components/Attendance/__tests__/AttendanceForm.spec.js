@@ -102,6 +102,7 @@ describe('<AttendanceForm />', () => {
         resume: data.resume,
         status_resume: data.status_resume,
         services_types: ['DPVAT'],
+        is_client: data.isClient,
       })
     })
   })
@@ -159,6 +160,7 @@ describe('<AttendanceForm />', () => {
     files: [new File(['foo'], 'foo.png')],
     resume: faker.random.word(),
     status_resume: faker.random.word(),
+    isClient: true,
     ...opts,
   })
 
@@ -176,6 +178,7 @@ describe('<AttendanceForm />', () => {
       .vm.$emit('changed', data.files)
     await wrapper.find('#resume').setValue(data.resume)
     await wrapper.find('#status-resume').setValue(data.status_resume)
+    await wrapper.find('#is-client').setChecked(data.isClient)
 
     return data
   }
