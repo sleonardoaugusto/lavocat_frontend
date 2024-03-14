@@ -19,17 +19,21 @@
           <v-card-title>
             <v-row>
               <v-col cols="12" md="5">
-                <v-text-field
-                  id="customer-name-filter"
-                  append-icon="mdi-magnify"
-                  label="Buscar por Nome ou CPF"
-                  clearable
-                  single-line
-                  @input="setFilters"
-                  @keydown.enter="getAttendances(filters)"
-                  @click:append="getAttendances(filters)"
-                  @click:clear="getAttendances(filters)"
-                />
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      id="customer-name-filter"
+                      append-icon="mdi-magnify"
+                      label="Buscar por Nome ou CPF"
+                      clearable
+                      single-line
+                      @input="setFilters"
+                      @keydown.enter="getAttendances(filters)"
+                      @click:append="getAttendances(filters)"
+                      @click:clear="getAttendances(filters)"
+                    />
+                  </v-col>
+                </v-row>
               </v-col>
               <v-col cols="12" md="7" class="d-flex align-center">
                 <v-chip-group
@@ -64,6 +68,11 @@
               itemsPerPageText: 'Qtd. por página',
             }"
           >
+            <template v-slot:item.is_client="{ item }">
+              <v-icon :color="`${item.is_client ? 'green' : 'red'}`">
+                {{ item.is_client ? 'mdi-check' : 'mdi-cancel' }}
+              </v-icon>
+            </template>
             <template v-slot:item.actions="{ item }">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
@@ -108,8 +117,8 @@ export default {
         value: 'customer_name',
       },
       {
-        text: 'Resumo de Status',
-        value: 'status_resume',
+        text: 'Captado',
+        value: 'is_client',
       },
       {
         text: 'Ações',

@@ -63,8 +63,8 @@ describe('<AttendanceList />', () => {
         value: 'customer_name',
       },
       {
-        text: 'Resumo de Status',
-        value: 'status_resume',
+        text: 'Captado',
+        value: 'is_client',
       },
       {
         text: 'Ações',
