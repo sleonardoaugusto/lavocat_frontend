@@ -32,7 +32,7 @@ Cypress.Commands.add('fillAttendanceForm', data => {
   cy.get('#source').type(source)
 })
 
-Cypress.Commands.add('login', () => {
+Cypress.Commands.add('makeLogin', () => {
   const baseUrl = Cypress.env('host')
   const apiServer = Cypress.env('api_server')
 
@@ -47,9 +47,9 @@ Cypress.Commands.add('login', () => {
   cy.get('#submit').click()
 })
 
-Cypress.Commands.add('loginInvalid', () => {
+Cypress.Commands.add('makeLoginInvalidCredentials', () => {
   const apiServer = Cypress.env('api_server')
-  cy.intercept('POST', `${apiServer}/api/token/`, {
+  cy.intercept('POST', `${apiServer}/token/`, {
     statusCode: 401,
   }).as('login')
 

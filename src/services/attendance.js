@@ -46,6 +46,9 @@ class Attendance {
     return await this.http
       .get('/attendances/', { params })
       .then(resp => resp.data)
+      .catch(e => {
+        console.error(`Ocorreu um erro ${e}`)
+      })
   }
   async getAttendanceById(attendanceId) {
     return await this.http

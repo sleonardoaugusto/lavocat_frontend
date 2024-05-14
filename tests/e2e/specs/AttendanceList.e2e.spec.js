@@ -4,12 +4,12 @@ describe('<AttendanceList />', () => {
   beforeEach(() => {
     cy.intercept('GET', `${apiServer}/attendances/`, {
       fixture: 'attendances/attendances.json',
-    }).as('attendances')
+    }).as('getAttendances')
     cy.intercept('GET', `${apiServer}/attendance-statuses/`, {
       fixture: 'attendances/statuses.json',
-    }).as('attendanceStatuses')
+    }).as('getAttendanceStatuses')
 
-    cy.login()
+    cy.makeLogin()
   })
 
   it('Should render attendance list page', () => {
