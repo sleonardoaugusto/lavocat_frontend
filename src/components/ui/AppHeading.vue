@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <v-row>
     <v-col>
       <div v-bind="$attrs" :class="`text-${tag} ${typography}`" v-text="text" />
