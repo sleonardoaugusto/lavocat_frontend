@@ -7,7 +7,7 @@ import flushPromises from 'flush-promises'
 
 jest.mock('@/services')
 
-describe.skip('<AttendanceNotesSection />', () => {
+describe('<AttendanceNotesSection />', () => {
   Vue.use(Vuetify)
 
   let wrapper
