@@ -80,7 +80,7 @@ describe('<AttendanceUpdate />', () => {
     await flushPromises()
 
     expect(
-      wrapper.findComponent({ ref: 'attendanceForm' }).vm.value,
+      wrapper.findComponent({ ref: 'attendanceForm' }).vm.attendance,
     ).toStrictEqual({ some: 'data' })
   })
 

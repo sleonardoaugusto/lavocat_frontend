@@ -5,7 +5,7 @@
       ref="attendanceForm"
       @submit="onSubmit"
       :update="true"
-      :value="internalAttendance"
+      :attendance="attendance"
       :busy="isLoading"
     />
   </div>
@@ -30,7 +30,7 @@ export default {
     },
   },
   data: () => ({
-    internalAttendance: {},
+    attendance: {},
   }),
   created() {
     this.getAttendance(this.attendanceId)
@@ -40,7 +40,7 @@ export default {
       this.toggleLoading()
       services.attendance
         .getAttendanceById(id)
-        .then(data => (this.internalAttendance = data))
+        .then(data => (this.attendance = data))
         .finally(() => this.toggleLoading())
     },
     async onSubmit(data) {

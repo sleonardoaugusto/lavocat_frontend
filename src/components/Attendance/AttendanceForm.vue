@@ -52,7 +52,7 @@
         <AttendanceFiles
           ref="attachments"
           @changed="files => (form.files = files)"
-          :value="form.files"
+          :attendance-files="form.files"
         />
       </v-col>
     </v-row>
@@ -119,7 +119,7 @@ export default {
   components: { AttendanceNotesSection, ServicesOptions, AttendanceFiles },
   mixins: [validations],
   props: {
-    value: {
+    attendance: {
       type: Object,
       default: () => {},
     },
@@ -181,7 +181,7 @@ export default {
     },
   },
   watch: {
-    value: {
+    attendance: {
       deep: true,
       handler(val) {
         if (this.update) this.form = { ...this.form, ...val }

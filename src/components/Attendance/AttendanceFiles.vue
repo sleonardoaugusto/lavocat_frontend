@@ -88,7 +88,7 @@ export default {
     truncate: val => val?.slice(0, 50),
   },
   props: {
-    value: {
+    attendanceFiles: {
       type: Array,
       default: () => [],
     },
@@ -125,7 +125,7 @@ export default {
     },
   },
   watch: {
-    value: {
+    attendanceFiles: {
       deep: true,
       handler(files) {
         if (

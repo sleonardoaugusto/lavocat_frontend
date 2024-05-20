@@ -103,14 +103,14 @@ describe('<AttendanceFiles />', () => {
   it('Should not set props if last value is equal of data', async () => {
     const spy = jest.spyOn(wrapper.vm, 'setInternal')
     await wrapper.setData({ internalFiles: [files[0]] })
-    await wrapper.setProps({ value: [files[0]] })
+    await wrapper.setProps({ attendanceFiles: [files[0]] })
 
     expect(spy).not.toHaveBeenCalled()
   })
 
   it('Should set props if last value is not the equal of data', async () => {
     const spy = jest.spyOn(wrapper.vm, 'setInternal')
-    await wrapper.setProps({ value: [{}] })
+    await wrapper.setProps({ attendanceFiles: [{}] })
 
     expect(spy).toHaveBeenCalledWith([{}])
   })

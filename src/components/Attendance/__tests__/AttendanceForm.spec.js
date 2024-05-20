@@ -125,10 +125,10 @@ describe('<AttendanceForm />', () => {
       ).toHaveLength(1)
     })
 
-    it('Fields should receive props value', async () => {
+    it('Fields should be populated based on props', async () => {
       const data = generateData()
       wrapper = factory({ propsData: { update: true } })
-      await wrapper.setProps({ value: data })
+      await wrapper.setProps({ attendance: data })
 
       expect(wrapper.findComponent({ ref: 'customerName' }).vm.value).toBe(
         data.customer_name,
@@ -140,7 +140,7 @@ describe('<AttendanceForm />', () => {
         wrapper.findComponent({ ref: 'servicesOptions' }).vm.selected,
       ).toStrictEqual(data.services_types)
       expect(
-        wrapper.findComponent({ ref: 'attachments' }).vm.value,
+        wrapper.findComponent({ ref: 'attachments' }).vm.attendanceFiles,
       ).toStrictEqual(data.files)
       expect(wrapper.findComponent({ ref: 'resume' }).vm.value).toBe(
         data.resume,
