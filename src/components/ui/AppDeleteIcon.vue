@@ -2,7 +2,6 @@
   <v-tooltip bottom>
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        v-show="isSuperUser"
         id="delete-icon"
         ref="deleteIcon"
         @click="onClick"
