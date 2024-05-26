@@ -73,8 +73,8 @@ export default {
       this.touch()
       if (this.formIsReady) {
         this.toggleLoading()
-        const { access } = await services.auth.login(this.form)
-        Auth.login(access)
+        const { access, is_superuser } = await services.auth.login(this.form)
+        Auth.login(access, is_superuser)
         this.toggleLoading()
       }
     },

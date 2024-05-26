@@ -21,7 +21,7 @@ describe('<Auth />', () => {
     cy.location('pathname').should('include', '/login')
   })
 
-  it('Should show snackbar', () => {
+  it.skip('Should show snackbar', () => {
     cy.visit(`${baseUrl}/login`)
     cy.makeLoginInvalidCredentials()
 

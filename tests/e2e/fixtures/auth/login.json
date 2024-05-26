@@ -1,4 +1,5 @@
 {
   "access": "923cd329-d025-4f49-9ba2-3125337532ec",
-  "refresh": "6d5ac606-62a5-4053-a006-95af564c959b"
+  "refresh": "6d5ac606-62a5-4053-a006-95af564c959b",
+  "is_superuser": true
 }

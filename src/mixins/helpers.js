@@ -4,4 +4,9 @@ export default {
       return object instanceof File
     },
   },
+  computed: {
+    isSuperUser() {
+      return localStorage.getItem('is_superuser') === 'true'
+    },
+  },
 }

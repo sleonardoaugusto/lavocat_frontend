@@ -81,7 +81,7 @@ describe('<Login />', () => {
   })
 
   describe('Async behavior', () => {
-    const responseData = { access: faker.random.uuid() }
+    const responseData = { access: faker.random.uuid(), is_superuser: true }
 
     beforeEach(() => {
       services.auth.login.mockResolvedValueOnce(responseData)
@@ -111,7 +111,10 @@ describe('<Login />', () => {
       await wrapper.findComponent({ ref: 'submitBtn' }).vm.$emit('click')
       await flushPromises()
 
-      expect(spy).toHaveBeenCalledWith(responseData.access)
+      expect(spy).toHaveBeenCalledWith(
+        responseData.access,
+        responseData.is_superuser,
+      )
     })
   })
 

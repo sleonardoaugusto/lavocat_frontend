@@ -25,7 +25,7 @@ describe('Auth Service', () => {
     let responseData
 
     beforeEach(() => {
-      responseData = { access: faker.random.uuid() }
+      responseData = { access: faker.random.uuid(), is_superuser: true }
       httpClient.post.mockResolvedValueOnce({ data: responseData })
     })
 

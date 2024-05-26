@@ -10,15 +10,15 @@ class Auth {
     return await this.http
       .post('/api/token/', data)
       .then(resp => {
-        const { access } = resp.data
-        return { access }
+        const { access, is_superuser } = resp.data
+        return { access, is_superuser }
       })
       .catch(() => {
         modal.open({
           component: 'SnackBar',
           props: { type: 'error', text: 'Credenciais inválidas.' },
         })
-        return { access: null }
+        return { access: null, is_superuser: null }
       })
   }
 }

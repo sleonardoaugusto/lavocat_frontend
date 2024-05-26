@@ -4,6 +4,7 @@
     <v-row>
       <v-col class="text-right">
         <v-btn
+          v-show="isSuperUser"
           id="new-attendance"
           ref="newAttendance"
           href="/atendimentos/novo"
@@ -106,6 +107,7 @@ import services from '@/services'
 import AppHeading from '@/components/ui/AppHeading'
 import AttendanceDelete from '@/components/Attendance/AttendanceDelete'
 import { attendanceTypeOptions as attendanceOptions } from '@/constants'
+import helpers from '@/mixins/helpers'
 
 export default {
   name: 'AttendanceList',
